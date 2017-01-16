@@ -1,4 +1,9 @@
 .Rproj.user
+.Rproj
 .Rhistory
 .RData
-.Ruserdata
+drat.sh
+.httr-oauth
+.httr-oauth-SUSPENDED
+inst/doc
+*.Rproj
