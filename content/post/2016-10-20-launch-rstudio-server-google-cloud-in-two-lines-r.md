@@ -5,6 +5,7 @@ comments: true
 date: "2016-10-20T23:03:57+01:00"
 tags: ["R","google-compute-engine"]
 banner: "banners/rstudio-gce.png"
+url: /launch-rstudio-server-google-cloud-in-two-lines-r/
 ---
 
 I've written previously about how to get [RStudio Server](https://www.rstudio.com/products/rstudio/download-server/) running on Google Compute Engine: the [first in July 2014](http://markedmondson.me/run-r-rstudio-and-opencpu-on-google-compute-engine-free-vm-image) gave you a snapshot to download then customise, the second in [April 2016](http://code.markedmondson.me/setting-up-scheduled-R-scripts-for-an-analytics-team/) launched via a Docker container.
