@@ -1,7 +1,6 @@
 ---
 title: googleAuthR 0.2.0
 date: "2016-02-05T23:03:57+01:00"
-url: /googleAuthR-0.2.0/
 tags: ["R","google-auth"]
 ---
 

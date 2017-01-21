@@ -9,7 +9,6 @@ googleAnalytics = ""
 paginate = 20
 footnotereturnlinkcontents = "↩"
 theme = "hugo-icarus-theme"
-publishDir = "docs"
 
 [permalinks]
     post = "/:slug"
