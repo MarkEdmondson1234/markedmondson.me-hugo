@@ -6,11 +6,6 @@ tags: ["R","google-analytics"]
 banner: banners/delta.png
 ---
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
-```
-
 As analysts, we are often called upon to see how website metrics have improved or declined over time.  This is easy enough when looking at trends, but if you are looking to break down over other dimensions, it can involve a lot of ETL to get to what you need.
 
 For instance, if you are looking at landing page performance of SEO traffic you can sort by the top performers, but not by the top *most improved* performers.  To see that you need to first extract your metrics for one month, extract it again for the comparison month, join the datasets on the page dimension and then create and sort by a delta metric.  For large websites, you can be exporting millions of URLs just so you can see say the top 20 most improved. 
