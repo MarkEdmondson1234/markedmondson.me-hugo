@@ -1,0 +1,7 @@
+language: r
+cache: packages
+r_github_packages: rstudio/blogdown
+install: 
+ - Rscript -e 'blogdown::install_hugo()'
+ - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
+script: ./deploy.sh

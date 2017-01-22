@@ -36,9 +36,9 @@ This blog will cover the second. A demo [Github repo for the Shiny app is availa
 
 ## Calling data: your options
 
-The Google App Engine app on Github includes functions to both read and write data from BigQuery.  You can either call the data via the app engine app, which in turn reads the data via the Python BigQuery library, or if you are using a platofrm that supports reading the data directly from BigQuery then you can use that directly.
+The Google App Engine app on Github includes functions to both read and write data from BigQuery.  You can either call the data via the app engine app, which in turn reads the data via the Python BigQuery library, or if you are using a platform that supports reading the data from BigQuery then you can use that directly.
 
-In most cases, you will be better off reading the data directly, as you will be cutting out the middle man.  In some cases the app engine will time out so if you are using it you should make sure your app can handle null results.  But it is useful to have, for those platforms that do not have Big query SDKs, such as visualisation BI tools.
+In most cases, you will be better off with the latter, as you will be cutting out the middle man.  In some cases the app engine will time out so if you are using it you should make sure your app can handle null results.  But it is useful to have, for those platforms that do not have Big query SDKs, such as some visualisation BI tools.
 
 ### Option 1 - Google App Engine: Reading realtime data from BigQuery
 
@@ -111,6 +111,20 @@ class QueryTable(webapp2.RequestHandler):
 
 		self.response.out.write(get_data(q, limit))
 ```
+
+To find the hash, you can run this line and copy the result:
+
+```python
+
+q = "" # change to the query you use directly if you donøt use the default
+salt = os.environ['SECRET_SALT'] # the secret passphrase
+test = hashlib.sha224(q+salt).hexdigest()
+
+```
+
+...or easier is to just run one call, then check the logs for the hash in the debug messages:
+
+![](/images/secrethash.png)
 
 ### Full App Engine Script
 
