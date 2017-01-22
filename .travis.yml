@@ -20,4 +20,4 @@ after_success:
   - git -c user.name='travis' -c user.email='travis@markedmondson.me' commit -m "rebuilding site `date`"
   # http://stackoverflow.com/questions/19845679/build-with-travis-ci-and-push-some-files-folder-to-another-repository
   - git remote rm origin && git remote add origin https://MarkEdmondson1234:$GH_TOKEN@github.com/MarkEdmondson1234/markedmondson.me-hugo
-  - git push origin master
+  - git push --force origin master
