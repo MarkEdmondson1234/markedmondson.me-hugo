@@ -15,7 +15,7 @@ install:
  - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
 script:
   - which Rscript
-  - /home/travis/R-bin/bin/Rscript/Rscript -e 'blogdown::build_site()'
+  - /home/travis/R-bin/bin/Rscript -e 'blogdown::build_site()'
 after_success: |
   if [ -n "$GH_TOKEN" ]; then
     cd public && git add -A
