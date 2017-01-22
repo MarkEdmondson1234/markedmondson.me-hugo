@@ -27,4 +27,4 @@ after_success: |
   fi
 env:
   global:
-  - COMMIT_AUTHOR_EMAIL: "github@markedmondson.me"
+  - COMMIT_AUTHOR_EMAIL: "travis@markedmondson.me"
