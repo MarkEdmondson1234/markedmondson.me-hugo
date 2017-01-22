@@ -6,7 +6,9 @@ tags: ["python","google-app-engine", "google-tag-manager", "big-query","google-a
 url: /real-time-GTM-google-cloud-r-shiny-1/
 ---
 
-In part one of this two part series we walk through the steps to stream data from a [Google Tag Manager](https://www.google.com/analytics/tag-manager/) (GTM) implementation into a [Google App Engine](https://cloud.google.com/appengine/) (GAE) web app, which then adds data to a [BigQuery](https://cloud.google.com/bigquery/) table via BigQuery's data streaming capability.  In part two, we then go into how to query that table in realtime from R, make a forecast use [Shiny](https://shiny.rstudio.com/) and use the JavaScript visualisation library [Highcharts](http://jkunst.com/highcharter/) to visualise the data.
+In part one of this two part series we walk through the steps to stream data from a [Google Tag Manager](https://www.google.com/analytics/tag-manager/) (GTM) implementation into a [Google App Engine](https://cloud.google.com/appengine/) (GAE) web app, which then adds data to a [BigQuery](https://cloud.google.com/bigquery/) table via BigQuery's data streaming capability.  In part two, we go into how to query that table in realtime from R, make a forecast using R, then visualise it in [Shiny](https://shiny.rstudio.com/) and the JavaScript visualisation library [Highcharts](http://jkunst.com/highcharter/).
+
+Read [part two here](/real-time-GTM-google-cloud-r-shiny-2/).
 
 The project combines several languages where their advantages lie: Python for its interaction with Google APIs and its quick start creating your own API on App Engine, SQL to query the BigQuery data itself, R for its forecasting libraries and the reactive Shiny framework, and JavaScript for the visualisation and data capture at the Google Tag Manager end.
 
@@ -25,13 +27,12 @@ There are two data flows in this project.  The first adds data to BigQuery:
 
 Then to read the data:
 
-1. The Shiny app calls an App Engine URL.
-2. App Engine queries the BigQuery table and returns the most recent rows as JSON.
-3. Shiny reads the JSON and puts it into a reactive dataset.
-4. A forecast is made with the updated data.
-5. The Highcharts visualisation reads the changing dataset, and adds it to the visualisation.
+1. The Shiny app calls Big Query every X seconds.
+2. The data is aggregated
+3. A forecast is made with the updated data.
+5. The Highcharts visualisation reads the changing dataset, and updates the visualisation.
 
-This blog will cover the first, putting data into BigQuery. 
+This blog will cover the first, putting data into BigQuery. The code for the finished app is available on Github here:  [https://github.com/MarkEdmondson1234/ga-bq-stream](https://github.com/MarkEdmondson1234/ga-bq-stream)
 
 ## BigQuery configuration
 
@@ -45,9 +46,7 @@ A demo is shown below, where the `ts` field is joined by the page URL and referr
 
 ## Google App Engine
 
-Next we get to the meat with the Google App Engine app. The code for the finished app is available on Github here:
-
-[https://github.com/MarkEdmondson1234/ga-bq-stream](https://github.com/MarkEdmondson1234/ga-bq-stream)
+Next we get to the meat with the Google App Engine app.
 
 There is a guide on how to install and configure the app there too on its [README](https://github.com/MarkEdmondson1234/ga-bq-stream/blob/master/README.md).
 
@@ -65,7 +64,7 @@ You can read more about [streaming data into BigQuery here](https://cloud.google
 
 The first function is modified from the [python BigQuery examples](https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/bigquery/cloud-client/stream_data.py) and takes care of authentication, loading the JSON sent to the app into a Python list and sending to BigQuery:
 
-```
+```python
 def stream_data(dataset_name, table_name, json_data, time_stamp = time.time()):
     bigquery_client = bigquery.Client()
     dataset = bigquery_client.dataset(dataset_name)
@@ -97,7 +96,7 @@ def stream_data(dataset_name, table_name, json_data, time_stamp = time.time()):
 
 The next class reads the data from a GET or POST request to the URL we specify later, and puts the job into a task queue, along with the timestamp.
 
-```
+```python
 class MainHandler(webapp2.RequestHandler):
 
 	## for debugging
@@ -125,7 +124,7 @@ class MainHandler(webapp2.RequestHandler):
 
 The task queue then reads the JSON data and calls the function to send data into BigQuery.  App Engine task queues will rerun if any connection problems and act as a buffer, so you can configure them to suit the needs and volumes of your app.
 
-```
+```python
 class BqHandler(webapp2.RequestHandler):
 	def post(self):
 
@@ -159,7 +158,7 @@ With this script you then need some configuration files for the app and upload i
 
 With the app ready, we now move to sending it data via Google Tag Manager.  This is relatively simple, since we just need to decide which data to add to the endpoint URL:
 
-```
+```js
 <script>
 
   var bqArray = {};
@@ -175,7 +174,7 @@ With the app ready, we now move to sending it data via Google Tag Manager.  This
 
 The script assumes you have jQuery defined on your website, if you haven't you will need to load it either on the page or hack it a bit by loading above the script via:
 
-```
+```js
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 ```
 
@@ -191,7 +190,7 @@ Once the tag is published, make sure you have deployed the App Engine app and yo
 
 # Checking its all working
 
-You should then be able to start seeing hits in the App Engine logs and in BigQuery (don't forget to turn off caching of results).  By default the BQ queries in the UI cache the results, so don't forget to turn those off, but then as new hits are made to the GTM container you should be able to refresh and see the results in BigQuery within a few seconds.  Here is the example from my blog:
+You should then be able to start seeing hits in the App Engine logs and in BigQuery.  By default the BQ queries in the UI cache the results, so don't forget to turn those off, but then as new hits are made to the GTM container you should be able to refresh and see the results in BigQuery within a few seconds.  Here is the example from my blog:
 
 ![its-alive](../images/itsalive.png)
 
