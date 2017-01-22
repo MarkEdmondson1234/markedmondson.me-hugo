@@ -15,14 +15,16 @@ install:
  - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
 script:
   - which Rscript
-  - Rscript -e 'blogdown::build_site()'
-  - git config user.email "$COMMIT_AUTHOR_EMAIL"
-  - git config user.name "TRAVIS CI"
-  - cd public && git add -A
-  - msg="rebuilding site `date`" && git commit -m "$msg"
-  - git push origin master
-  - cd ..
-after_success: echo "Done"
+  - /home/travis/R-bin/bin/Rscript/Rscript -e 'blogdown::build_site()'
+after_success: |
+  if [ -n "$GH_TOKEN" ]; then
+    cd public && git add -A
+    git -c user.name='travis' -c user.email='travis@markedmondson.me' commit -m "rebuilding site `date`"
+    # Make sure to make the output quiet, or else the API token will leak!
+    # This works because the API key can replace your password.
+    git push -f -q https://MarkEdmondson1234:$GH_TOKEN@github.com/MarkEdmondson1234/markedmondson.me-hugo master &2>/dev/null
+    cd "$TRAVIS_BUILD_DIR"
+  fi
 env:
   global:
   - COMMIT_AUTHOR_EMAIL: "github@markedmondson.me"
