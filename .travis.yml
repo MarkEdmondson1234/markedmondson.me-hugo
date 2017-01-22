@@ -21,3 +21,4 @@ after_success:
   # http://stackoverflow.com/questions/19845679/build-with-travis-ci-and-push-some-files-folder-to-another-repository
   - git remote rm origin && git remote add origin https://MarkEdmondson1234:$GH_TOKEN@github.com/MarkEdmondson1234/markedmondson.me-hugo
   - git push --force origin master
+  - git submodule foreach git pull origin master
