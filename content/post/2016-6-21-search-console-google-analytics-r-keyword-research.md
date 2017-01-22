@@ -3,6 +3,7 @@ title: SEO keyword research using searchConsoleR and googleAnalyticsR
 date: "2016-06-21T23:03:57+01:00"
 tags: ["R","google-analytics", "search-console"]
 banner: banners/searchConsole.png
+url: /search-console-google-analytics-r-keyword-research/
 ---
 
 In this blog we look at a method to estimate where to prioritise your SEO resources, estimating which keywords will give the greatest increase in revenue if you could improve their Google rank.
@@ -23,7 +24,7 @@ We also try to incorporate magins of error in the results.  This avoids situatio
 
 The method produced a targeted keyword list of 226 from an original seed list of ~21,000.  The top 30 revenue targets are shown in the plot below:
 
-![seo-forecast-estimate]({{ site.baseurl }}/images/see-potential.png)
+![seo-forecast-estimate](/images/see-potential.png)
 
 Read below on how the plot was generated and what the figures mean. 
 
@@ -158,7 +159,7 @@ tidy_data <- joined_data %>%
 
 A histogram of the accuracy estimate shows we consistently over estimate but the clicks and estimated sessions are within a magnitude:
 
-![keyword-sessio-click-estimate-histogram]({{ site.baseurl }}/images/histogram1.png)
+![keyword-sessio-click-estimate-histogram](/images/histogram1.png)
 
 Most of the session estimates were intrestingly around 1.3 times more than the clicks.  This may be because Search Console clicks act more like Google SEO users, but any other ideas please say in comments!
 
@@ -172,7 +173,7 @@ I first attempted some models on making predictions of click curves for a websit
 
 The diagram below uses a weighted `loess` within `ggplot2` which is good to show trend but not for making predictions.
 
-![ctr-scatter-plot]({{ site.baseurl }}/images/ctr_scatter.png)
+![ctr-scatter-plot](/images/ctr_scatter.png)
 
 
 ### A click curve to use
@@ -203,7 +204,7 @@ click_curve <- click_curve %>%
 
 ```
 
-![ctr-curve-seo]({{ site.baseurl }}/images/ctr-curve.png)
+![ctr-curve-seo](/images/ctr-curve.png)
 
 These CTR rates are then used to predict how much more traffic/revenue etc. a keyword could get if they moved up to position 1. 
 
@@ -249,7 +250,7 @@ The bars show the range of the estimate, as you can see its quite wide but lets 
 
 The number in the middle of the bar is the current position, with the revenue at the x axis and keyword on the y.
 
-![seo-forecast-estimate]({{ site.baseurl }}/images/see-potential.png)
+![seo-forecast-estimate](/images/see-potential.png)
 
 ### ggplot2 code
 

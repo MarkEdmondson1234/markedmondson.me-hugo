@@ -3,6 +3,7 @@ title: Scheduling R scripts for a team using RStudio Server, Docker, Github and 
 date: "2016-04-21T23:03:57+01:00"
 tags: ["R","docker", "rstudio-server", "google-compute-engine"]
 banner: "banners/rstudio-gce.png"
+url: /setting-up-scheduled-R-scripts-for-an-analytics-team/
 ---
 
 *edit 20th November, 2016 - now everything in this post is abstracted away and available in the googleComputeEngineR package - I would say its a lot easier to use that.  Here is a post on getting started with it. http://code.markedmondson.me/launch-rstudio-server-google-cloud-in-two-lines-r/*

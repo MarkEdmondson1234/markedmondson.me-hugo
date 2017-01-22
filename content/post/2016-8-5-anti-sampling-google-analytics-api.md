@@ -3,6 +3,7 @@ title: Efficient anti-sampling with the Google Analytics Reporting API
 date: "2016-08-05T23:03:57+01:00"
 banner: banners/sampling-ga.png
 tags: ["R","google-analytics"]
+url: /anti-sampling-google-analytics-api/
 ---
 
 Avoiding sampling is one of the most common reasons people start using the Google Analytics API.  This blog lays out some pseudo-code to do so in an efficient manner, avoiding too many unnecessary API calls.  The approach is used in the v4 calls for the R package [`googleAnalyticsR`](http://code.markedmondson.me/googleAnalyticsR/v4.html).

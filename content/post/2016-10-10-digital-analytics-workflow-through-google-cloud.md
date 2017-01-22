@@ -3,6 +3,7 @@ title: A digital analytics workflow through the Google Cloud using R
 date: "2016-10-10T23:03:57+01:00"
 banner: images/r-infrastructure.png
 tags: ["R","google-compute-engine", "docker","big-query","google-cloud-storage","rstudio-server"]
+url: /digital-analytics-workflow-through-google-cloud/
 ---
 
 There are now several packages built upon the `googleAuthR` framework which are helpful to a digital analyst who uses R, so this post looks to demonstrate how they all work together.  If you're new to R, and would like to know how it helps with your digital analytics, [Tim Wilson](http://analyticsdemystified.com/blog/tim-wilson/) and I ran a workshop last month aimed at getting a digital analyst up and running.  The course material is online at [www.dartistics.com](http://www.dartistics.com/).
