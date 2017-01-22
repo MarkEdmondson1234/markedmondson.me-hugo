@@ -3,6 +3,7 @@ title: Real-time forecasting dashboard with Google Tag Manager, Google Cloud and
 date: "2017-01-12T23:03:57+01:00"
 banner: "banners/itsalive.png"
 tags: ["python","google-app-engine", "google-tag-manager", "big-query","google-analytics"]
+url: /real-time-GTM-google-cloud-r-shiny-1/
 ---
 
 In part one of this two part series we walk through the steps to stream data from a [Google Tag Manager](https://www.google.com/analytics/tag-manager/) (GTM) implementation into a [Google App Engine](https://cloud.google.com/appengine/) (GAE) web app, which then adds data to a [BigQuery](https://cloud.google.com/bigquery/) table via BigQuery's data streaming capability.  In part two, we then go into how to query that table in realtime from R, make a forecast use [Shiny](https://shiny.rstudio.com/) and use the JavaScript visualisation library [Highcharts](http://jkunst.com/highcharter/) to visualise the data.

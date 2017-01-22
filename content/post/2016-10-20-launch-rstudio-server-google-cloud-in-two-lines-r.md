@@ -28,9 +28,9 @@ vm <- gce_vm(template = "rstudio",
 
 And thats it.  Wait a bit, it will output an IP address for you to log in with.
 
-![rstudio-googleComputeEngineR-launch]({{ site.baseurl }}/images/rstudio-launch-example.png)
+![rstudio-googleComputeEngineR-launch](/images/rstudio-launch-example.png)
 
-![rstudio login]({{ site.baseurl }}/images/rstudio-login.png)
+![rstudio login](/images/rstudio-login.png)
 
 You can now carry on by logging in and installing packages as you would on RStudio Desktop, then use [`gce_vm_stop(vm)`](https://cloudyr.github.io/googleComputeEngineR/reference/gce_vm_stop.html) and [`gce_vm_start(vm)`](https://cloudyr.github.io/googleComputeEngineR/reference/gce_vm_start.html) to stop and start your instance, or if say you are on a Chromebook and cannot run R locally, use the Google Cloud Web UI to start and stop it. 
 

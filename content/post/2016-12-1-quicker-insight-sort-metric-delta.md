@@ -4,6 +4,7 @@ comments: true
 date: "2016-12-01T23:03:57+01:00"
 tags: ["R","google-analytics"]
 banner: banners/delta.png
+url: /quicker-insight-sort-metric-delta/
 ---
 
 As analysts, we are often called upon to see how website metrics have improved or declined over time.  This is easy enough when looking at trends, but if you are looking to break down over other dimensions, it can involve a lot of ETL to get to what you need.

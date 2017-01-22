@@ -9,6 +9,7 @@ googleAnalytics = ""
 paginate = 5
 footnotereturnlinkcontents = "↩"
 theme = "hugo-icarus-theme"
+disablePathToLower = true
 
 [permalinks]
     post = "/:slug"
