@@ -2,7 +2,7 @@
 title: Real-time forecasting dashboard with Google Tag Manager, Google Cloud and R Shiny - Part one
 date: "2017-01-12T23:03:57+01:00"
 banner: "banners/itsalive.png"
-tags: ["python","google-app-engine", "google-tag-manager", "big-query","google-analytics"]
+tags: ["python","google-app-engine", "google-tag-manager", "big-query"]
 url: /real-time-GTM-google-cloud-r-shiny-1/
 ---
 
