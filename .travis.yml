@@ -13,5 +13,10 @@ before_install:
 install: 
  - Rscript -e 'blogdown::install_hugo()'
  - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
-script: ./deploy.sh
+script:
+  - RScript -e 'blogdown::build_site()'
+  - cd public && git add -A
+  - msg="rebuilding site `date`" && git commit -m "$msg"
+  - git push origin master
+  - cd ..
 after_success: echo "Done"
