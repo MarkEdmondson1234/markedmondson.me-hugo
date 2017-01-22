@@ -15,10 +15,13 @@ install:
  - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
 script:
   - RScript -e 'blogdown::build_site()'
-  - git config user.email "github@markedmondson.me"
-  - git config user.name "MarkEdmondson1234"
+  - git config user.email "$COMMIT_AUTHOR_EMAIL"
+  - git config user.name "TRAVIS CI"
   - cd public && git add -A
   - msg="rebuilding site `date`" && git commit -m "$msg"
   - git push origin master
   - cd ..
 after_success: echo "Done"
+env:
+  global:
+  - COMMIT_AUTHOR_EMAIL: "github@markedmondson.me"
