@@ -1,6 +1,5 @@
 language: r
 cache: packages
-r_github_packages: rstudio/blogdown
 # Handle git submodules yourself
 git:
     submodules: false
@@ -8,6 +7,9 @@ git:
 before_install:
     - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
     - git submodule update --init --recursive
+    ## non R-package installation
+    - Rscript -e 'install.packages("devtools")'
+    - Rscript -e 'devtools::install_github("rstudio/blogdown")'
 install: 
  - Rscript -e 'blogdown::install_hugo()'
  - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
