@@ -170,7 +170,7 @@ Note the use of `useQueryCache = FALSE` to ensure you always get the freshest re
 
 For realtime applications, `shiny::reactivePoll()` is a function that periodically checks a datasource for changes.  
 
-ow, what constitutes "realtime" is debatable here - for my applications I really only need an update every ~30 seconds.  Practically the Shiny output dims when updating with data, so for periods less than say 10 seconds it may not be the best approach for you - updating directly via JavaScript libraries may be better, and rely on say OpenCPU to provide the forecasting or another JS library.  
+Now, what constitutes "realtime" is debatable here - for my applications I really only need an update every ~30 seconds.  Practically the Shiny output dims when updating with data, so for periods less than say 10 seconds it may not be the best approach for you - updating directly via JavaScript libraries may be better, and rely on say OpenCPU to provide the forecasting or another JS library.  
 
 However, for my purposes I just need something better than the Google Analytics 4-hour lag in data (for GA360) and this suits well, particularly as you can apply a whole host of R data functions to the output.
 
@@ -337,7 +337,9 @@ The gif doesn't quite do it justice, but you get the idea:
 
 ## Improvements
 
-Ideally I'd like to avoid the Shiny grey-out when new data is fetched and the graph redraw - I fiddled a bit trying to get the JavaScript to take data from an R table and pull it in directly put that didn't work out - I may update it if its figured out later.  However, as I said above for my applicaiton I needed an update only every 60 seconds so it wasn't worth too much trouble over.  If say you needed (and who really *needs* this?) a smooth update every 5 seconds say, the grey out would be too often to be useable. 
+Ideally I'd like to avoid the Shiny grey-out when new data is fetched and the graph redraw - I fiddled a bit trying to get the JavaScript to take data from an R table and pull it in directly put that didn't work out - I may update it if its figured out later.  
+
+However, as I said above for my application I needed an update only every 60 seconds so it wasn't worth too much trouble over.  But if say you needed (and who really *needs* this?) a smooth update every 5 seconds, the grey out would be too often to be useable. 
 
 ## Summary
 
