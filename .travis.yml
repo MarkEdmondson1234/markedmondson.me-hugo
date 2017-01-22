@@ -1,6 +1,13 @@
 language: r
 cache: packages
 r_github_packages: rstudio/blogdown
+# Handle git submodules yourself
+git:
+    submodules: false
+# Use sed to replace the SSH URL with the public URL, then initialize submodules
+before_install:
+    - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+    - git submodule update --init --recursive
 install: 
  - Rscript -e 'blogdown::install_hugo()'
  - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
