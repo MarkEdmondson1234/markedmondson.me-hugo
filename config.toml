@@ -6,7 +6,7 @@ disqusShortname = "markedmondson"
 # Enable Google Analytics by entering your tracking code
 googleAnalytics = ""
 # Define the number of posts per page
-paginate = 5
+paginate = 20
 footnotereturnlinkcontents = "↩"
 theme = "hugo-icarus-theme"
 disablePathToLower = true

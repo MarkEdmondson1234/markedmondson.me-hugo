@@ -16,7 +16,7 @@ Data comes from [Google Search Console](https://www.google.com/webmasters/tools/
 
 Search Console is used to provide the keywords in these days post [(not provided)](http://www.notprovidedcount.com/).  We then link the two data sets by using the URLs as a key, and estimate how much each keyword made in revenue by splitting them in the same proportion as the traffic they have sent to the page.
 
-This approach assumes each keyword converts at the same rate once on the page, and will work better with some more websites more than others - the best results I have seen are those websites with a lot of content on seperate URLs, such that they capture long-tail queries.  This is because the amount of keywords per URL is small, but with enough volume to make the estimates trustworthy.
+This approach assumes each keyword converts at the same rate once on the page, and will work better with some websites more than others - the best results I have seen are those websites with a lot of content on seperate URLs, such that they capture long-tail queries.  This is because the amount of keywords per URL is small, but with enough volume to make the estimates trustworthy.
 
 We also try to incorporate magins of error in the results.  This avoids situations where one click on position 40 gets a massive weighting in potential revenue, which in reality could have been a freak event. 
 
