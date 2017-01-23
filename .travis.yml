@@ -14,8 +14,8 @@ install:
  - Rscript -e 'blogdown::install_hugo()'
  - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
 before_script:
-  - git config --global user.name='travis' 
-  - git config --global user.email='travis@markedmondson.me'
+  - git config --global user.name='MarkEdmondson1234' 
+  - git config --global user.email='github@markedmondson.me'
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 script:
