@@ -21,5 +21,4 @@ script:
 after_success:
   - cd public && git add -A
   - git -c user.name='travis' -c user.email='github@markedmondson.me' commit -m "rebuilding site `date`"
-  - git commit -m "rebuilding site `date`"
   - git push origin master
