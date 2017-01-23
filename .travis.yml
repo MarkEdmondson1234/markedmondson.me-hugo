@@ -16,6 +16,7 @@ install:
 script:
   - /home/travis/R-bin/bin/Rscript -e 'blogdown::build_site()'
 after_success:
+  - git submodule add -b master git@github.com:MarkEdmondson1234/MarkEdmondson1234.github.io.git public
   - cd public && git add -A
   - git -c user.name='travis' -c user.email='travis@markedmondson.me' commit -m "rebuilding site `date`"
   # http://stackoverflow.com/questions/19845679/build-with-travis-ci-and-push-some-files-folder-to-another-repository
