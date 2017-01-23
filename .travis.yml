@@ -14,13 +14,12 @@ install:
  - Rscript -e 'blogdown::install_hugo()'
  - Rscript -e 'blogdown::install_theme("digitalcraftsman/hugo-icarus-theme")'
 before_script:
-  - git config user.name "TRAVIS CI" 
-  - git config user.email "github@markedmondson.me"
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
 script:
   - /home/travis/R-bin/bin/Rscript -e 'blogdown::build_site()'
 after_success:
   - cd public && git add -A
+  - git -c user.name='travis' -c user.email='github@markedmondson.me' commit -m "rebuilding site `date`"
   - git commit -m "rebuilding site `date`"
   - git push origin master
