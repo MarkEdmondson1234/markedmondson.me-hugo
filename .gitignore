@@ -7,3 +7,4 @@ drat.sh
 .httr-oauth-SUSPENDED
 inst/doc
 *.Rproj
+.Renviron
