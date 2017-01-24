@@ -59,4 +59,4 @@ For migration I had to go through and add the `url` field to the posts with my o
 
 I maintain two Github repos - one with the [actual site content](https://github.com/MarkEdmondson1234/MarkEdmondson1234.github.io) and the other holding the [Hugo configuration](https://github.com/MarkEdmondson1234/markedmondson.me-hugo), if you're interested in my setup.
 
-I had/have a lot of hassles with git submodules, I found this SEO answer helped a lot to wipe the [slate clean of git submodules](http://stackoverflow.com/questions/20929336/git-submodule-add-a-git-directory-is-found-locally-issue) and start again with the Hugo instructions
+I had/have a lot of hassles with git submodules, I found this StackOverflow answer helped a lot to wipe the [slate clean of git submodules](http://stackoverflow.com/questions/20929336/git-submodule-add-a-git-directory-is-found-locally-issue) and start again with the Hugo instructions
