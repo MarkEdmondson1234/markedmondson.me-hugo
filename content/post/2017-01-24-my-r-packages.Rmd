@@ -9,7 +9,11 @@ title: "My R Packages"
 url: /r-packages/
 ---
 
-A full list of R packages I have published are on [my Github](https://github.com/MarkEdmondson1234), but some notable ones are:
+A full list of R packages I have published are on [my Github](https://github.com/MarkEdmondson1234), but some notable ones are below.
+
+Some are part of the [cloudyR project](http://cloudyr.github.io/), which has many packages useful for using R in the cloud. ![](/images/cloudyr2.png) 
+
+I concentrate on the Google cloud below, but be sure to check out the other packages if you're looking to work with AWS or other cloud based services. 
 
 ## CRAN
 
@@ -31,6 +35,7 @@ More experimental packages:
 
 Status             | URL                      | Description
 ------------------ | ------------------------ | -----------------------------------------------------
+[![](https://travis-ci.org/MarkEdmondson1234/googleLanguageR.png?branch=master)](https://travis-ci.org/MarkEdmondson1234/googleLanguageR) | [googleLanguageR](https://github.com/MarkEdmondson1234/googleLanguageR) | Access Speech to text, translation and NLP text processing APIs
 [![](https://travis-ci.org/MarkEdmondson1234/googleID.svg?branch=master)](https://travis-ci.org/MarkEdmondson1234/googleID) | [googleID](https://github.com/MarkEdmondson1234/googleID) | In production, but very small so not on CRAN.  Allows user authentication via Google+ API for Shiny and RMarkdown documents. 
 In development | [youtubeAnalyticsR](https://github.com/MarkEdmondson1234/youtubeAnalyticsR) | Access YouTube Analytics data
 In development | [gtmR](https://github.com/MarkEdmondson1234/gtmR) | Access the Google Tag Manager API from R
