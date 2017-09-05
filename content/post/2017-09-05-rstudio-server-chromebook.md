@@ -61,7 +61,7 @@ Once launched, I log in and configurations are auto loaded by the `_gcssave.yaml
 
 ![](../images/startup-rstudio-persistent.png)
 
-As this includes the home directory, so log as I login with the same username, and point to the same bucket, any RStudio launched (within a Docker/locally, whereever) don't need to reconfigure Git - downloading a GitHub repo is as simple as copying the SSH GitHub URL...
+As this includes the home directory, so long as I login with the same username, and point to the same bucket, any RStudio launched (within a Docker/locally, whereever) don't need to reconfigure Git - downloading a GitHub repo is as simple as copying the SSH GitHub URL...
 
 ![](../images/ssh-clone-github.png)
 
