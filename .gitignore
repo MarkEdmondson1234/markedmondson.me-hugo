@@ -8,3 +8,4 @@ drat.sh
 inst/doc
 *.Rproj
 .Renviron
+^public/
