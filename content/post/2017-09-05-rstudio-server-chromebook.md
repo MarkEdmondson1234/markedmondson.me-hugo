@@ -3,6 +3,7 @@ title: Run RStudio Server on a Chromebook as a Cloud Native
 date: "2017-09-05T13:55:57+01:00"
 tags: ["google-cloud-storage","google-compute-engine","r", "rstudio-server", "docker","google-app-engine"]
 banner: banners/chromebook.png
+url: /rstudio-server-chromebook/
 ---
 
 I recently got an [Asus Chromebook Flip](https://www.asus.com/us/Laptops/ASUS-Chromebook-Flip-C302CA/) with which I'm very happy, but it did make me realise that if a Chromebook was to replace my normal desktop as my primary workstation, my RStudio Server setup would need to be more cloud native than was available up until now.
