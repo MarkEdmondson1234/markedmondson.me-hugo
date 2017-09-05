@@ -77,7 +77,7 @@ The details for the configuration setup is [here on the googleComputeEngineR web
 
 Whats next?  Could this evolve further into a RStudio-as-a-service offering?  To qualify, we would need to not worry about starting or stopping servers at all, and scale under any load.  
 
-Well, prompted by this blog post I had a good look.  It IS possible to deploy RStudio on App Engine and I got excited, but unfortunately the minimum number of permanent instances on a flexible App Engine app is 1, so all told for a solo analyst it is a more expensive solution than running a VM that you stop and start yourself.  However, if you had enough demand to pay for 1 VM 24 hours a day (~$30 a month),  it does start to make sense to scale on App Engine.  A setup that does that is on this GitHub repo running RStudio on App Engine.
+Well, prompted by this blog post I had a good look.  It IS possible to deploy RStudio on App Engine and I got excited, but unfortunately the minimum number of permanent instances on a flexible App Engine app is 1, so all told for a solo analyst it is a more expensive solution than running a VM that you stop and start yourself.  However, if you had enough demand to pay for 1 VM 24 hours a day (~$30 a month),  it does start to make sense to scale on App Engine.  A setup that does that is on this GitHub repo [running RStudio on App Engine](https://github.com/MarkEdmondson1234/appengine-rstudio).
 
 ![](../images/appengine-rstudio.png)
 
