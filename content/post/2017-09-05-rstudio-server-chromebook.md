@@ -77,7 +77,7 @@ Well, prompted by this blog post I had a good look.  It IS possible to deploy RS
 
 ![](../images/appengine-rstudio.png)
 
-Using R on App Engine is possible due to App Engine's new beta support for flexible containers.  Any language deployed through a Docker container will work, something I recently worked through in a proof of concept to deploy a serverless R API using Plumber.  Shiny may be another beneficiary of App Engine, although at time of writing App Engine doesn't support the necessary websockets.
+Using R on App Engine is possible due to App Engine's new beta support for [flexible custom runtime containers](https://cloud.google.com/appengine/docs/flexible/custom-runtimes/).  Any language deployed through a Docker container will work, something I recently worked through in a proof of concept to deploy a [serverless R API using Plumber](https://github.com/MarkEdmondson1234/serverless-R-API-appengine).  Shiny may be another beneficiary of App Engine, although at time of writing App Engine doesn't support the necessary websockets.
 
 I suspect using [Kubernetes](https://kubernetes.io/), a container orchestrator upon Google Container Engine the above could be achieved, but I haven't quite grok'd that yet so perhaps I'll update this in the future. 
 
