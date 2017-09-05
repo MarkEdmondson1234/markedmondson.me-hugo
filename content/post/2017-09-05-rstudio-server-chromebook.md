@@ -43,6 +43,10 @@ I am in a lucky position to work on this as I have developed a niche creating Go
 
 Its with two of my R libraries, [googleCloudStorageR](http://code.markedmondson.me/googleCloudStorageR/) and [googleComputeEngineR](https://cloudyr.github.io/googleComputeEngineR/), that I've put together something much closer to the cheap, resilient, and flexible version of the cloud I want to be using when running RStudio in the cloud. 
 
+The role of a harddrive is delegated to Google Cloud Storage, whilst RStudio is served from within Docker containers.  With some new functions that are in the `.Rprofile` of a custom RStudio Docker image, Google Cloud Storage is called to download on startup, or upload on exit, all the files to a specific bucket.  These files can include SSH and GitHub settings, or a project folder.  Backups are activated by putting a `_gcssave.yaml` file in a folder, or via the VM's metadata. 
+
+What this all means is:
+
 * RStudio Server runs within its own Docker container, and can be relaunched with custom package setups
 * Data is persistent between Docker containers and cloud compute instances.  
 * I can turn off the RStudio Server to avoid charges, then turn it on again and start from where I left off without reconfiguring git etc. 
@@ -57,7 +61,7 @@ Once launched, I log in and configurations are auto loaded by the `_gcssave.yaml
 
 ![](../images/startup-rstudio-persistent.png)
 
-I don't need to reconfigure Git, even on a fresh instance - downloading a GitHub repo is as simple as copying the SSH GitHub URL..
+As this includes the home directory, so log as I login with the same username, and point to the same bucket, any RStudio launched (within a Docker/locally, whereever) don't need to reconfigure Git - downloading a GitHub repo is as simple as copying the SSH GitHub URL...
 
 ![](../images/ssh-clone-github.png)
 
