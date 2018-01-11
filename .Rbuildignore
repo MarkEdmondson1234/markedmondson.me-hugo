@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^scgl\.httr-oauth$
+^scgl\.oauth$
+^sc\.oauth$

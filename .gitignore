@@ -9,3 +9,5 @@ inst/doc
 *.Rproj
 .Renviron
 ^public/
+*.oauth
+*.rds
