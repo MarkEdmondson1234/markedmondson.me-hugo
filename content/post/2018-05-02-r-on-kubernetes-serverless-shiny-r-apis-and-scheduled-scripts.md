@@ -32,7 +32,7 @@ What you gain is reliable, flexible, production ready R applications, that will 
 
 This article deploys to Google Kubernetes Engine (GKE), but there are many other methods to cover some of Kubernetes functionality, that you may prefer.
 
-![](gke_icon.png)
+![](../images/../images/gke_icon.png)
 
 * Kubernetes itself can run on all the cloud providers aside Google Cloud Platform, as well as your own servers. 
 * [Google App Engine Flexible](https://cloud.google.com/appengine/docs/flexible/) is a more managed platform that takes care of some details, but you lose control of others.  I wrote about this previously for running R APIs and a demo is in this [GitHub repo](https://github.com/MarkEdmondson1234/serverless-R-API-appengine). 
@@ -95,13 +95,13 @@ And we are all set to start setting up this cluster for R jobs!
 
 Here is a screenshot from the web UI of what it should look like:
 
-![](r-cluster.png)
+![](../images/../images/r-cluster.png)
 
 ## Part 2 - Install the nginx ingress controller
 
 The first recommended setup is to enable an ingress controller. 
 
-![](ingress_controller.png)
+![](../images/ingress_controller.png)
 
 *Image from [nginx](https://www.nginx.com/products/nginx/kubernetes-ingress-controller/)*
 
@@ -391,7 +391,7 @@ Assuming your IP is `1.2.3.4`; we can see the OpenCPU is installed via `1.2.3.4/
 
 For our example, the custom package uploaded is available at `1.2.3.4/ocpu/library/predictClickOpenCPU`
 
-![](open-cpu-running.png)
+![](../images/open-cpu-running.png)
 
 We use the API for this package by creating a POST hit to API endpoint
 
@@ -498,7 +498,7 @@ kubectl get cronjob scheduledr
 
 And in the Web UI under [Workloads](https://console.cloud.google.com/kubernetes/workload?project=iih-tools-analytics&authuser=0&workload_list_tablesize=50)
 
-![](cronJob.png)
+![](../images/cronJob.png)
 
 ## Part 4 - Going further
 
