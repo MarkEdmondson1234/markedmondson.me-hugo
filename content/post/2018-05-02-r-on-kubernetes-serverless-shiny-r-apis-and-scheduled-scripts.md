@@ -32,7 +32,7 @@ What you gain is reliable, flexible, production ready R applications, that will 
 
 This article deploys to Google Kubernetes Engine (GKE), but there are many other methods to cover some of Kubernetes functionality, that you may prefer.
 
-![](../images/../images/gke_icon.png)
+![](../images/gke_icon.png)
 
 * Kubernetes itself can run on all the cloud providers aside Google Cloud Platform, as well as your own servers. 
 * [Google App Engine Flexible](https://cloud.google.com/appengine/docs/flexible/) is a more managed platform that takes care of some details, but you lose control of others.  I wrote about this previously for running R APIs and a demo is in this [GitHub repo](https://github.com/MarkEdmondson1234/serverless-R-API-appengine). 
@@ -95,7 +95,7 @@ And we are all set to start setting up this cluster for R jobs!
 
 Here is a screenshot from the web UI of what it should look like:
 
-![](../images/../images/r-cluster.png)
+![](../images/r-cluster.png)
 
 ## Part 2 - Install the nginx ingress controller
 
@@ -277,11 +277,11 @@ The Nginx ingress controller takes care of any URL path not covered in the `r-in
 
 Here are some screenshots:
 
-![googleAuthR app](gar_app.png)
+![googleAuthR app](../images/gar_app.png)
 
-![Wordcloud app](wordcloud.png)
+![Wordcloud app](../images/wordcloud.png)
 
-![Default webpage if not defined in ingress](default404.png)
+![Default webpage if not defined in ingress](../images/default404.png)
 
 Note it matters where you put the app in your Dockerfile.  The `nginx.ingress.kubernetes.io/rewrite-target: /` line in the ingress lets you specify a URL that is relative to your specified URLs.  
 
