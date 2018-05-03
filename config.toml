@@ -1,4 +1,4 @@
-baseurl = "http://code.markedmondson.me"
+baseurl = "https://code.markedmondson.me"
 languageCode = "en-GB"
 title = "Mark Edmondson"
 # Enable comments by entering your Disqus shortname
@@ -10,6 +10,8 @@ paginate = 20
 footnotereturnlinkcontents = "↩"
 theme = "hugo-icarus-theme"
 disablePathToLower = true
+
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [permalinks]
     post = "/:slug"

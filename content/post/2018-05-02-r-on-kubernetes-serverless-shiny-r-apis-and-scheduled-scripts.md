@@ -333,7 +333,7 @@ However now:
 
 Kubernetes is well suited to serving R APIs as they can auto-scale to demand, covering peaks and troughs in demand.
 
-A demo API is shown below, using [`openCPU` for predicting website clicks](http://code.markedmondson.me/predictClickOpenCPU/), but the same principle allies if using `plumber` or another framework by swapping out the Dockerfile to serve the API on a port. 
+A demo API is shown below, using [`openCPU` for predicting website clicks](http://code.markedmondson.me/predictClickOpenCPU/), but the same principle applies if using `plumber` or another framework by swapping out the Dockerfile to serve the API on a port. 
 
 > This assumes you have configured the ingress controller above
 
@@ -399,7 +399,7 @@ We use the API for this package by creating a POST hit to API endpoint
 
 ...with the parameter `pageview_names=["/example/96","/example/213","/example/107"]`
 
-Constructing the above in thwe terminal with `curl`, we test the API is functioning:
+Constructing the above in the terminal with `curl`, we test the API is functioning:
 
 ```sh
 curl --data 'pageview_names=["/example/96","/example/213","/example/107"]' http://35.233.42.6/ocpu/library/predictClickOpenCPU/R/predictMarkov/json
@@ -423,7 +423,7 @@ An alternative is to configure the Dockerfile to rely on a config file, and have
 
 #### Creating an executable R Dockerfile
 
-This is an example Dockerfile that installs dependcies and R packages, loads a local configuration file then runs a custom function when it is called upon by the cronJob:
+This is an example Dockerfile that installs dependencies and R packages, loads a local configuration file then runs a custom function when it is called upon by the cronJob:
 
 ```
 FROM rocker/verse
