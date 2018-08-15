@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-    <title>My R Packages &middot; Mark Edmondson</title>
+    <title>Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs &middot; Mark Edmondson</title>
     <meta name="generator" content="Hugo 0.18.1" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Mark Edmondson">
     
-      <meta name="description" content="The code bit of the blog">
+      <meta name="description" content="A video workshop tutorial on creating a talking Google Analytics dashboard in Shiny">
     
     
-    <link rel="canonical" href="/r-packages/"/>
+    <link rel="canonical" href="/talking-google-analytics-dashboards"/>
     <link rel="icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
     <link rel="stylesheet" href="/css/style.css">
@@ -20,15 +20,13 @@
     
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
-    <meta property="og:title" content="My R Packages" />
-<meta property="og:description" content="A full list of R packages I have published are on my Github, but some notable ones are below.
-Some are part of the cloudyR project, which has many packages useful for using R in the cloud. I concentrate on the Google cloud below, but be sure to check out the other packages if you’re looking to work with AWS or other cloud based services.
-CRAN     Status URL Description     googleAuthR The central workhorse for authentication on Google APIs   googleAnalyticsR Works with Google Analytics Reporting V3/V4 and Management APIs   googleComputeEngineR Launch Virtual Machines within the Google Cloud, via templates or your own Docker containers." />
+    <meta property="og:title" content="Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs" />
+<meta property="og:description" content="A video workshop tutorial on creating a talking Google Analytics dashboard in Shiny" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/r-packages/" />
+<meta property="og:url" content="/talking-google-analytics-dashboards" />
 
 
-<meta property="og:updated_time" content="2017-01-24T21:20:50&#43;01:00"/>
+<meta property="og:updated_time" content="2018-08-15T00:00:00&#43;00:00"/>
 
 
 
@@ -41,14 +39,12 @@ CRAN     Status URL Description     googleAuthR The central workhorse for authen
 
     
     
-<meta itemprop="name" content="My R Packages">
-<meta itemprop="description" content="A full list of R packages I have published are on my Github, but some notable ones are below.
-Some are part of the cloudyR project, which has many packages useful for using R in the cloud. I concentrate on the Google cloud below, but be sure to check out the other packages if you’re looking to work with AWS or other cloud based services.
-CRAN     Status URL Description     googleAuthR The central workhorse for authentication on Google APIs   googleAnalyticsR Works with Google Analytics Reporting V3/V4 and Management APIs   googleComputeEngineR Launch Virtual Machines within the Google Cloud, via templates or your own Docker containers.">
+<meta itemprop="name" content="Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs">
+<meta itemprop="description" content="A video workshop tutorial on creating a talking Google Analytics dashboard in Shiny">
 
 
-<meta itemprop="dateModified" content="2017-01-24T21:20:50&#43;01:00" />
-<meta itemprop="wordCount" content="266">
+<meta itemprop="dateModified" content="2018-08-15T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="429">
 
 
 
@@ -60,10 +56,8 @@ CRAN     Status URL Description     googleAuthR The central workhorse for authen
 
 
 
-<meta name="twitter:title" content="My R Packages"/>
-<meta name="twitter:description" content="A full list of R packages I have published are on my Github, but some notable ones are below.
-Some are part of the cloudyR project, which has many packages useful for using R in the cloud. I concentrate on the Google cloud below, but be sure to check out the other packages if you’re looking to work with AWS or other cloud based services.
-CRAN     Status URL Description     googleAuthR The central workhorse for authentication on Google APIs   googleAnalyticsR Works with Google Analytics Reporting V3/V4 and Management APIs   googleComputeEngineR Launch Virtual Machines within the Google Cloud, via templates or your own Docker containers."/>
+<meta name="twitter:title" content="Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs"/>
+<meta name="twitter:description" content="A video workshop tutorial on creating a talking Google Analytics dashboard in Shiny"/>
 <meta name="twitter:site" content="@HoloMarkeD"/>
 <meta name="twitter:domain" content="markedmondson.me"/>
 
@@ -272,28 +266,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
         <div class="article-inner">
             
-                <img src="/banners/packages.jpeg" class="article-banner">
+                <img src="/banners/talking-gas.png" class="article-banner">
             
 
             <header class="article-header">
-    <a href="/r-packages/">
+    <a href="/talking-google-analytics-dashboards">
     <h1 class="article-title" itemprop="name">
-        My R Packages
+        Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs
     </h1>
     </a>
     <div class="article-meta">
         <div class="article-date">
             <i class="fa fa-calendar"></i>
-            <time datetime="2017-01-24 21:20:50 &#43;0100 CET" itemprop="datePublished">2017-01-24</time>
+            <time datetime="2018-08-15 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-08-15</time>
             &middot;
-            266
+            429
             words
             &middot;
-            2
+            3
             minute read
         </div>
 
 
+        
+            
+            
         
 
         
@@ -303,35 +300,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <i class="fa fa-tags"></i>
                 
                 
-                <a class="article-category-link" href="/tags/r">r</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/google-auth">google-auth</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/big-query">big-query</a>
-                &middot;
-                
-                
                 <a class="article-category-link" href="/tags/google-analytics">google-analytics</a>
                 &middot;
                 
                 
-                <a class="article-category-link" href="/tags/google-cloud-storage">google-cloud-storage</a>
+                <a class="article-category-link" href="/tags/google-language">google-language</a>
                 &middot;
                 
                 
-                <a class="article-category-link" href="/tags/google-compute-engine">google-compute-engine</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/google-tag-manager">google-tag-manager</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="/tags/search-console">search-console</a>
+                <a class="article-category-link" href="/tags/r">R</a>
                 
                 
             </div>
@@ -341,128 +318,45 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </header>
 
             <div class="article-entry" itemprop="articleBody">
-                <p>A full list of R packages I have published are on <a href="https://github.com/MarkEdmondson1234">my Github</a>, but some notable ones are below.</p>
-<p>Some are part of the <a href="http://cloudyr.github.io/">cloudyR project</a>, which has many packages useful for using R in the cloud. <img src="/images/cloudyr2.png" /></p>
-<p>I concentrate on the Google cloud below, but be sure to check out the other packages if you’re looking to work with AWS or other cloud based services.</p>
-<div id="cran" class="section level2">
-<h2>CRAN</h2>
-<table>
-<colgroup>
-<col width="19%" />
-<col width="25%" />
-<col width="55%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Status</th>
-<th>URL</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="http://cran.r-project.org/package=googleAuthR"><img src="http://www.r-pkg.org/badges/version/googleAuthR" /></a></td>
-<td><a href="http://code.markedmondson.me/googleAuthR/">googleAuthR</a></td>
-<td>The central workhorse for authentication on Google APIs</td>
-</tr>
-<tr class="even">
-<td><a href="http://cran.r-project.org/package=googleAnalyticsR"><img src="http://www.r-pkg.org/badges/version/googleAnalyticsR" /></a></td>
-<td><a href="http://code.markedmondson.me/googleAnalyticsR/">googleAnalyticsR</a></td>
-<td>Works with Google Analytics Reporting V3/V4 and Management APIs</td>
-</tr>
-<tr class="odd">
-<td><a href="http://cran.r-project.org/package=googleComputeEngineR"><img src="http://www.r-pkg.org/badges/version/googleComputeEngineR" /></a></td>
-<td><a href="https://cloudyr.github.io/googleComputeEngineR/">googleComputeEngineR</a></td>
-<td>Launch Virtual Machines within the Google Cloud, via templates or your own Docker containers.</td>
-</tr>
-<tr class="even">
-<td><a href="http://cran.r-project.org/package=googleCloudStorageR"><img src="http://www.r-pkg.org/badges/version/googleCloudStorageR" /></a></td>
-<td><a href="http://code.markedmondson.me/googleCloudStorageR/">googleCloudStorageR</a></td>
-<td>Interact with Google Cloud Storage via R</td>
-</tr>
-<tr class="odd">
-<td><a href="http://cran.r-project.org/package=bigQueryR"><img src="http://www.r-pkg.org/badges/version/bigQueryR" /></a></td>
-<td><a href="http://code.markedmondson.me/bigQueryR/">bigQueryR</a></td>
-<td>Interact with Google BigQuery via R</td>
-</tr>
-<tr class="even">
-<td><a href="http://cran.r-project.org/package=searchConsoleR"><img src="http://www.r-pkg.org/badges/version/searchConsoleR" /></a></td>
-<td><a href="http://code.markedmondson.me/searchConsoleR/">searchConsoleR</a></td>
-<td>Download Search Console data into R</td>
-</tr>
-</tbody>
-</table>
-<p>As you can tell, most are aimed towards helping R users with help in digital analytics and cloud based services. You can get some idea of how they can <a href="/digital-analytics-workflow-through-google-cloud/">work together in a digital analytics workflow here</a>.</p>
+                <p>What really makes Google Analytics stand apart from other analytics solutions for me is its integration with the Google Cloud, such as BigQuery and its machine learning APIs. An example of this integration is given in this workshop video that details how to use the <a href="https://developers.google.com/analytics/devguides/reporting/core/v4/">Google Analytics</a> and <a href="https://cloud.google.com/text-to-speech/">Text-to-speech</a> APIs to create a dashboard that talks through your statistics.</p>
+<!--more-->
+<div id="youtube-workshop-video" class="section level2">
+<h2>YouTube Workshop video</h2>
+<p>The whole 40min workshop is available below, which talks through <a href="https://github.com/MarkEdmondson1234/verbal_ga_shiny">this GitHub repo</a>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4Ht_vEXJ4wo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+<p>A demo of the speech it creates can be heard in this audio snippet:</p>
+<audio controls>
+<source src="../verbal-demo.wav">
+</audio>
+<p>I’ve also cut out shorter snippets that focus on concepts if you want to skip in and out:</p>
+<ul>
+<li>Part I - basic Shiny app with Google Analytics data: <a href="https://youtu.be/IqAaCk_3ZKU" class="uri">https://youtu.be/IqAaCk_3ZKU</a></li>
+<li>Part II - adding text-to-speech with googleLanguageR <a href="https://youtu.be/Ny0e7vHFu6o" class="uri">https://youtu.be/Ny0e7vHFu6o</a></li>
+<li>Part III - custom skin for the Shiny app using gentellelaShiny <a href="https://youtu.be/Dp6Y6Trn97A" class="uri">https://youtu.be/Dp6Y6Trn97A</a></li>
+</ul>
 </div>
-<div id="github" class="section level2">
-<h2>GITHUB</h2>
-<p>More experimental packages:</p>
-<table>
-<colgroup>
-<col width="19%" />
-<col width="25%" />
-<col width="55%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Status</th>
-<th>URL</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Dev</td>
-<td><a href="https://github.com/MarkEdmondson1234/googleMeasureR">googleMeasureR</a></td>
-<td>Send tracking hits to Google Analytics from R code using the Google Analytics Measurement Protocol</td>
-</tr>
-<tr class="even">
-<td><a href="https://travis-ci.org/MarkEdmondson1234/googleLanguageR"><img src="https://travis-ci.org/MarkEdmondson1234/googleLanguageR.png?branch=master" /></a></td>
-<td><a href="https://github.com/MarkEdmondson1234/googleLanguageR">googleLanguageR</a></td>
-<td>Access Speech to text, translation and NLP text processing APIs</td>
-</tr>
-<tr class="odd">
-<td><a href="https://travis-ci.org/MarkEdmondson1234/googleID"><img src="https://travis-ci.org/MarkEdmondson1234/googleID.svg?branch=master" /></a></td>
-<td><a href="https://github.com/MarkEdmondson1234/googleID">googleID</a></td>
-<td>In production, but very small so not on CRAN. Allows user authentication via Google+ API for Shiny and RMarkdown documents.</td>
-</tr>
-<tr class="even">
-<td>Dev</td>
-<td><a href="https://github.com/MarkEdmondson1234/youtubeAnalyticsR">youtubeAnalyticsR</a></td>
-<td>Access YouTube Analytics data</td>
-</tr>
-<tr class="odd">
-<td>Deprecated</td>
-<td><a href="https://github.com/MarkEdmondson1234/gtmR">gtmR</a></td>
-<td>Superceded by <a href="https://github.com/IronistM/googleTagManageR">googleTagManagerR</a></td>
-</tr>
-<tr class="even">
-<td>Reference</td>
-<td><a href="https://github.com/MarkEdmondson1234/autoGoogleAPI">autoGoogleAPI</a></td>
-<td>152 R packages auto generated via <code>googleAuthR</code>’s discovery API feature</td>
-</tr>
-<tr class="odd">
-<td>Done</td>
-<td><a href="https://github.com/MarkEdmondson1234/gentelellaShiny">gentelellaShiny</a></td>
-<td>A custom Shiny theme available in a package</td>
-</tr>
-<tr class="even">
-<td>Deprecated</td>
-<td><a href="https://github.com/MarkEdmondson1234/stripeR">stripeR</a></td>
-<td>Interact with the Stripe payment API, but superseded by another R package, <a href="https://cran.r-project.org/web/packages/RStripe/index.html">RStripe</a></td>
-</tr>
-</tbody>
-</table>
+<div id="going-further" class="section level2">
+<h2>Going further</h2>
+<p>Whilst this proof of concept is a bit of fun to demonstrate how these APIs can work together via the R libraries <a href="http://code.markedmondson.me/googleAnalyticsR/"><code>googleAnalyticsR</code></a> and <a href="http://code.markedmondson.me/googleLanguageR/"><code>googleLanguageR</code></a>, I hope the applications can go beyond this demo.</p>
+<p>Accessibility is an obvious first application, giving those that have trouble seeing another way to experience dashboard plots. Equally, the <a href="http://code.markedmondson.me/googleLanguageR/articles/speech.html">speech-to-text API</a> offer a way to control reports without needing a dashboard. Often these services can also help enhance all users by letting them experience reports in other mediums such as by phone or in the car, and may help breathe life into stale dashboards that have a habit of slowly being ignored over time.</p>
+<p>The <a href="http://code.markedmondson.me/googleLanguageR/articles/translation.html">Translation APIs</a> also allow internationalisation of reports be it in speech or text, the <a href="https://github.com/ropensci/googleLanguageR/tree/master/inst/shiny/capture_speech">demo Shiny app of <code>googleLanguageR</code></a> demonstrates talking in several languages.</p>
+<p>Possibily the most advanced but potentially most powerful application uses the <a href="http://code.markedmondson.me/googleLanguageR/articles/nlp.html">Natural Language API</a> to parse out meaning, entities and sentiment from text. For instance, grading user generated content and then creating data reports on the fly that may address their concerns.</p>
+<p>Another interesting application may be how text/speech enabled apps can interact with other robots, such as Alexa or Google Home. As more and more apps become voice enabled, voice and computer generated speech could become a universal translator between systems that would take heavy coding otherwise.</p>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>Anyhow, I hope the video is of some use. I’m creating more video content these days as I think it helps see how a workflow happens in real life, along with all the umms and errs and mistakes that happen to everyone :) If you have any video requests do let me know, otherwise you can keep track of any new videos on my <a href="https://www.youtube.com/channel/UC3pF8VqQGmtpjAr_9VUEmTQ/videos">YouTube channel</a>.</p>
 </div>
 
             </div>
             <footer class="article-footer">
-    <a data-url="/r-packages/" data-id="7044ac4c08f4e888945093947ca6cc00" class="article-share-link">
+    <a data-url="/talking-google-analytics-dashboards" data-id="7c3739dc45d69da15fb2dbe7a8825a6e" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
     
-    <a href="/r-packages//#disqus_thread" class="article-comment-link">
+    <a href="/talking-google-analytics-dashboards/#disqus_thread" class="article-comment-link">
         Comments
     </a>
     
@@ -538,21 +432,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
 <nav id="article-nav">
     
-    <a href="/new-blog-down/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">
           Older
       </strong>
-      <div class="article-nav-title">New Blog Down</div>
+      <div class="article-nav-title">R on Kubernetes - serverless Shiny, R APIs and scheduled scripts</div>
     </a>
     
 
-    
-    <a href="/4-ways-schedule-r-scripts-on-google-cloud-platform" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">
-          Newer
-      </strong>
-      <div class="article-nav-title">Four Ways to Schedule R scripts on Google Cloud Platform</div>
-    </a>
     
 </nav>
 
@@ -565,9 +452,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'markedmondson';
-    var disqus_identifier = '\/r-packages\/';
-    var disqus_title = 'My R Packages';
-    var disqus_url = '\/r-packages\/';
+    var disqus_identifier = '\/talking-google-analytics-dashboards';
+    var disqus_title = 'Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs';
+    var disqus_url = '\/talking-google-analytics-dashboards';
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -597,7 +484,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="item-thumbnail">
                     <a href="/talking-google-analytics-dashboards" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/talking-gas.png)" alt="My R Packages" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/talking-gas.png)" alt="Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -616,7 +503,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="item-thumbnail">
                     <a href="/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/r-kubernetes.png)" alt="My R Packages" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/r-kubernetes.png)" alt="Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -635,7 +522,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="item-thumbnail">
                     <a href="/embedding-google-data-studio-into-rmarkdown" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/datastudio.png)" alt="My R Packages" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/datastudio.png)" alt="Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -654,7 +541,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="item-thumbnail">
                     <a href="/searchconsoler-vs-googlelanguager" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/nlp_sc.png)" alt="My R Packages" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/nlp_sc.png)" alt="Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -671,7 +558,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="item-thumbnail">
                     <a href="/rstudio-server-chromebook/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/chromebook.png)" alt="My R Packages" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/chromebook.png)" alt="Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs" class="thumbnail-image"></span>
                     
                     </a>
                 </div>

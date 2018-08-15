@@ -1,0 +1,57 @@
+---
+title: Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs
+author: Mark Edmondson
+date: '2018-08-15'
+slug: talking-google-analytics-dashboards
+categories: []
+tags:
+  - google-analytics
+  - google-language
+  - R
+banner: 'banners/talking-gas.png'
+description: 'A video workshop tutorial on creating a talking Google Analytics dashboard in Shiny'
+images: []
+menu: ''
+---
+
+What really makes Google Analytics stand apart from other analytics solutions for me is its integration with the Google Cloud, such as BigQuery and its machine learning APIs.  An example of this integration is given in this workshop video that details how to use the [Google Analytics](https://developers.google.com/analytics/devguides/reporting/core/v4/) and [Text-to-speech](https://cloud.google.com/text-to-speech/) APIs to create a dashboard that talks through your statistics. 
+
+<!--more-->
+
+## YouTube Workshop video
+
+The whole 40min workshop is available below, which talks through [this GitHub repo](https://github.com/MarkEdmondson1234/verbal_ga_shiny).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4Ht_vEXJ4wo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+A demo of the speech it creates can be heard in this audio snippet:
+
+<audio controls><source src="../verbal-demo.wav"></audio>
+
+I've also cut out shorter snippets that focus on concepts if you want to skip in and out:
+
+* Part I - basic Shiny app with Google Analytics data: https://youtu.be/IqAaCk_3ZKU 
+* Part II - adding text-to-speech with googleLanguageR https://youtu.be/Ny0e7vHFu6o 
+* Part III - custom skin for the Shiny app using gentellelaShiny https://youtu.be/Dp6Y6Trn97A
+
+## Going further
+
+Whilst this proof of concept is a bit of fun to demonstrate how these APIs can work together via the R libraries [`googleAnalyticsR`](http://code.markedmondson.me/googleAnalyticsR/) and [`googleLanguageR`](http://code.markedmondson.me/googleLanguageR/), I hope the applications can go beyond this demo. 
+
+Accessibility is an obvious first application, giving those that have trouble seeing another way to experience dashboard plots.  Equally, the [speech-to-text API](http://code.markedmondson.me/googleLanguageR/articles/speech.html) offer a way to control reports without needing a dashboard.  Often these services can also help enhance all users by letting them experience reports in other mediums such as by phone or in the car, and may help breathe life into stale dashboards that have a habit of slowly being ignored over time. 
+
+The [Translation APIs](http://code.markedmondson.me/googleLanguageR/articles/translation.html) also allow internationalisation of reports be it in speech or text, the [demo Shiny app of `googleLanguageR`](https://github.com/ropensci/googleLanguageR/tree/master/inst/shiny/capture_speech) demonstrates talking in several languages.  
+
+Possibily the most advanced but potentially most powerful application uses the [Natural Language API](http://code.markedmondson.me/googleLanguageR/articles/nlp.html) to parse out meaning, entities and sentiment from text. For instance, grading user generated content and then creating data reports on the fly that may address their concerns. 
+
+Another interesting application may be how text/speech enabled apps can interact with other robots, such as Alexa or Google Home.  As more and more apps become voice enabled, voice and computer generated speech could become a universal translator between systems that would take heavy coding otherwise. 
+
+## Summary
+
+Anyhow, I hope the video is of some use.  I'm creating more video content these days as I think it helps see how a workflow happens in real life, along with all the umms and errs and mistakes that happen to everyone :)  If you have any video requests do let me know, otherwise you can keep track of any new videos on my [YouTube channel](https://www.youtube.com/channel/UC3pF8VqQGmtpjAr_9VUEmTQ/videos).
+
+
+
+
+
+

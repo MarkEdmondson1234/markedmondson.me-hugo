@@ -2,56 +2,56 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogging on Mark Edmondson</title>
-    <link>https://code.markedmondson.me/tags/blogging/index.xml</link>
+    <link>/tags/blogging/index.xml</link>
     <description>Recent content in Blogging on Mark Edmondson</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <copyright>Powered by [Hugo](//gohugo.io). Theme by [PPOffice](http://github.com/ppoffice).</copyright>
-    <atom:link href="https://code.markedmondson.me/tags/blogging/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/blogging/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>New Blog Down</title>
-      <link>https://code.markedmondson.me/new-blog-down/</link>
+      <link>/new-blog-down/</link>
       <pubDate>Mon, 23 Jan 2017 22:45:03 +0100</pubDate>
       
-      <guid>https://code.markedmondson.me/new-blog-down/</guid>
-      <description>&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/proj4js/proj4.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/css/motion.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/highstock.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/highcharts-3d.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/highcharts-more.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/annotations.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/broken-axis.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/data.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/drilldown.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/exporting.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/funnel.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/heatmap.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/map.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/no-data-to-display.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/offline-exporting.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/solid-gauge.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/modules/treemap.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/plugins/annotations.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/plugins/draggable-legend.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/plugins/draggable-points.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/plugins/export-csv.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/plugins/grouped-categories.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/plugins/motion.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/plugins/pattern-fill-v2.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/plugins/tooltip-delay.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/custom/reset.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/custom/symbols-extra.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highcharts/custom/text-symbols.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;https://code.markedmondson.me/rmarkdown-libs/fontawesome/font-awesome.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;link href=&#34;https://code.markedmondson.me/rmarkdown-libs/htmlwdgtgrid/htmlwdgtgrid.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;https://code.markedmondson.me/rmarkdown-libs/highchart-binding/highchart.js&#34;&gt;&lt;/script&gt;
+      <guid>/new-blog-down/</guid>
+      <description>&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/proj4js/proj4.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/highcharts/css/motion.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/highstock.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/highcharts-3d.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/highcharts-more.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/annotations.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/broken-axis.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/data.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/drilldown.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/exporting.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/funnel.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/heatmap.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/map.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/no-data-to-display.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/offline-exporting.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/solid-gauge.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/modules/treemap.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/plugins/annotations.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/plugins/draggable-legend.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/plugins/draggable-points.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/plugins/export-csv.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/plugins/grouped-categories.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/plugins/motion.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/plugins/pattern-fill-v2.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/plugins/tooltip-delay.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/custom/reset.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/custom/symbols-extra.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/highcharts/custom/text-symbols.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/fontawesome/font-awesome.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;link href=&#34;/rmarkdown-libs/htmlwdgtgrid/htmlwdgtgrid.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/highchart-binding/highchart.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;A new year, a new blogging platform!&lt;/p&gt;
-&lt;p&gt;This time I’m moving from &lt;a href=&#34;https://code.markedmondson.me/hello-world&#34;&gt;Jekyll&lt;/a&gt; to RStudio’s new &lt;a href=&#34;https://github.com/rstudio/blogdown&#34;&gt;blogdown&lt;/a&gt; format.&lt;/p&gt;
+&lt;p&gt;This time I’m moving from &lt;a href=&#34;/hello-world&#34;&gt;Jekyll&lt;/a&gt; to RStudio’s new &lt;a href=&#34;https://github.com/rstudio/blogdown&#34;&gt;blogdown&lt;/a&gt; format.&lt;/p&gt;
 &lt;p&gt;This keeps the advantages of Jekyll (a static, high performance website; markdown for editing; free hosting on Github) but with the extra bonus of being able to render in RMarkdown plus adding some nice looking capabilities from the &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; project.&lt;/p&gt;
 &lt;p&gt;As I blog a lot about R it makes sense to have a platform that is more R-aware, as well as it letting me do things like this:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(googleAnalyticsR)
@@ -82,7 +82,7 @@ hchart(forecast(forecast1, h = 12))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now, blogdown is in beta so the documentation is a bit sparse at the moment, and I had some teething troubles migrating across from my old blog, but hopefully I have that all sorted now (although I never want to hear about Git submodules again).&lt;/p&gt;
 &lt;p&gt;I mostly followed the guide on &lt;a href=&#34;https://gohugo.io/tutorials/github-pages-blog/&#34;&gt;Hugo about hosting on Github pages&lt;/a&gt; and then added the deploy script it recommends to RStudio’s custom project settings, meaning I can now publish with a click of a button:&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;https://code.markedmondson.me/images/hugo-deploy-rstudio.png&#34; /&gt;
+&lt;img src=&#34;/images/hugo-deploy-rstudio.png&#34; /&gt;
 
 &lt;/div&gt;
 &lt;p&gt;My work flow now is:&lt;/p&gt;
@@ -109,10 +109,10 @@ cp -a ~/Documents/markedmondson.me-hugo/public/. ~/Documents/MarkEdmondson1234.g
     
     <item>
       <title>Jekyll &#43; Github &#43; Markdown = Blog</title>
-      <link>https://code.markedmondson.me/hello-world/</link>
+      <link>/hello-world/</link>
       <pubDate>Thu, 14 Jan 2016 23:03:57 +0100</pubDate>
       
-      <guid>https://code.markedmondson.me/hello-world/</guid>
+      <guid>/hello-world/</guid>
       <description>
 
 &lt;p&gt;Hello World!  Welcome to my new home for code blogging.  I&amp;rsquo;ll keep the &lt;a href=&#34;http://markedmondson.me&#34;&gt;regular blog&lt;/a&gt; for all the other stuff, running on &lt;a href=&#34;https://posthaven.com/&#34;&gt;Posthaven&lt;/a&gt;.&lt;/p&gt;
