@@ -161,8 +161,8 @@ scrape_googlecache <- function(the_url){
 
 Here is a demo of how it works on one URL:
 
-```{r}
-the_url <- "http://code.markedmondson.me"
+```r
+the_url <- "https://code.markedmondson.me"
 
 html_url <- scrape_googlecache(the_url)
 
