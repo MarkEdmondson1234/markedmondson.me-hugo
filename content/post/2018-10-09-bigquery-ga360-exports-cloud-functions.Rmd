@@ -18,15 +18,17 @@ This post will look at how to use them to work with the GA360 BigQuery export ta
 
 ## Google Cloud Functions
 
-[Cloud Functions](https://cloud.google.com/functions/) are the highest level of abstraction on the serverless stack of the GCP, and offer you a way to just upload code, and then let Google take care of all the dev-ops underneath for serving the results of your function.  They have preconfigured triggers, which you can use to run your code under certain circumstances, such as if a new object arrives in Google Cloud Storage; if you make a request to a HTTP endpoint; or if it recieves a message from Pub/Sub, Google's message broker service.
+[Cloud Functions](https://cloud.google.com/functions/) are the highest level of abstraction on the serverless stack of the GCP, and offer you a way to just upload code, and then let Google take care of all the dev-ops underneath for serving the results of your function.  They have preconfigured triggers, which you can use to run your code under certain circumstances, such as if a new object arrives in Google Cloud Storage; if you make a request to a HTTP endpoint; or if it receives a message from Pub/Sub, Google's message broker service.
 
 Up until recently they have only been available in Node.js, but the new [Python 3 runtime is now in beta](https://cloud.google.com/functions/docs/concepts/python-runtime).  Since I have much more experience with the latter, I took that as an excuse to try it out, and found it solved a lot of little data engineering tasks.
 
-There are lots use cases for Cloud Functions, some of my favourites are to create [mini APIs](https://cloud.google.com/functions/docs/tutorials/http), [load BigQuery with files hitting Cloud Storage](https://cloud.google.com/community/tutorials/cloud-functions-avro-import-bq), or [creating Slack commands](https://cloud.google.com/functions/docs/tutorials/slack)
+There are lots of use cases for Cloud Functions, some of my favourites are to create [mini APIs](https://cloud.google.com/functions/docs/tutorials/http), [load BigQuery with files hitting Cloud Storage](https://cloud.google.com/community/tutorials/cloud-functions-avro-import-bq), or [creating Slack commands](https://cloud.google.com/functions/docs/tutorials/slack)
 
 ### Scheduler vs Event based triggers
 
-One major benefit is that it helps move you from a *schedule based* mindset (such as running scripts on a schedule/cron) to an *event based* one.  For example, the GA360 exports to BigQuery usually happen before 0900 for my clients, but that is not guaranteed.  If you have all your data processing set for a schedule of 0910 say, its going to break if those exports are late.  
+One major benefit is that it helps move you from a *schedule based* mindset (such as running scripts on a schedule/cron) to an *event based* one.  
+
+For example, the GA360 exports to BigQuery usually happen before 0900 for my clients, but that is not guaranteed.  If you have all your data processing set for a schedule of 0910 say, its going to break if those exports are late.  
 
 An event based trigger just waits until it sees the data, then launches the code.  
 
@@ -34,7 +36,7 @@ Another advantage is that event based workflows are asynchronous in the respect 
 
 ## Example: Copy GA360 exports to a partitioned table
 
-As a demonstration, the script below shows how to create a cloud function that will copy a BigQuery GA360 data export to another table.  You may want to do this to aggregate your datasets.  However the use case here is to create a parititoned table version of the GA360 exports, to make them easier to work with.
+As a demonstration, the script below shows how to create a cloud function that will copy a BigQuery GA360 data export to another table.  You may want to do this to aggregate your datasets.  However the use case here is to create a partitioned table version of the GA360 exports, to make them easier to work with.
 
 ### Why partitioned tables?
 
@@ -44,7 +46,7 @@ Partitioned tables are a more modern take on organising date based BigQuery tabl
 
 You can't copy tables outside the region they are in (EU or US for example), for that check out the Cloudy McCloudface master Graham Polley with his [article going through Cloud Dataflow](https://medium.com/weareservian/how-to-transfer-bigquery-tables-between-locations-with-cloud-dataflow-9582acc6ae1d).  
 
-Also cloud functions only work on the same project they are deployed to, so you will need to put it in the same GCP project as the BigQuery exports. 
+Cloud functions only work on the same project they are deployed to, so you will need to put it in the same GCP project as the BigQuery exports. 
 
 Don't make large heavy calculations in your cloud function.  They should be light-weight "glue" that trigger larger operations, not calculating big transformations themselves.
 
@@ -52,7 +54,7 @@ Don't make large heavy calculations in your cloud function.  They should be ligh
 
 First create the dataset where you want the data to be copied to (such as `ga360`) in the same region of your existing BigQuery exports.  By default this is US, but you may have set it up to be EU.  
 
-Create a partitioned table within the dataset called `ga_sessions`.  You don't have to specify a schema as that will be created when the first data hits it. You could choose to require a partition filter if you have a lot of data, to make sure people don't query a lot of data by mistake. 
+Create an empty partitioned table within the dataset called `ga_sessions`.  You don't have to specify a schema as that will be created when the first data hits it. You could choose to require a partition filter if you have a lot of data, to make sure people don't query a lot of data by mistake. 
 
 ### 2. Setup the logging export and pub/sub trigger
 
@@ -228,7 +230,7 @@ Now all that remains is to deploy the function.  The code above needs to be save
  |- requirements.txt
 ```
 
-You may need to then install the `gcloud beta` componenets to deploy the python.  See the [guide](https://cloud.google.com/functions/docs/quickstart) here.
+You may need to then install the `gcloud beta` components to deploy the python.  See the [guide](https://cloud.google.com/functions/docs/quickstart) here.
 
 After you have it installed, browse to the folder holding your code in your console, and then issue the `gcloud` commands to deploy the files.  It takes around 2 mins.
 
