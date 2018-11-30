@@ -14,7 +14,9 @@ description: 'A guide to using Cloud Functions with GA360 exports, including a d
 
 Its been a while since my last blog, although I had a good excuse as I've moved house into the Copenhagen suburbs, Brønshøj.  But in the meantime, I have had the chance to find my new favourite tool for data engineering -  Google Cloud Functions in Python.
 
-This post will look at how to use them to work with the GA360 BigQuery export tables.
+This post will look at how to use them to work with the GA360 BigQuery export tables. 
+
+The code is available in this [GitHub repo for useful cloud functions with Google Analytics](https://github.com/MarkEdmondson1234/google-analytics-cloud-functions)
 
 ## Google Cloud Functions
 
@@ -58,7 +60,7 @@ Create an empty partitioned table within the dataset called `ga_sessions`.  You 
 
 ### 2. Setup the logging export and pub/sub trigger
 
-First I was dissappointed that there wasn't a "BigQuery table ready" event for Cloud Functions...
+First I was disappointed that there wasn't a "BigQuery table ready" event for Cloud Functions...
 
 ```{r echo=FALSE}
 blogdown::shortcode("tweet", "1044854587440734208")
@@ -87,6 +89,8 @@ It should look like this:
 ![](../images/ga360_logging_filter.png)
 
 ### 3. Write the code
+
+The code is available in this [GitHub repo for useful cloud functions with Google Analytics](https://github.com/MarkEdmondson1234/google-analytics-cloud-functions)
 
 The code is adapted from the [Cloud Pub/Sub tutorial](https://cloud.google.com/functions/docs/tutorials/pubsub) for Cloud Functions.
 

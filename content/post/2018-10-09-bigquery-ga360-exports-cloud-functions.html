@@ -16,6 +16,7 @@ description: 'A guide to using Cloud Functions with GA360 exports, including a d
 
 <p>Its been a while since my last blog, although I had a good excuse as I’ve moved house into the Copenhagen suburbs, Brønshøj. But in the meantime, I have had the chance to find my new favourite tool for data engineering - Google Cloud Functions in Python.</p>
 <p>This post will look at how to use them to work with the GA360 BigQuery export tables.</p>
+<p>The code is available in this <a href="https://github.com/MarkEdmondson1234/google-analytics-cloud-functions">GitHub repo for useful cloud functions with Google Analytics</a></p>
 <div id="google-cloud-functions" class="section level2">
 <h2>Google Cloud Functions</h2>
 <p><a href="https://cloud.google.com/functions/">Cloud Functions</a> are the highest level of abstraction on the serverless stack of the GCP, and offer you a way to just upload code, and then let Google take care of all the dev-ops underneath for serving the results of your function. They have preconfigured triggers, which you can use to run your code under certain circumstances, such as if a new object arrives in Google Cloud Storage; if you make a request to a HTTP endpoint; or if it receives a message from Pub/Sub, Google’s message broker service.</p>
@@ -49,7 +50,7 @@ description: 'A guide to using Cloud Functions with GA360 exports, including a d
 </div>
 <div id="setup-the-logging-export-and-pubsub-trigger" class="section level3">
 <h3>2. Setup the logging export and pub/sub trigger</h3>
-<p>First I was dissappointed that there wasn’t a “BigQuery table ready” event for Cloud Functions…</p>
+<p>First I was disappointed that there wasn’t a “BigQuery table ready” event for Cloud Functions…</p>
 {{% tweet "1044854587440734208" %}}
 <p>…but then I realised that you can create almost any trigger you want using the <a href="https://console.cloud.google.com/logs/viewer">cloud log viewer</a> within the GCP console.</p>
 <p>With its use of advanced filters, any event thats happening in your GCP can be narrowed down, and then by using its “Create Export” button you can turn that filter into a Pub/Sub trigger, which Cloud Functions can use.</p>
@@ -69,6 +70,7 @@ NOT protoPayload.serviceData.jobCompletedEvent.job.jobConfiguration.load.destina
 </div>
 <div id="write-the-code" class="section level3">
 <h3>3. Write the code</h3>
+<p>The code is available in this <a href="https://github.com/MarkEdmondson1234/google-analytics-cloud-functions">GitHub repo for useful cloud functions with Google Analytics</a></p>
 <p>The code is adapted from the <a href="https://cloud.google.com/functions/docs/tutorials/pubsub">Cloud Pub/Sub tutorial</a> for Cloud Functions.</p>
 <p>You will need to specify the <code>pip</code> requirements for your code in a <code>requirements.txt</code> file, but you don’t have to actually upload the libraries as you do for say App Engine. Cloud Functions will download them for you when you deploy.</p>
 <p>This <code>requirements.txt</code> file only imports the BigQuery Python client:</p>
