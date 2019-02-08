@@ -329,7 +329,7 @@ However now:
 * `/shiny/` is served by the googleAuthR demo app.  
 * `/` holds the Wordcloud Shiny app. 
 
-### B1: R APIs - OpenCPU
+### B1: R APIs - plumber
 
 *edit 8th Feb, 2019* - seems most people are using [plumber](https://www.rplumber.io/) these days for R APIs, so I've updated to include an example of that as well as OpenCPU*
 
