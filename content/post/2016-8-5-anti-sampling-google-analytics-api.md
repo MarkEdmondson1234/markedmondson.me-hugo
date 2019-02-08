@@ -132,13 +132,6 @@ total = empty_matrix
 
 for i in new_date_ranges:
 
-  if(new_date_ranges[i].start == new_date_ranges[i].end):
-    // only one day so split calls into hourly
-    // see below for do_hourly() explanation
-    batch_call = do_hourly(new_date_range.start, 
-                           metrics = your_metrics, 
-                           dimensions = your_dimensions)
-  else:
     // multi-day batching
     batch_call = get_ga_api(new_date_ranges[i], 
                             metrics = your_metrics, 
@@ -147,9 +140,5 @@ for i in new_date_ranges:
   total = total + batch_call
 ```
 
-### Per hour fetching do_hourly()
-
-The `do_hourly()` function is very similar to the above code for daily, but with a fetch to examine the session distribution per hour.  I only call it when necessary since it is a lot more API calls and its an edge case. 
-
-If you need anti-sampling for sub-hourly, then you should really be looking at using the [BigQuery Google Analytics 360 exports](http://code.markedmondson.me/googleAnalyticsR/big-query.html). :)
+If you need anti-sampling for sub-daily, then you should really be looking at using the [BigQuery Google Analytics 360 exports](http://code.markedmondson.me/googleAnalyticsR/big-query.html). :)
 

@@ -329,9 +329,104 @@ However now:
 * `/shiny/` is served by the googleAuthR demo app.  
 * `/` holds the Wordcloud Shiny app. 
 
-### B: R APIs - OpenCPU
+### B1: R APIs - OpenCPU
+
+*edit 8th Feb, 2019* - seems most people are using [plumber](https://www.rplumber.io/) these days for R APIs, so I've updated to include an example of that as well as OpenCPU*
 
 Kubernetes is well suited to serving R APIs as they can auto-scale to demand, covering peaks and troughs in demand.
+
+Plumber has its own Docker container at `tresletech/plumber` so you can use that as a basis for your own deployments.
+
+An example below deploys the demo from plumber's website.
+
+Say you have an R script that uses plumber such as below:
+
+```r
+#* Echo back the input
+#* @param msg The message to echo
+#* @get /api/echo
+function(msg=""){
+  list(msg = paste0("The message is: '", msg, "'"))
+}
+
+#* Plot a histogram
+#* @png
+#* @get /api/plot
+function(){
+  rand <- rnorm(100)
+  hist(rand)
+}
+
+#* Return the sum of two numbers
+#* @param a The first number to add
+#* @param b The second number to add
+#* @post /api/sum
+function(a, b){
+  as.numeric(a) + as.numeric(b)
+}
+```
+
+You could include your own libraries etc as well, but in that case make sure to install them in the Dockerfile as well so they are available in its environment.
+
+A Dockerfile can be very simple - it only uses the premade plumber Docker image then copies in your script (and perhaps installs any dependencies you want).  The `CMD` line specifies which R script to use in plumber.
+
+```
+FROM trestletech/plumber
+WORKDIR /payload/
+COPY [".","./"]
+
+CMD ["api.R"]
+```
+
+The folder structure is arranged so the Dockerfile will pick up and copy in your plumber script when building:
+
+```
+|
+|- Dockerfile
+|- api.R
+```
+
+
+Deploy and build your Dockerfile so its available for Kubernetes.  I use GitHub and [Google Cloud Build](https://cloud.google.com/cloud-build/) to have it in a private repo, so thats its available at `gcr.io/your-project/my-plumber`
+
+Now we want to deploy the image to Kubernetes:
+
+```sh
+kubectl run my-plumber --image gcr.io/your-project/my-plumber --port 8000
+```
+
+Expose the port as before:
+
+```sh
+kubectl expose deployment my-plumber --target-port=8000  --type=NodePort
+```
+
+And create the ingress so it can speak with the outside world:
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: r-ingress-nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api/
+        backend:
+          serviceName: my-plumber
+          servicePort: 8000
+```
+
+> This assumes you have configured the ingress controller above
+
+### B2: R APIs - OpenCPU
+
+An alternative to plumber is using [OpenCPU](https://www.opencpu.org/), which uses a package structure to construct R APIs.
 
 A demo API is shown below, using [`openCPU` for predicting website clicks](http://code.markedmondson.me/predictClickOpenCPU/), but the same principle applies if using `plumber` or another framework by swapping out the Dockerfile to serve the API on a port. 
 
