@@ -331,7 +331,7 @@ However now:
 
 ### B1: R APIs - plumber
 
-*edit 8th Feb, 2019* - seems most people are using [plumber](https://www.rplumber.io/) these days for R APIs, so I've updated to include an example of that as well as OpenCPU*
+*edit 8th Feb, 2019* - seems most people are using [plumber](https://www.rplumber.io/) these days for R APIs, so I've updated to include an example of that as well as OpenCPU
 
 Kubernetes is well suited to serving R APIs as they can auto-scale to demand, covering peaks and troughs in demand.
 
@@ -341,7 +341,7 @@ An example below deploys the demo from plumber's website.
 
 Say you have an R script that uses plumber such as below:
 
-```r
+```
 #* Echo back the input
 #* @param msg The message to echo
 #* @get /api/echo
@@ -403,7 +403,7 @@ kubectl expose deployment my-plumber --target-port=8000  --type=NodePort
 
 And create the ingress so it can speak with the outside world:
 
-```yaml
+```
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -424,6 +424,12 @@ spec:
 
 > This assumes you have configured the ingress controller above
 
+You can then call your plumber API.  In the ingress above its configured to be within the ´/api/` folder, so all the plumber functions are relative to that.  Assuming your public ip address is 1.2.3.4, this means you can use curl to test your API:
+
+```
+curl http://1.2.3.4/api/echo?msg="its alive!"
+#> "The message is: its alive!"
+```
 ### B2: R APIs - OpenCPU
 
 An alternative to plumber is using [OpenCPU](https://www.opencpu.org/), which uses a package structure to construct R APIs.
@@ -446,7 +452,7 @@ Now we do another Ingress deployment for the R-API, in addition to the Shiny app
 
 Save the below as `r-ingress-opencpu.yaml`
 
-```yaml
+```
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
