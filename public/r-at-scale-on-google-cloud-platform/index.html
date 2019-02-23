@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-    <title>New Blog Down &middot; Mark Edmondson</title>
+    <title>R at scale on the Google Cloud Platform &middot; Mark Edmondson</title>
     <meta name="generator" content="Hugo 0.51" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="Mark Edmondson">
     
-      <meta name="description" content="The code bit of the blog">
+      <meta name="description" content="Current thinking on what I consider the optimal way to work with R on Google Cloud Platform">
     
     
-    <link rel="canonical" href="/new-blog-down/"/>
+    <link rel="canonical" href="/r-at-scale-on-google-cloud-platform/"/>
     <link rel="icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
     <link rel="stylesheet" href="/css/style.css">
@@ -20,35 +20,29 @@
     
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
-    <meta property="og:title" content="New Blog Down" />
-<meta property="og:description" content="A new year, a new blogging platform!
-This time I’m moving from Jekyll to RStudio’s new blogdown format.
-This keeps the advantages of Jekyll (a static, high performance website; markdown for editing; free hosting on Github) but with the extra bonus of being able to render in RMarkdown plus adding some nice looking capabilities from the Hugo project." />
+    <meta property="og:title" content="R at scale on the Google Cloud Platform" />
+<meta property="og:description" content="Current thinking on what I consider the optimal way to work with R on Google Cloud Platform" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/new-blog-down/" /><meta property="article:published_time" content="2017-01-23T22:45:03&#43;01:00"/>
-<meta property="article:modified_time" content="2017-01-23T22:45:03&#43;01:00"/>
+<meta property="og:url" content="/r-at-scale-on-google-cloud-platform/" /><meta property="article:published_time" content="2019-02-23T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-02-23T00:00:00&#43;00:00"/>
 
     
     
-<meta itemprop="name" content="New Blog Down">
-<meta itemprop="description" content="A new year, a new blogging platform!
-This time I’m moving from Jekyll to RStudio’s new blogdown format.
-This keeps the advantages of Jekyll (a static, high performance website; markdown for editing; free hosting on Github) but with the extra bonus of being able to render in RMarkdown plus adding some nice looking capabilities from the Hugo project.">
+<meta itemprop="name" content="R at scale on the Google Cloud Platform">
+<meta itemprop="description" content="Current thinking on what I consider the optimal way to work with R on Google Cloud Platform">
 
 
-<meta itemprop="datePublished" content="2017-01-23T22:45:03&#43;01:00" />
-<meta itemprop="dateModified" content="2017-01-23T22:45:03&#43;01:00" />
-<meta itemprop="wordCount" content="485">
+<meta itemprop="datePublished" content="2019-02-23T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-02-23T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1608">
 
 
 
-<meta itemprop="keywords" content="blogging,r," />
+<meta itemprop="keywords" content="docker,R,google-compute-engine," />
 
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="New Blog Down"/>
-<meta name="twitter:description" content="A new year, a new blogging platform!
-This time I’m moving from Jekyll to RStudio’s new blogdown format.
-This keeps the advantages of Jekyll (a static, high performance website; markdown for editing; free hosting on Github) but with the extra bonus of being able to render in RMarkdown plus adding some nice looking capabilities from the Hugo project."/>
+<meta name="twitter:title" content="R at scale on the Google Cloud Platform"/>
+<meta name="twitter:description" content="Current thinking on what I consider the optimal way to work with R on Google Cloud Platform"/>
 <meta name="twitter:site" content="@HoloMarkeD"/>
 
     
@@ -258,13 +252,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
-            <img src="/banners/hugo.png" class="article-banner">
+            <img src="/banners/r-at-scale.png" class="article-banner">
         
 
         <header class="article-header">
-    <a href="/new-blog-down/">
+    <a href="/r-at-scale-on-google-cloud-platform/">
     <h1 class="article-title" itemprop="name">
-        New Blog Down
+        R at scale on the Google Cloud Platform
     </h1>
     </a>
     <div class="article-meta">
@@ -272,12 +266,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         <div class="article-date">
             <i class="fa fa-calendar"></i>
-            <time datetime="2017-01-23 22:45:03 &#43;0100 CET" itemprop="datePublished">2017-01-23</time>
+            <time datetime="2019-02-23 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-02-23</time>
             &middot;
-            485
+            1608
             words
             &middot;
-            3
+            8
             minute read
         </div>
         
@@ -290,11 +284,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <i class="fa fa-tags"></i>
                 
                 
-                <a class="article-category-link" href="/tags/blogging">blogging</a>
+                <a class="article-category-link" href="/tags/docker">docker</a>
                 &middot;
                 
                 
-                <a class="article-category-link" href="/tags/r">r</a>
+                <a class="article-category-link" href="/tags/r">R</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="/tags/google-compute-engine">google-compute-engine</a>
                 
                 
             </div>
@@ -305,104 +303,159 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         <div class="article-entry" itemprop="articleBody">
             
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
-<script src="/rmarkdown-libs/proj4js/proj4.js"></script>
-<link href="/rmarkdown-libs/highcharts/css/motion.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/highcharts/highstock.js"></script>
-<script src="/rmarkdown-libs/highcharts/highcharts-3d.js"></script>
-<script src="/rmarkdown-libs/highcharts/highcharts-more.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/annotations.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/broken-axis.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/data.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/drilldown.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/exporting.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/funnel.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/heatmap.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/map.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/no-data-to-display.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/offline-exporting.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/solid-gauge.js"></script>
-<script src="/rmarkdown-libs/highcharts/modules/treemap.js"></script>
-<script src="/rmarkdown-libs/highcharts/plugins/annotations.js"></script>
-<script src="/rmarkdown-libs/highcharts/plugins/draggable-legend.js"></script>
-<script src="/rmarkdown-libs/highcharts/plugins/draggable-points.js"></script>
-<script src="/rmarkdown-libs/highcharts/plugins/export-csv.js"></script>
-<script src="/rmarkdown-libs/highcharts/plugins/grouped-categories.js"></script>
-<script src="/rmarkdown-libs/highcharts/plugins/motion.js"></script>
-<script src="/rmarkdown-libs/highcharts/plugins/pattern-fill-v2.js"></script>
-<script src="/rmarkdown-libs/highcharts/plugins/tooltip-delay.js"></script>
-<script src="/rmarkdown-libs/highcharts/custom/reset.js"></script>
-<script src="/rmarkdown-libs/highcharts/custom/symbols-extra.js"></script>
-<script src="/rmarkdown-libs/highcharts/custom/text-symbols.js"></script>
-<link href="/rmarkdown-libs/fontawesome/font-awesome.min.css" rel="stylesheet" />
-<link href="/rmarkdown-libs/htmlwdgtgrid/htmlwdgtgrid.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/highchart-binding/highchart.js"></script>
 
+<p>This post covers my current thinking on what I consider the optimal way to work with R on the Google Cloud Platform (GCP).  It seems this has developed into my niche, and I get questions about it so would like to be able to point to a URL.</p>
 
-<p>A new year, a new blogging platform!</p>
-<p>This time I’m moving from <a href="/hello-world">Jekyll</a> to RStudio’s new <a href="https://github.com/rstudio/blogdown">blogdown</a> format.</p>
-<p>This keeps the advantages of Jekyll (a static, high performance website; markdown for editing; free hosting on Github) but with the extra bonus of being able to render in RMarkdown plus adding some nice looking capabilities from the <a href="https://gohugo.io/">Hugo</a> project.</p>
-<p>As I blog a lot about R it makes sense to have a platform that is more R-aware, as well as it letting me do things like this:</p>
-<pre class="r"><code>library(googleAnalyticsR)
-library(highcharter)
-library(forecast)
+<p>Both R and the GCP rapidly evolve, so this will have to be updated I guess at some point in the future, but even as things stand now you can do some wonderful things with R, and can multiply those out to potentially billions of users with GCP.  The only limit is ambition.</p>
 
-ga_auth()
-gaid &lt;- Sys.getenv(&quot;GA_ID&quot;)
-gadata &lt;- google_analytics_4(gaid, 
-                             date_range = c(&quot;2013-08-01&quot;, &quot;2017-07-31&quot;),
-                             dimensions = c(&quot;yearMonth&quot;),
-                             metrics = &quot;sessions&quot;)</code></pre>
-<pre><code>## Warning: &#39;google_analytics_4&#39; is deprecated.
-## Use &#39;google_analytics&#39; instead.
-## See help(&quot;Deprecated&quot;) and help(&quot;googleAnalyticsR-deprecated&quot;).</code></pre>
-<pre class="r"><code>ga_ts &lt;- ts(gadata$sessions, start = c(2013,08), end = c(2017,07), frequency = 12)
+<p>The common scenarios I want to cover are:</p>
 
-forecast1 &lt;- HoltWinters(ga_ts)
+<ul>
+<li>Scaling a standalone R script</li>
+<li>Scaling Shiny apps<br /></li>
+<li>R APIs</li>
+<li>Machine learning with R</li>
+</ul>
 
-## forecast for next 12 months of the blog sessions
-hchart(forecast(forecast1, h = 12))</code></pre>
-<div id="htmlwidget-1" style="width:100%;height:500px;" class="highchart html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"hc_opts":{"title":{"text":null},"yAxis":{"title":{"text":null}},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"},"bubble":{"minSize":5,"maxSize":25}},"annotationsOptions":{"enabledButtons":false},"tooltip":{"delayForDisplay":10},"xAxis":{"type":"datetime"},"series":[{"data":[[1375315200000,0],[1377993600000,0],[1380585600000,0],[1383264000000,0],[1385856000000,0],[1388534400000,317],[1391212800000,197],[1393632000000,279],[1396310400000,59],[1398902400000,162],[1401580800000,107],[1404172800000,140],[1406851200000,229],[1409529600000,283],[1412121600000,347],[1414800000000,693],[1417392000000,621],[1420070400000,569],[1422748800000,1397],[1425168000000,1309],[1427846400000,1196],[1430438400000,1015],[1433116800000,1260],[1435708800000,2887],[1438387200000,2105],[1441065600000,2607],[1443657600000,3165],[1446336000000,1994],[1448928000000,2228],[1451606400000,2061],[1454284800000,2146],[1456790400000,2406],[1459468800000,2698],[1462060800000,3103],[1464739200000,2909],[1467331200000,3410],[1470009600000,3125],[1472688000000,3221],[1475280000000,3917],[1477958400000,3838],[1480550400000,8267],[1483228800000,13818],[1485907200000,6872],[1488326400000,7392],[1491004800000,6566],[1493596800000,6562],[1496275200000,5840],[1498867200000,5989]],"name":"Series","zIndex":3},{"data":[[1501545600000,5799.88296109746],[1504224000000,5953.82702697917],[1506816000000,6286.04960256189],[1509494400000,5919.18174699678],[1512086400000,7512.16192182951],[1514764800000,8349.27443790722],[1517443200000,4701.14915567939],[1519862400000,6100.01802849025],[1522540800000,6101.59851593583],[1525132800000,6404.34402681755],[1527811200000,6192.00418324618],[1530403200000,6785.03321678322]],"name":"HoltWinters","zIndex":2,"id":"he4kotqmlv"},{"data":[[1501545600000,8009.15429421046,3590.61162798446],[1504224000000,8605.30544712378,3302.34860683456],[1506816000000,9315.86738613737,3256.23181898641],[1509494400000,9285.0774362373,2553.28605775626],[1512086400000,11183.4984332413,3840.82541041768],[1514764800000,12302.5224403987,4396.02643541569],[1517443200000,8917.50157908768,484.796732271103],[1519862400000,10563.9944786475,1636.04157833298],[1522540800000,10800.1667804965,1403.0302513752],[1525132800000,11326.3356690203,1482.35238461478],[1527811200000,11327.7085862557,1056.29978023663],[1530403200000,12125.9055897453,1444.16084382116]],"name":"HoltWinters level 80","type":"arearange","fillOpacity":0.1,"zIndex":1,"lineWidth":0,"linkedTo":"he4kotqmlv"},{"data":[[1501545600000,9178.67189272986,2421.09402946506],[1504224000000,10008.9133371896,1898.74071676878],[1506816000000,10919.756037155,1652.34316796876],[1509494400000,11066.874983848,771.488510145552],[1512086400000,13126.9865851167,1897.33725854234],[1514764800000,14395.2455210494,2303.30335476499],[1517443200000,11149.5037269577,-1747.20541559893],[1519862400000,12927.0808680766,-727.044811096055],[1522540800000,13287.438574996,-1084.24154312437],[1525132800000,13931.8806552989,-1123.19260166379],[1527811200000,14046.3862742742,-1662.37790778189],[1530403200000,14953.1926404598,-1383.12620689336]],"name":"HoltWinters level 95","type":"arearange","fillOpacity":0.1,"zIndex":1,"lineWidth":0,"linkedTo":"he4kotqmlv"}]},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
-<p>As I type R code blocks, the code output gets rendered right into the blog.</p>
-<p>This is the example from the <a href="http://www.dartistics.com">Dartistics.com</a> homepage, and adding interactive HTML widgets to my posts is going to be lovely, with no other hassle other than writing the code.</p>
-<div id="setup-blogdown" class="section level2">
-<h2>Setup blogdown</h2>
-<p>Now, blogdown is in beta so the documentation is a bit sparse at the moment, and I had some teething troubles migrating across from my old blog, but hopefully I have that all sorted now (although I never want to hear about Git submodules again).</p>
-<p>I mostly followed the guide on <a href="https://gohugo.io/tutorials/github-pages-blog/">Hugo about hosting on Github pages</a> and then added the deploy script it recommends to RStudio’s custom project settings, meaning I can now publish with a click of a button:</p>
-<div class="figure">
-<img src="/images/hugo-deploy-rstudio.png" />
+<h2 id="it-almost-always-starts-with-docker">It almost always starts with Docker</h2>
 
-</div>
-<p>My work flow now is:</p>
-<ol style="list-style-type: decimal">
-<li>Click the “Add Post” RStudio addin</li>
-<li>Write my markdown or RMarkdown post</li>
-<li>Preview the website using the “Live Preview Site” RStudio addin</li>
-<li>Copy the public folder over to my website hosting GitHub via a “Build All” button triggering this script:</li>
-</ol>
-<pre><code># Build the project.
-RScript -e &#39;blogdown::build_site()&#39;
+<p>Docker is the main mechanism to achieve scale on GCP.</p>
 
-# Copy all over to other GitHub repo that holds public files
-cp -a ~/Documents/markedmondson.me-hugo/public/. ~/Documents/MarkEdmondson1234.github.io/</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Push the new changes to the website hosting GitHub</li>
-</ol>
-<p>For migration I had to go through and add the <code>url</code> field to the posts with my old URLs to preserve old links to the blog, and also turn off forced lower case via the <code>disablePathToLower = true</code> option in the <code>config.toml</code> file.</p>
-<p>I maintain two Github repos - one with the <a href="https://github.com/MarkEdmondson1234/MarkEdmondson1234.github.io">actual site content</a> and the other holding the <a href="https://github.com/MarkEdmondson1234/markedmondson.me-hugo">Hugo configuration</a>, if you’re interested in my setup.</p>
-<p>I had/have a lot of hassles with git submodules, so much so I now just copy over the files in the Hugo repo’s public folder manually to the GitHub repo that hosts the HTML.</p>
-</div>
+<p>It encapsulates code into a unit of computation that can be built on top of, one which doesn&rsquo;t care which language or system that code needs to run.</p>
+
+<p>This means that a lot of the techniques described are not specific to R - you could have components running python, Java, Rust, Node, whatever is easiest for you.  I do think that Docker&rsquo;s strengths seems to cover R&rsquo;s weaknesses particularly well, but having Docker skills is going to be useful whatever you are doing, and is a good investment in the future.</p>
+
+<p>There is growing support for Docker in R, of which I&rsquo;ll mention:</p>
+
+<ul>
+<li><a href="https://www.rocker-project.org/">The Rocker Project</a> is where it all flows from, providing useful R Docker images</li>
+<li><a href="http://o2r.info/containerit/index.html">containerit</a> is helpful to quickly generate a Dockerfile from an R script or project</li>
+<li><a href="https://richfitz.github.io/stevedore/">steveadore</a> is a Docker client written in R</li>
+</ul>
+
+<p>Within GCP containers are fundamental and once you have your Docker image, will be able to use many of its services both now and in the future, as well as on other cloud providers.  The tools I use day to day with my Docker workflows are:</p>
+
+<ul>
+<li><a href="https://cloud.google.com/cloud-build/docs/running-builds/automate-builds">Build Triggers</a> - I never build Docker on my machine, I always commit the Dockerfiles to GitHub and then this service builds them for me.</li>
+<li><a href="https://cloud.google.com/container-registry/">Container registry</a> - Once built images are available from here.  They are by default private, and over time I&rsquo;ve built a library of useful images.  Some of these are available <a href="https://console.cloud.google.com/cloud-build/triggers?project=gcer-public&amp;organizationId=1054872852559">publically at this repo</a> (you do need to login though)</li>
+</ul>
+
+<p>The above are used within <a href="https://cloudyr.github.io/googleComputeEngineR/reference/gce_vm_template.html">googleComputeEngineR&rsquo;s templates</a>, so as RStudio, Shiny and R APIs can be launched quickly.</p>
+
+<h3 id="1-scaling-an-r-script">1. Scaling an R script</h3>
+
+<p>The first scenario is where you have a script that does something cool, but now you need it to say run on a schedule, run against more data than you can throw at it locally, or just don&rsquo;t have the resources.  In that case you can choose to scale either horizontally or vertically.</p>
+
+<h4 id="1a-getting-a-bigger-boat">1A - Getting a bigger boat</h4>
+
+<p>Vertical scaling is where you just throw more power at the problem.  As R is RAM based, then often the easiest solution is to just run the script on a machine with massive RAM.</p>
+
+<p><em>Pros</em></p>
+
+<ul>
+<li>probably run the same code with no changes needed</li>
+<li>easy to setup</li>
+</ul>
+
+<p><em>Cons</em></p>
+
+<ul>
+<li>expensive</li>
+<li>may be better to have data in database</li>
+</ul>
+
+<p>And it can be massive.  Google Compute Engine offers instances with up to 3.75TB of RAM which can probably eat most jobs. To do so, change the machine type to say <code>n1-ultramem-160</code> that gives you 160 CPU cores as well.  (The <a href="https://cloud.google.com/compute/docs/machine-types#megamem">ultra-mem machine type</a>)</p>
+
+<p>Launching this with googleComputeEngineR:</p>
+
+<pre><code class="language-r">library(googleComputeEngineR)
+
+# this will cost a lot
+bigmem &lt;- gce_vm(&quot;big-mem&quot;, template = &quot;rstudio&quot;, predefined_type = &quot;n1-ultramem-160&quot;)
+</code></pre>
+
+<p>This would however cost you $423 a day, so be ready before you launch such a beast.</p>
+
+<h4 id="data-size">Data size</h4>
+
+<p>However, it is rare that data is in a format that would directly benefit from this much RAM.</p>
+
+<p>Just reading the data will take time at this volumes, and should not be done via CSV files.</p>
+
+<p>Better alternatives include <a href="https://github.com/apache/arrow/tree/master/r">Apache arrow</a>, <a href="https://blog.rstudio.com/2016/03/29/feather/"><code>library(feather)</code></a> or <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html"><code>data.table()</code></a>.</p>
+
+<p>But if your data is that size, then its probably better that it is accessed from a database, and for most analytics tasks like that I reach for BigQuery, which then follows that perhaps you don&rsquo;t need so much RAM if your code is batching operations on the data. For that you can use <a href="https://bigrquery.r-dbi.org/"><code>bigrquery</code></a> or <a href="http://code.markedmondson.me/bigQueryR/"><code>bigQueryR</code></a>.</p>
+
+<h4 id="horizontal-scaling">Horizontal scaling</h4>
+
+<p>This is actually the more common path for me, and its here where Docker starts to come into play.  The idea here is to split up your task into bite sized pieces, run your script on those bits then merge them all back together again, or a split-map-combine workflow.  Not all data problems can be tackled this way, but I would say most can be.</p>
+
+<p>What appeals most to me here is that each time you build the blocks for a job, you may not have to start from scratch - for instance I often reuse images that say connect to BigQuery, and swap the script over.</p>
+
+<p>To achieve this has become a lot easier in R with the future() package, which standardises multicore processing in R, and enables one to take your code and work it on many cores or instances in the cloud.  Again, you may find this easier to do on one big VM with lots of cores, or many small VMs.  The code is similar in both cases, but the setup is not, and make sure ot include code to tear down the instances again afterwards.</p>
+
+<p>Pros:
+- Docker image created that is available for other workflows
+- future interface lets same code work with different scaling strategies like multisession, multicore or multi-instance.</p>
+
+<p>Cons:
+- probably have to change your code so it can be done via split-map-combine
+- have to write meta code to handle the interface of data and code
+- Not applicable to some problems that need to calculate on all data at once.</p>
+
+<h4 id="horizontal-kubernetes">Horizontal Kubernetes</h4>
+
+<p>Another natural next option here is now you are using clusters of machines and Docker is that Kubernetes comes into play.  This can&rsquo;t be done using future() so is a bit more difficult to setup, but what Kubernetes offers is the auto-scaling and preemptive image management, which will be much cheaper in the long run if you need to do this kind of operation many times.</p>
+
+<p>As the pods of Kubernetes are usually stateless (I don&rsquo;t know how to do a stateful cluster) then you need to make sure the data bits that each pod operates on is able to work completely separately, and also coordinate which bits have been worked on and which should be used for future.</p>
+
+<p>Pros
+- takes advantage of Kubernetes features such as auto-scaling, task queues etc.
+- potentially cheaper
+Cons
+- need to create stateless, idempotent workflows
+- need to make some kind of message broker that decides which bits of data to work on for each pod.</p>
+
+<h2 id="scaling-shiny-apps">Scaling Shiny apps</h2>
+
+<p>Here we really have two options, one for low traffic apps and the other for scaling to the world.</p>
+
+<h3 id="dockerise-your-shiny-app">Dockerise your Shiny app</h3>
+
+<p>The first step is to copy your Shiny app folder into a Docker container with all the R libraries you need installed.  From there you are ready to take advantage of almost any cloud providers services. However, the biggest stumbling block I have found is that Shiny requires websocket support, which for some services are not available.  Check your solution first to see if it can deal with websockets before deployment. For instance, App Engine Flexible or Cloud Functions would be a better serverless solutions if the above was supported.</p>
+
+<h3 id="kubernetes">Kubernetes</h3>
+
+<p>Its mainly due to the need of websockets that I recommend going straight to Kubernetes once you have need for more than a couple of Shiny apps.  Kubernetes will take care of deploying the right number of pods to scale your traffic, and starts to make savings once you are past 3 VMs.  However, you may already have a kubernetes cluster deployed for other things, in which case you can hitch onto an existing cluster.</p>
+
+<p>Pros
+- Scale to billions
+- Keeps costs low
+Cons
+- Minimum useage level required to be better than just deploying on a single VM.</p>
+
+<h2 id="r-apis">R APIs</h2>
+
+<p>R currently has two popular ways to make an API out of R code, which once are in a Docker container deploy almost exactly the same.  OpenCPU requires you to make a package out of your code, so takes a little more R skill level, whereas plumber is very easy to get up and running.  Pick your favourite.</p>
+
+<p>Once you have a Docker container that responds with a HTTP request with your desired output, I again suggest Kubernetes as the best place to deploy this for the same reasons as the Shiny app.  In most cases, autoscaling is the killer feature so you aren&rsquo;t losing requests in high peaks or keeping around spare capacity when you are at traffic lows.</p>
+
+<p>In addition, Cloud endpoints deploy onto the ip address of the kubernetes cluster, and provide tools to make the API manageable.  This tips towards using plumber as it provides the OpenAPI/swagger specification you need to configure it.</p>
+
+<p>I tip towards using Kubernetes rather than App Engine flexible from a cost perspective as App Engine flexible doesn&rsquo;t scale to 0 and you can use an existing Kubernetes cluster (Such as say for your Shiny apps)</p>
+
+<h2 id="machine-learning-with-r">Machine learning with R</h2>
+
+<p>If using xgboost or tensorflow/keras and are using production models, then its almost always going to be better to use the cloudml() package for its serverless training and serving of your models.  However during development you may want your own GPU enabled VM which has just been developed in googleComputeEngineR</p>
 
         </div>
         <footer class="article-footer">
-    <a data-url="/new-blog-down/" data-id="565a687394fc951f8fde8dba12fa8952" class="article-share-link">
+    <a data-url="/r-at-scale-on-google-cloud-platform/" data-id="0a894f8bfc38bfa3c0a450c445ec820d" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
     
-    <a href="/new-blog-down/#disqus_thread" class="article-comment-link">
+    <a href="/r-at-scale-on-google-cloud-platform/#disqus_thread" class="article-comment-link">
         Comments
     </a>
     
@@ -478,21 +531,14 @@ cp -a ~/Documents/markedmondson.me-hugo/public/. ~/Documents/MarkEdmondson1234.g
     
 <nav id="article-nav">
     
-    <a href="/real-time-GTM-google-cloud-r-shiny-2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/automatic-google-analytics-data-imports-cloud-storage/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">
           Older
       </strong>
-      <div class="article-nav-title">Real-time forecasting dashboard with Google Tag Manager, Google Cloud and R Shiny - Part two</div>
+      <div class="article-nav-title">Auto Google Analytics Data Imports from Cloud Storage</div>
     </a>
     
 
-    
-    <a href="/r-packages/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">
-          Newer
-      </strong>
-      <div class="article-nav-title">My R Packages</div>
-    </a>
     
 </nav>
 
@@ -542,7 +588,7 @@ cp -a ~/Documents/markedmondson.me-hugo/public/. ~/Documents/MarkEdmondson1234.g
                 <div class="item-thumbnail">
                     <a href="/r-at-scale-on-google-cloud-platform/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/r-at-scale.png)" alt="New Blog Down" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/r-at-scale.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -559,7 +605,7 @@ cp -a ~/Documents/markedmondson.me-hugo/public/. ~/Documents/MarkEdmondson1234.g
                 <div class="item-thumbnail">
                     <a href="/automatic-google-analytics-data-imports-cloud-storage/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/data-imports.jpg)" alt="New Blog Down" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/data-imports.jpg)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -576,7 +622,7 @@ cp -a ~/Documents/markedmondson.me-hugo/public/. ~/Documents/MarkEdmondson1234.g
                 <div class="item-thumbnail">
                     <a href="/bigquery-ga360-exports-cloud-functions/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/cloud-functions.png)" alt="New Blog Down" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/cloud-functions.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -593,7 +639,7 @@ cp -a ~/Documents/markedmondson.me-hugo/public/. ~/Documents/MarkEdmondson1234.g
                 <div class="item-thumbnail">
                     <a href="/talking-google-analytics-dashboards/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/talking-gas.png)" alt="New Blog Down" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/talking-gas.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -612,7 +658,7 @@ cp -a ~/Documents/markedmondson.me-hugo/public/. ~/Documents/MarkEdmondson1234.g
                 <div class="item-thumbnail">
                     <a href="/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/r-kubernetes.png)" alt="New Blog Down" class="thumbnail-image"></span>
+                        <span style="background-image:url(/banners/r-kubernetes.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>

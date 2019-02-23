@@ -387,7 +387,7 @@ The folder structure is arranged so the Dockerfile will pick up and copy in your
 ```
 
 
-Deploy and build your Dockerfile so its available for Kubernetes.  I use GitHub and [Google Cloud Build](https://cloud.google.com/cloud-build/) to have it in a private repo, so thats its available at `gcr.io/your-project/my-plumber`
+Deploy and build your Dockerfile so its available for Kubernetes.  I use GitHub and [Google Cloud Build](https://cloud.google.com/cloud-build/) to have it in a private repo, so thats its available at `gcr.io/your-project/my-plumber`.  This means as I make changes to my plumber script and commit to GitHub, it will rebuild the image.
 
 Now we want to deploy the image to Kubernetes:
 
