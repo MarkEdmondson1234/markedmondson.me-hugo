@@ -10,20 +10,20 @@
       <meta name="description" content="Current thinking on what I consider the optimal way to work with R on Google Cloud Platform">
     
     
-    <link rel="canonical" href="/r-at-scale-on-google-cloud-platform/"/>
-    <link rel="icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/monokai.css">
-    <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+    <link rel="canonical" href="https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/"/>
+    <link rel="icon" href="https://code.markedmondson.me/favicon.ico">
+    <link rel="apple-touch-icon" href="https://code.markedmondson.me/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://code.markedmondson.me/css/style.css">
+    <link rel="stylesheet" href="https://code.markedmondson.me/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.markedmondson.me/css/monokai.css">
+    <link rel="stylesheet" href="https://code.markedmondson.me/fancybox/jquery.fancybox.css">
     
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
     <meta property="og:title" content="R at scale on the Google Cloud Platform" />
 <meta property="og:description" content="Current thinking on what I consider the optimal way to work with R on Google Cloud Platform" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/r-at-scale-on-google-cloud-platform/" /><meta property="article:published_time" content="2019-02-23T00:00:00&#43;00:00"/>
+<meta property="og:url" content="https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/" /><meta property="article:published_time" content="2019-02-23T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2019-02-23T00:00:00&#43;00:00"/>
 
     
@@ -34,7 +34,7 @@
 
 <meta itemprop="datePublished" content="2019-02-23T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-02-23T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2372">
+<meta itemprop="wordCount" content="2368">
 
 
 
@@ -66,16 +66,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<header id="header">
   <div id="header-main" class="header-inner">
     <div class="outer">
-      <a href="/" id="logo">
+      <a href="https://code.markedmondson.me/" id="logo">
           
-          <i class="logo" style="background-image: url('/images/greenhand.png')"></i>
+          <i class="logo" style="background-image: url('https://code.markedmondson.me/images/greenhand.png')"></i>
           
           <span class="site-title">Mark Edmondson</span>
       </a>
       <nav id="main-nav">
           
           
-          <a class="main-nav-link" href="/">Home</a>
+          <a class="main-nav-link" href="https://code.markedmondson.me/">Home</a>
           
           
           
@@ -95,7 +95,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </nav>
         <nav id="sub-nav">
           <div class="profile" id="profile-nav">
-            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="/images/gde_avatar.jpg"><i class="fa fa-caret-down"></i></a>
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://code.markedmondson.me/images/gde_avatar.jpg"><i class="fa fa-caret-down"></i></a>
           </div>
         </nav>
         <div id="search-form-wrap">
@@ -103,7 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <input type="search" name="q" class="search-form-input" placeholder="Search">
               <button type="submit" class="search-form-submit">
               </button>
-              <input type="hidden" name="sitesearch" value="/" />
+              <input type="hidden" name="sitesearch" value="https://code.markedmondson.me/" />
          </form>
         </div>
     </div>
@@ -114,7 +114,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <tr>
           
           
-          <td><a class="main-nav-link" href="/">Home</a></td>
+          <td><a class="main-nav-link" href="https://code.markedmondson.me/">Home</a></td>
           
           
           
@@ -134,7 +134,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <td>
           <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
           <input type="search" name="q" class="search-form-input" placeholder="Search">
-          <input type="hidden" name="sitesearch" value="/" />
+          <input type="hidden" name="sitesearch" value="https://code.markedmondson.me/" />
           </form>
         </td>
       </tr>
@@ -150,7 +150,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="inner profile-inner">
     <div class="base-info profile-block">
       
-      <img id="avatar" src="/images/gde_avatar.jpg">
+      <img id="avatar" src="https://code.markedmondson.me/images/gde_avatar.jpg">
       
       <h2 id="name">Mark Edmondson</h2>
       <h3 id="title">Coding in digital analytics</h3>
@@ -238,7 +238,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <td><a href="//twitter.com/HoloMarkeD" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
 
 
-          <td><a href="/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+          <td><a href="https://code.markedmondson.me/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
         </tr>
       </table>
     </div>
@@ -252,11 +252,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
-            <img src="/banners/r-at-scale.png" class="article-banner">
+            <img src="https://code.markedmondson.me/banners/r-at-scale.png" class="article-banner">
         
 
         <header class="article-header">
-    <a href="/r-at-scale-on-google-cloud-platform/">
+    <a href="https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/">
     <h1 class="article-title" itemprop="name">
         R at scale on the Google Cloud Platform
     </h1>
@@ -268,7 +268,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <i class="fa fa-calendar"></i>
             <time datetime="2019-02-23 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-02-23</time>
             &middot;
-            2372
+            2368
             words
             &middot;
             12
@@ -284,15 +284,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <i class="fa fa-tags"></i>
                 
                 
-                <a class="article-category-link" href="/tags/docker">docker</a>
+                <a class="article-category-link" href="https://code.markedmondson.me/tags/docker">docker</a>
                 &middot;
                 
                 
-                <a class="article-category-link" href="/tags/r">R</a>
+                <a class="article-category-link" href="https://code.markedmondson.me/tags/r">R</a>
                 &middot;
                 
                 
-                <a class="article-category-link" href="/tags/google-compute-engine">google-compute-engine</a>
+                <a class="article-category-link" href="https://code.markedmondson.me/tags/google-compute-engine">google-compute-engine</a>
                 
                 
             </div>
@@ -340,7 +340,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>The above are used within <a href="https://cloudyr.github.io/googleComputeEngineR/reference/gce_vm_template.html">googleComputeEngineR&rsquo;s templates</a>, so as RStudio, Shiny and R APIs can be launched quickly.</p>
 
-<p>The above basically constitute a continuous development basis, so to deploy new code I need but push to GitHub and my script, Shiny app, R API or model are updated automatically.</p>
+<p>The above basically constitute a continuous delivery (CD) basis, so to deploy new code I need but push to GitHub and my script, Shiny app, R API or model are updated automatically.</p>
 
 <h3 id="1-scaling-an-r-script">1. Scaling an R script</h3>
 
@@ -396,7 +396,7 @@ bigmem &lt;- gce_vm(&quot;big-mem&quot;, template = &quot;rstudio&quot;, predefi
 
 <ul>
 <li>Docker image created that is available for other workflows</li>
-<li>future interface lets same code work with different scaling strategies like multisession, multicore or multi-instance.</li>
+<li>library(future) interface lets same code work with different scaling strategies like multisession, multicore or multi-instance.</li>
 </ul>
 
 <p><em>Cons</em></p>
@@ -502,7 +502,7 @@ result
 
 <h2 id="2-scaling-r-applications">2. Scaling R applications</h2>
 
-<p>Now I turn to cloud applications of R - you have written your code and now want to activate that analysis by providing its results, either in a Shiny interactive visualisation or via an API others can call to get the results or R analysis.</p>
+<p>Now I turn to cloud applications of R - you have written your code and want to activate that analysis by providing its results, either in a Shiny interactive visualisation or via an API others can call to get the results.</p>
 
 <h3 id="first-dockerise-your-app">First - Dockerise your app</h3>
 
@@ -562,7 +562,7 @@ CMD [&quot;api.R&quot;]
 
 <h3 id="2a-low-traffic-r-apps">2A - Low traffic R apps</h3>
 
-<p>This is for the situation where you want to make sure your Shiny app scales beyond say a VM you&rsquo;ve set up for low traffic.  In that situation you can just use the <a href="https://cloudyr.github.io/googleComputeEngineR/articles/shiny-app.html"><code>googleComputeEngineR</code> template for Shiny</a>:</p>
+<p>If you only have a few users and no existing resources, you could set up a VM that will handle the requests.  In that situation you can just use the <a href="https://cloudyr.github.io/googleComputeEngineR/articles/shiny-app.html"><code>googleComputeEngineR</code> template for Shiny</a>:</p>
 
 <pre><code>library(googleComputeEngineR)
 ## make new Shiny template VM for your self-contained Shiny app
@@ -572,9 +572,9 @@ vm &lt;- gce_vm(&quot;myapp&quot;,
              dynamic_image = gce_tag_container(&quot;custom-shiny-app&quot;, &quot;your-project&quot;))
 </code></pre>
 
-<p>And if you do that, you still have a Docker image which can then easily be moved to other platforms when you are ready.</p>
+<p>And if you do that, you still have a Docker image which can then easily be moved to other platforms when you are ready to scale.</p>
 
-<p>I always want an API to scale so would suggest it is always deployed to a scalable solution - autoscaling is the killer feature so you aren&rsquo;t losing requests in high peaks or keeping around spare capacity when you are at traffic lows.</p>
+<p>I always want an API to scale so would suggest it is always deployed to a more flexible solution - autoscaling is the killer feature so you aren&rsquo;t losing requests in high peaks or keeping around spare capacity when you are at traffic lows.</p>
 
 <h3 id="2b-r-apps-on-kubernetes">2B - R apps on Kubernetes</h3>
 
@@ -660,16 +660,18 @@ spec:
 
 <h2 id="summary">Summary</h2>
 
-<p>The basic summary at the moment then is &ldquo;Use Docker!&rdquo; then &ldquo;Use Kubernetes!&rdquo; but I suspect the Kubernetes part will be modified in the future to using more managed services as they evolve, largely to match other cloud paltforms where you can already do so.  In all cases though, having that Docker container gives you the flexibility to swap once the new services comes along.  Cloud Functions and App Engine in particular are the next step in managed services, and perhaps in the future you won&rsquo;t even need to create the Docker image - just upload your code, it builds the Dockerfile for you then deploys.</p>
+<p>The basic summary at the moment then is &ldquo;Use Docker!&rdquo; then &ldquo;Use Kubernetes!&rdquo; but I suspect the Kubernetes part will be modified in the future to using more managed services as they evolve, largely to match other cloud paltforms where you can already do so.</p>
+
+<p>In all cases, having that Docker container gives you the flexibility to swap once the new services comes along.  Cloud Functions and App Engine in particular are the next step in managed services, and perhaps in the future you won&rsquo;t even need to create the Docker image - just upload your code, it builds the Dockerfile for you then deploys.</p>
 
         </div>
         <footer class="article-footer">
-    <a data-url="/r-at-scale-on-google-cloud-platform/" data-id="0a894f8bfc38bfa3c0a450c445ec820d" class="article-share-link">
+    <a data-url="https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/" data-id="0a894f8bfc38bfa3c0a450c445ec820d" class="article-share-link">
         <i class="fa fa-share"></i>
         Share
     </a>
     
-    <a href="/r-at-scale-on-google-cloud-platform/#disqus_thread" class="article-comment-link">
+    <a href="https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/#disqus_thread" class="article-comment-link">
         Comments
     </a>
     
@@ -745,7 +747,7 @@ spec:
     
 <nav id="article-nav">
     
-    <a href="/automatic-google-analytics-data-imports-cloud-storage/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="https://code.markedmondson.me/automatic-google-analytics-data-imports-cloud-storage/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">
           Older
       </strong>
@@ -800,15 +802,15 @@ spec:
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="/r-at-scale-on-google-cloud-platform/" class="thumbnail">
+                    <a href="https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/r-at-scale.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
+                        <span style="background-image:url(https://code.markedmondson.me/banners/r-at-scale.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
                 <div class="item-inner">
                     
-                    <p class="item-title"><a href="/r-at-scale-on-google-cloud-platform/" class="title">R at scale on the Google Cloud Platform</a></p>
+                    <p class="item-title"><a href="https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/" class="title">R at scale on the Google Cloud Platform</a></p>
                     <p class="item-date">
                         <time datetime="2019-02-23 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-02-23</time>
                     </p>
@@ -817,15 +819,15 @@ spec:
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="/automatic-google-analytics-data-imports-cloud-storage/" class="thumbnail">
+                    <a href="https://code.markedmondson.me/automatic-google-analytics-data-imports-cloud-storage/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/data-imports.jpg)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
+                        <span style="background-image:url(https://code.markedmondson.me/banners/data-imports.jpg)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
                 <div class="item-inner">
                     
-                    <p class="item-title"><a href="/automatic-google-analytics-data-imports-cloud-storage/" class="title">Auto Google Analytics Data Imports from Cloud Storage</a></p>
+                    <p class="item-title"><a href="https://code.markedmondson.me/automatic-google-analytics-data-imports-cloud-storage/" class="title">Auto Google Analytics Data Imports from Cloud Storage</a></p>
                     <p class="item-date">
                         <time datetime="2018-11-29 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-11-29</time>
                     </p>
@@ -834,15 +836,15 @@ spec:
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="/bigquery-ga360-exports-cloud-functions/" class="thumbnail">
+                    <a href="https://code.markedmondson.me/bigquery-ga360-exports-cloud-functions/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/cloud-functions.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
+                        <span style="background-image:url(https://code.markedmondson.me/banners/cloud-functions.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
                 <div class="item-inner">
                     
-                    <p class="item-title"><a href="/bigquery-ga360-exports-cloud-functions/" class="title">Turning GA360 BigQuery exports into partitioned tables using Cloud Functions</a></p>
+                    <p class="item-title"><a href="https://code.markedmondson.me/bigquery-ga360-exports-cloud-functions/" class="title">Turning GA360 BigQuery exports into partitioned tables using Cloud Functions</a></p>
                     <p class="item-date">
                         <time datetime="2018-10-09 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-10-09</time>
                     </p>
@@ -851,9 +853,9 @@ spec:
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="/talking-google-analytics-dashboards/" class="thumbnail">
+                    <a href="https://code.markedmondson.me/talking-google-analytics-dashboards/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/talking-gas.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
+                        <span style="background-image:url(https://code.markedmondson.me/banners/talking-gas.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -861,7 +863,7 @@ spec:
                     
                     
                     
-                    <p class="item-title"><a href="/talking-google-analytics-dashboards/" class="title">Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs</a></p>
+                    <p class="item-title"><a href="https://code.markedmondson.me/talking-google-analytics-dashboards/" class="title">Talking Google Analytics dashboards via R, Shiny and Text-to-Speech APIs</a></p>
                     <p class="item-date">
                         <time datetime="2018-08-15 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-08-15</time>
                     </p>
@@ -870,9 +872,9 @@ spec:
             
             <li>
                 <div class="item-thumbnail">
-                    <a href="/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/" class="thumbnail">
+                    <a href="https://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/" class="thumbnail">
                     
-                        <span style="background-image:url(/banners/r-kubernetes.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
+                        <span style="background-image:url(https://code.markedmondson.me/banners/r-kubernetes.png)" alt="R at scale on the Google Cloud Platform" class="thumbnail-image"></span>
                     
                     </a>
                 </div>
@@ -880,7 +882,7 @@ spec:
                     
                     
                     
-                    <p class="item-title"><a href="/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/" class="title">R on Kubernetes - serverless Shiny, R APIs and scheduled scripts</a></p>
+                    <p class="item-title"><a href="https://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/" class="title">R on Kubernetes - serverless Shiny, R APIs and scheduled scripts</a></p>
                     <p class="item-date">
                         <time datetime="2018-05-02 00:00:00 &#43;0000 UTC" itemprop="datePublished">2018-05-02</time>
                     </p>
@@ -910,7 +912,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/big-query">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/big-query">
                     big-query
                 </a>
                 <span class="category-list-count">5</span>
@@ -918,7 +920,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/blogging">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/blogging">
                     blogging
                 </a>
                 <span class="category-list-count">2</span>
@@ -926,7 +928,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/cloud-functions">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/cloud-functions">
                     cloud-functions
                 </a>
                 <span class="category-list-count">2</span>
@@ -934,7 +936,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/docker">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/docker">
                     docker
                 </a>
                 <span class="category-list-count">6</span>
@@ -942,7 +944,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/google-analytics">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/google-analytics">
                     google-analytics
                 </a>
                 <span class="category-list-count">8</span>
@@ -950,7 +952,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/google-app-engine">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/google-app-engine">
                     google-app-engine
                 </a>
                 <span class="category-list-count">4</span>
@@ -958,7 +960,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/google-auth">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/google-auth">
                     google-auth
                 </a>
                 <span class="category-list-count">3</span>
@@ -966,7 +968,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/google-cloud-storage">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/google-cloud-storage">
                     google-cloud-storage
                 </a>
                 <span class="category-list-count">4</span>
@@ -974,7 +976,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/google-compute-engine">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/google-compute-engine">
                     google-compute-engine
                 </a>
                 <span class="category-list-count">7</span>
@@ -982,7 +984,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/google-language">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/google-language">
                     google-language
                 </a>
                 <span class="category-list-count">2</span>
@@ -990,7 +992,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/google-tag-manager">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/google-tag-manager">
                     google-tag-manager
                 </a>
                 <span class="category-list-count">3</span>
@@ -998,7 +1000,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/python">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/python">
                     python
                 </a>
                 <span class="category-list-count">4</span>
@@ -1006,7 +1008,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/r">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/r">
                     r
                 </a>
                 <span class="category-list-count">17</span>
@@ -1014,7 +1016,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/rstudio-server">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/rstudio-server">
                     rstudio-server
                 </a>
                 <span class="category-list-count">4</span>
@@ -1022,7 +1024,7 @@ spec:
             
             <li class="category-list-item">
                 
-                <a class="category-list-link" href="/tags/search-console">
+                <a class="category-list-link" href="https://code.markedmondson.me/tags/search-console">
                     search-console
                 </a>
                 <span class="category-list-count">3</span>
@@ -1055,8 +1057,8 @@ spec:
 </footer>
 
 
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script src="/js/script.js"></script>
+<script src="https://code.markedmondson.me/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://code.markedmondson.me/js/script.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 
 
