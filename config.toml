@@ -10,6 +10,7 @@ paginate = 20
 footnotereturnlinkcontents = "↩"
 theme = "hugo-icarus-theme"
 disablePathToLower = true
+pygmentsCodeFences = true
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
