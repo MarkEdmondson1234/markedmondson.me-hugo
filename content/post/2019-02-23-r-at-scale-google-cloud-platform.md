@@ -43,7 +43,7 @@ Within GCP containers are fundamental and once you have a Docker image, you will
 
 The above are used within [googleComputeEngineR's templates](https://cloudyr.github.io/googleComputeEngineR/reference/gce_vm_template.html), so as RStudio, Shiny and R APIs can be launched quickly. 
 
-The above basically constitute a continuous delivery (CD) basis, so to deploy new code I need but push to GitHub and my script, Shiny app, R API or model are updated automatically. 
+This basically constitutes a continuous delivery (CD) basis, so to deploy new code I need but push to GitHub and my script, Shiny app, R API or model are updated automatically. 
 
 ### 1. Scaling an R script
 
@@ -111,7 +111,7 @@ To achieve this has become a lot easier in R with the [future package](https://C
 
 I have a few examples on the [googleComputeEngineR website](https://cloudyr.github.io/googleComputeEngineR/articles/massive-parallel.html) as its a popular application.  A full example from there is shown below:
 
-```
+```r
 library(future)
 library(googleComputeEngineR)
 
@@ -126,8 +126,8 @@ jobs <- lapply(vm_names, function(x) {
     gce_vm_template(template = "r-base",
                     predefined_type = "n1-highmem-2",
                     name = x,
-                    dynamic_image = my_docker),
-                    wait = FALSE
+                    dynamic_image = my_docker,
+                    wait = FALSE)
                     })
                      
 ## wait for all the jobs to complete and VMs are ready
@@ -360,7 +360,7 @@ Some more detail is in the [Kubernetes blog post](https://code.markedmondson.me/
 
 ## Summary
 
-The basic summary at the moment then is "Use Docker!" then "Use Kubernetes!" but I suspect the Kubernetes part will be modified in the future to using more managed services as they evolve, largely to match other cloud paltforms where you can already do so.  
+The basic summary at the moment then is "Use Docker!" then "Use Kubernetes!" but I suspect the Kubernetes part will be modified in the future to using more managed services as they evolve, largely to match other cloud platforms where you can already do so.  
 
 In all cases, having that Docker container gives you the flexibility to swap once the new services comes along.  Cloud Functions and App Engine in particular are the next step in managed services, and perhaps in the future you won't even need to create the Docker image - just upload your code, it builds the Dockerfile for you then deploys.
 
