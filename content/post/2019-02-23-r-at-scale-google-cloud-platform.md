@@ -69,7 +69,7 @@ And it can be massive.  Google Compute Engine offers instances with up to 3.75TB
 
 Launching this with googleComputeEngineR:
 
-```
+```r
 library(googleComputeEngineR)
 
 # this will cost a lot
@@ -204,7 +204,7 @@ The first step is to copy your app folder into a Docker container with all the R
 
 The Dockerfiles are relatively simple, thanks to `rocker/shiny`:
 
-```
+```docker
 FROM rocker/shiny
 MAINTAINER Mark Edmondson (r@sunholo.com)
 
@@ -246,7 +246,7 @@ function(msg=""){
 
 Then the Dockerfile could look like:
 
-```
+```docker
 FROM trestletech/plumber
 
 # copy your plumbed R script     
@@ -260,7 +260,7 @@ CMD ["api.R"]
 
 If you only have a few users and no existing resources, you could set up a VM that will handle the requests.  In that situation you can just use the [`googleComputeEngineR` template for Shiny](https://cloudyr.github.io/googleComputeEngineR/articles/shiny-app.html):
 
-```
+```r
 library(googleComputeEngineR)
 ## make new Shiny template VM for your self-contained Shiny app
 vm <- gce_vm("myapp", 
@@ -292,14 +292,14 @@ Its mainly due to the need of websockets that I recommend going straight to Kube
 
 Once setup, deployment is quick via the CLI:
 
-```
+```bash
 kubectl run shiny1 --image gcr.io/gcer-public/shiny-googleauthrdemo:latest --port 3838
 kubectl expose deployment shiny1 --target-port=3838  --type=NodePort
 ```
 
 The trickest thing is the ingress, but once grokked works by uploading some boilerplate yaml:
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -322,14 +322,14 @@ spec:
 
 Deploying the R API once in a Docker container is very similar.  
 
-```
+```bash
 kubectl run my-plumber --image gcr.io/your-project/my-plumber --port 8000
 kubectl expose deployment my-plumber --target-port=8000  --type=NodePort
 ```
 
 ...with a ingress setup similar to:
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -350,8 +350,8 @@ spec:
 
 You should then be able to call your R API via any HTTP request:
 
-```
-curl http://1.2.3.4/api/echo?msg="its alive!"
+```bash
+curl 'http://1.2.3.4/api/echo?msg="its alive!"'
 #> "The message is: its alive!"
 ```
 

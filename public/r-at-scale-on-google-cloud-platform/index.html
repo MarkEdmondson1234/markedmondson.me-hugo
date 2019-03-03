@@ -372,7 +372,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>Launching this with googleComputeEngineR:</p>
 
-<pre><code>library(googleComputeEngineR)
+<pre><code class="language-r">library(googleComputeEngineR)
 
 # this will cost a lot
 bigmem &lt;- gce_vm(&quot;big-mem&quot;, template = &quot;rstudio&quot;, predefined_type = &quot;n1-ultramem-160&quot;)
@@ -512,7 +512,7 @@ result
 
 <p>The Dockerfiles are relatively simple, thanks to <code>rocker/shiny</code>:</p>
 
-<pre><code>FROM rocker/shiny
+<pre><code class="language-docker">FROM rocker/shiny
 MAINTAINER Mark Edmondson (r@sunholo.com)
 
 # install R package dependencies
@@ -553,7 +553,7 @@ function(msg=&quot;&quot;){
 
 <p>Then the Dockerfile could look like:</p>
 
-<pre><code>FROM trestletech/plumber
+<pre><code class="language-docker">FROM trestletech/plumber
 
 # copy your plumbed R script     
 COPY api.R /api.R
@@ -566,7 +566,7 @@ CMD [&quot;api.R&quot;]
 
 <p>If you only have a few users and no existing resources, you could set up a VM that will handle the requests.  In that situation you can just use the <a href="https://cloudyr.github.io/googleComputeEngineR/articles/shiny-app.html"><code>googleComputeEngineR</code> template for Shiny</a>:</p>
 
-<pre><code>library(googleComputeEngineR)
+<pre><code class="language-r">library(googleComputeEngineR)
 ## make new Shiny template VM for your self-contained Shiny app
 vm &lt;- gce_vm(&quot;myapp&quot;, 
              template = &quot;shiny&quot;,
@@ -601,13 +601,13 @@ vm &lt;- gce_vm(&quot;myapp&quot;,
 
 <p>Once setup, deployment is quick via the CLI:</p>
 
-<pre><code>kubectl run shiny1 --image gcr.io/gcer-public/shiny-googleauthrdemo:latest --port 3838
+<pre><code class="language-bash">kubectl run shiny1 --image gcr.io/gcer-public/shiny-googleauthrdemo:latest --port 3838
 kubectl expose deployment shiny1 --target-port=3838  --type=NodePort
 </code></pre>
 
 <p>The trickest thing is the ingress, but once grokked works by uploading some boilerplate yaml:</p>
 
-<pre><code>apiVersion: extensions/v1beta1
+<pre><code class="language-yaml">apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: r-ingress-nginx
@@ -628,13 +628,13 @@ spec:
 
 <p>Deploying the R API once in a Docker container is very similar.</p>
 
-<pre><code>kubectl run my-plumber --image gcr.io/your-project/my-plumber --port 8000
+<pre><code class="language-bash">kubectl run my-plumber --image gcr.io/your-project/my-plumber --port 8000
 kubectl expose deployment my-plumber --target-port=8000  --type=NodePort
 </code></pre>
 
 <p>&hellip;with a ingress setup similar to:</p>
 
-<pre><code>apiVersion: extensions/v1beta1
+<pre><code class="language-yaml">apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: r-ingress-nginx
@@ -654,7 +654,7 @@ spec:
 
 <p>You should then be able to call your R API via any HTTP request:</p>
 
-<pre><code>curl http://1.2.3.4/api/echo?msg=&quot;its alive!&quot;
+<pre><code class="language-bash">curl 'http://1.2.3.4/api/echo?msg=&quot;its alive!&quot;'
 #&gt; &quot;The message is: its alive!&quot;
 </code></pre>
 
