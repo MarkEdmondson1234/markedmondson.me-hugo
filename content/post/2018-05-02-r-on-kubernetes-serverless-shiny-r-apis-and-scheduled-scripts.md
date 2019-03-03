@@ -403,7 +403,7 @@ kubectl expose deployment my-plumber --target-port=8000  --type=NodePort
 
 And create the ingress so it can speak with the outside world:
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -426,7 +426,7 @@ spec:
 
 You can then call your plumber API.  In the ingress above its configured to be within the ´/api/` folder, so all the plumber functions are relative to that.  Assuming your public ip address is 1.2.3.4, this means you can use curl to test your API:
 
-```
+```bash
 curl http://1.2.3.4/api/echo?msg="its alive!"
 #> "The message is: its alive!"
 ```
@@ -452,7 +452,7 @@ Now we do another Ingress deployment for the R-API, in addition to the Shiny app
 
 Save the below as `r-ingress-opencpu.yaml`
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -526,7 +526,7 @@ An alternative is to configure the Dockerfile to rely on a config file, and have
 
 This is an example Dockerfile that installs dependencies and R packages, loads a local configuration file then runs a custom function when it is called upon by the cronJob:
 
-```
+```docker
 FROM rocker/verse
 MAINTAINER Mark Edmondson (r@sunholo.com)
 
