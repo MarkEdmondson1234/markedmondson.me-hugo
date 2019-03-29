@@ -1,5 +1,5 @@
 ---
-title: Four Ways to Schedule R scripts on Google Cloud Platform
+title: Five Ways to Schedule R scripts on Google Cloud Platform
 author: Mark Edmondson
 date: '2017-07-09'
 slug: 4-ways-schedule-r-scripts-on-google-cloud-platform
@@ -75,7 +75,7 @@ Over time though, this can get big and (sigh) fill up your disk so you can't log
 
 Several of the methods below use [`Docker`](https://www.docker.com/).  
 
-The reasons for that is Docker provides a nice reprodueable way to define exactly what packages and dependencies you need for your script to run, which can run on top of any type of infrastructure as `Docker` has quickly become a cloud standard.  
+The reasons for that is Docker provides a nice reproducible way to define exactly what packages and dependencies you need for your script to run, which can run on top of any type of infrastructure as `Docker` has quickly become a cloud standard.  
 
 For instance, migrating from Google Cloud to AWS is much easier if both can be deployed using Docker, and below Docker is instrumental in allowing you to run on multiple solutions.
 
