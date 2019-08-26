@@ -21,12 +21,10 @@ library(googleAnalyticsR)
 library(highcharter)
 library(forecast)
 
-ga_auth()
-gaid <- Sys.getenv("GA_ID")
-gadata <- google_analytics_4(gaid, 
-                             date_range = c("2013-08-01", "2017-07-31"),
-                             dimensions = c("yearMonth"),
-                             metrics = "sessions")
+gadata <- google_analytics(81416156, 
+                           date_range = c("2013-08-01", "2017-07-31"),
+                           dimensions = c("yearMonth"),
+                           metrics = "sessions")
 
 ga_ts <- ts(gadata$sessions, start = c(2013,08), end = c(2017,07), frequency = 12)
 
