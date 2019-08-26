@@ -273,6 +273,60 @@ And if you do that, you still have a Docker image which can then easily be moved
 
 I always want an API to scale so would suggest it is always deployed to a more flexible solution - autoscaling is the killer feature so you aren't losing requests in high peaks or keeping around spare capacity when you are at traffic lows.
 
+### 2A1 - R APIs on Cloud Run
+
+*this is updated from the original blog post in summer 2019*
+
+*Pros*
+
+- Scale to billions
+- Keeps costs low
+- easy to deploy
+
+*Cons*
+
+- Only works with R APIs, not Shiny
+
+Now Google has released [Cloud Run!](https://cloud.run)  And with that release, I modify my original recommendation for R APIs to be deployed on Kubernetes, to instead use Cloud Run.
+
+Why?  Its so simple.  After you have made your Docker container for your plumber API, you simply point the Cloud run service at the image and you are done.  Hosting, scaling and the rest is all taken care of.
+
+To help demonstrate, I've made a GitHub report for [CloudRunR](https://github.com/MarkEdmondson1234/cloudRunR/) that deploys the demo plumber app.
+
+The only trick to it really is to allow Cloud Run to set the port plumber listens on, which is done via this Dockerfile:
+
+```
+FROM trestletech/plumber
+LABEL maintainer="mark"
+
+COPY [".", "./"]
+
+ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(commandArgs()[4]); pr$run(host='0.0.0.0', port=as.numeric(Sys.getenv('PORT')))"]
+CMD ["api.R"]
+```
+
+Once the Cloud Build has finished it will give you a Docker URI such as gcr.io/mark-edmondson-gde/cloudrunr:939c04dfe80a1eefed28f9dd59aae5dff5dc1e1e.
+
+1. Go to https://console.cloud.google.com/run/
+2. Create a new service, name it something cool
+3. Put the Docker URI into the Cloud Run field.
+4. Select public endpoint, and limit concurrency to what your app is configured to handle per instance (I chose 8)
+
+And thats it. A deployed R API.
+
+![](/images/cloudrunr.png)
+
+You will then get a URL for the API you can use. For this demo app the endpoints are /hello, /echo?msg="my message" and /plot (or filter the plot via /plot?spec=setosa)
+
+
+* https://cloudrunr-ewjogewawq-uc.a.run.app/hello
+* https://cloudrunr-ewjogewawq-uc.a.run.app/echo?msg=my%20message
+* https://cloudrunr-ewjogewawq-uc.a.run.app/plot
+* https://cloudrunr-ewjogewawq-uc.a.run.app/plot?spec=setosa
+
+
+> But what about Shiny apps?  Well those need web sockets, and they are (AFAIK at time of writing) not supported by Cloud Run.  So the original suggestion on using Kubernetes still stands for Shiny apps, below.
+
 ### 2B - R apps on Kubernetes
 
 ![](/images/kubernetes.png)
@@ -319,48 +373,12 @@ spec:
           servicePort: 3838
 ```
 
-
-Deploying the R API once in a Docker container is very similar.  
-
-```bash
-kubectl run my-plumber --image gcr.io/your-project/my-plumber --port 8000
-kubectl expose deployment my-plumber --target-port=8000  --type=NodePort
-```
-
-...with a ingress setup similar to:
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: r-ingress-nginx
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /api/
-        backend:
-          serviceName: my-plumber
-          servicePort: 8000
-```
-
-You should then be able to call your R API via any HTTP request:
-
-```bash
-curl 'http://1.2.3.4/api/echo?msg="its alive!"'
-#> "The message is: its alive!"
-```
-
 Some more detail is in the [Kubernetes blog post](https://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/). 
 
 
 ## Summary
 
-The basic summary at the moment then is "Use Docker!" then "Use Kubernetes!" but I suspect the Kubernetes part will be modified in the future to using more managed services as they evolve, largely to match other cloud platforms where you can already do so.  
+With the introduction of Cloud Run, the options get simpler for R APIs, although in all circumstances the first suggestion is "Use Docker!".  Cloud Run is a level of service built on top of Kubernetes, but if you can't use that then "Use Kubernetes!" is the next byword for scale.
 
 In all cases, having that Docker container gives you the flexibility to swap once the new services comes along.  Cloud Functions and App Engine in particular are the next step in managed services, and perhaps in the future you won't even need to create the Docker image - just upload your code, it builds the Dockerfile for you then deploys.
 
