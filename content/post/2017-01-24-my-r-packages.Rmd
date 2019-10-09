@@ -4,7 +4,7 @@ date: 2017-01-24T21:20:50+01:00
 description: ""
 images: []
 menu: "main"
-tags: ["r", "google-auth", "big-query", "google-analytics", "google-cloud-storage", "google-compute-engine", "google-tag-manager", "search-console"]
+tags: ["R", "google-auth", "big-query", "google-analytics", "google-cloud-storage", "google-compute-engine", "google-tag-manager", "search-console"]
 title: "My R Packages"
 url: /r-packages/
 ---

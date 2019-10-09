@@ -4,7 +4,7 @@ author: Mark Edmondson
 date: '2018-01-11'
 slug: searchconsoler-vs-googlelanguager
 tags:
-  - r
+  - R
   - search-console
   - google-language
 banner: banners/nlp_sc.png

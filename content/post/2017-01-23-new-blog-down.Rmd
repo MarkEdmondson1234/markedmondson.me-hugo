@@ -3,7 +3,7 @@ date: 2017-01-23T22:45:03+01:00
 description: ""
 banner: banners/hugo.png
 menu: ""
-tags: ["blogging", "r"]
+tags: ["blogging", "R"]
 title: "New Blog Down"
 url: /new-blog-down/
 ---

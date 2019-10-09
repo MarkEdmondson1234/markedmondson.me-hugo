@@ -1,7 +1,7 @@
 ---
 title: Run RStudio Server on a Chromebook as a Cloud Native
 date: "2017-09-05T13:55:57+01:00"
-tags: ["google-cloud-storage","google-compute-engine","r", "rstudio-server", "docker","google-app-engine"]
+tags: ["google-cloud-storage","google-compute-engine","R", "rstudio-server", "docker","google-app-engine"]
 banner: banners/chromebook.png
 url: /rstudio-server-chromebook/
 ---

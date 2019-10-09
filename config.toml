@@ -10,7 +10,7 @@ paginate = 20
 footnotereturnlinkcontents = "↩"
 theme = "hugo-icarus-theme"
 disablePathToLower = true
-highlightjsLang = ["r", "yaml", "bash", "python"]
+highlightjsLang = ["r", "yaml", "bash", "python", "go"]
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
