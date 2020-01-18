@@ -51,7 +51,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [[params.menu]]
     before = false
     label  = "Non-code blog"
-    link   = "http://markedmondson.me"
+    link   = "http://www.markedmondson.me/posts/"
 
 #[[params.menu]]
 #    before = false
