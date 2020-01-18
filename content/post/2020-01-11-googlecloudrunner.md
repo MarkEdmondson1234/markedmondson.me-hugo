@@ -2,7 +2,7 @@
 title: 'Introducing googleCloudRunner - serverless R on Google Cloud Platform'
 author: Mark Edmondson
 date: '2020-01-18'
-slug: googleCloudRunner
+slug: googleCloudRunner-intro
 tags:
   - R
   - docker
