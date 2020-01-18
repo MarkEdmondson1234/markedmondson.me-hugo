@@ -251,11 +251,11 @@ This obviously is not clear by the amount of R support in the cloud - first clas
 
 ## Summary
 
-I hope others will see the benefits I already am seeing from having this in my data engineering armoury.  There has already been good feedback from early users.  
+I hope others will see the benefits I already am seeing from having [**googleCloudRunner**](https://code.markedmondson.me/googleCloudRunner/) in my data engineering armoury.  There has already been good feedback from early users.  
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Popping up from my new Cloud Build jobs to say Google Cloud Platform is staggeringly good. If you&#39;re into <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> it&#39;s well worth your time, starting with <a href="https://twitter.com/HoloMarkeD?ref_src=twsrc%5Etfw">@HoloMarkeD</a>&#39;s packages. The free tier is enough for all sorts of side-project fun.</p>&mdash; Neil Charles (@neilcharles_uk) <a href="https://twitter.com/neilcharles_uk/status/1218113727532355584?ref_src=twsrc%5Etfw">January 17, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
-I'm also pleased that it has potenital applications outside of R, since to my knowledge there are not yet other easy ways to generate cloudbuild.yml programatically, which is the backbone of the package.  Looping creation of hundreds of Cloud Builds for distribution to other non-R using data workers, for instance, means one-off jobs and scripts can be safely banked for when needed or modified.  It also makes it a lot easier to integrate R scripts into what non-R users are doing - killer features like the stat libraries, ggplot2, tidyverse, RMarkdown reports etc. 
+I'm also pleased that it has potential applications outside of R, since to my knowledge there are not yet other easy ways to generate cloudbuild.yml programatically, which is the backbone of the package.  Looping creation of hundreds of Cloud Builds for distribution to other non-R using data workers, for instance, means one-off jobs and scripts can be safely banked for when needed or modified.  It also makes it a lot easier to integrate R scripts into what non-R users are doing - killer features like the stat libraries, ggplot2, tidyverse, RMarkdown reports etc. 
 
 I wonder what the next meta-jump is from here and would be interested if you have some ideas.  Multi-cloud? Multi-builds?  I guess I'll just have to wait to find out :)
 
