@@ -277,6 +277,8 @@ I always want an API to scale so would suggest it is always deployed to a more f
 
 *this is updated from the original blog post in summer 2019*
 
+*Now I've made a package to make R APIs easier to deploy onto Cloud Run - see [googleCloudRunner](https://code.markedmondson.me/googleCloudRunner/) for details!*
+
 *Pros*
 
 - Scale to billions

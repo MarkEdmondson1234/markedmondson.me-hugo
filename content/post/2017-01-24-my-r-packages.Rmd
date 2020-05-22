@@ -20,11 +20,13 @@ I concentrate on the Google cloud below, but be sure to check out the other pack
 Status             | URL                      | Description
 ------------------ | ------------------------ | -----------------------------------------------------
 [![](http://www.r-pkg.org/badges/version/googleAuthR)](http://cran.r-project.org/package=googleAuthR) |  [googleAuthR](http://code.markedmondson.me/googleAuthR/) | The central workhorse for authentication on Google APIs
-[![](http://www.r-pkg.org/badges/version/googleAnalyticsR)](http://cran.r-project.org/package=googleAnalyticsR) | [googleAnalyticsR](http://code.markedmondson.me/googleAnalyticsR/) | Works with Google Analytics Reporting V3/V4 and Management APIs
+[![](http://www.r-pkg.org/badges/version/googleAnalyticsR)](http://cran.r-project.org/package=googleAnalyticsR) | [googleAnalyticsR](https://code.markedmondson.me/googleAnalyticsR/) | Works with Google Analytics Reporting V3/V4 and Management APIs
 [![](http://www.r-pkg.org/badges/version/googleComputeEngineR)](http://cran.r-project.org/package=googleComputeEngineR) | [googleComputeEngineR](https://cloudyr.github.io/googleComputeEngineR/) | Launch Virtual Machines within the Google Cloud, via templates or your own Docker containers. 
-[![](http://www.r-pkg.org/badges/version/googleCloudStorageR)](http://cran.r-project.org/package=googleCloudStorageR) | [googleCloudStorageR](http://code.markedmondson.me/googleCloudStorageR/) | Interact with Google Cloud Storage via R
-[![](http://www.r-pkg.org/badges/version/bigQueryR)](http://cran.r-project.org/package=bigQueryR) | [bigQueryR](http://code.markedmondson.me/bigQueryR/) | Interact with Google BigQuery via R
-[![](http://www.r-pkg.org/badges/version/searchConsoleR)](http://cran.r-project.org/package=searchConsoleR) |  [searchConsoleR](http://code.markedmondson.me/searchConsoleR/) | Download Search Console data into R
+[![](http://www.r-pkg.org/badges/version/googleCloudStorageR)](http://cran.r-project.org/package=googleCloudStorageR) | [googleCloudStorageR](https://code.markedmondson.me/googleCloudStorageR/) | Interact with Google Cloud Storage via R
+[![](http://www.r-pkg.org/badges/version/bigQueryR)](http://cran.r-project.org/package=bigQueryR) | [bigQueryR](https://code.markedmondson.me/bigQueryR/) | Interact with Google BigQuery via R
+[![](http://www.r-pkg.org/badges/version/searchConsoleR)](http://cran.r-project.org/package=searchConsoleR) |  [searchConsoleR](https://code.markedmondson.me/searchConsoleR/) | Download Search Console data into R
+[![](https://www.r-pkg.org/badges/version/googleLanguageR)](https://cran.r-project.org/package=googleLanguageR) | [googleLanguageR](https://code.markedmondson.me/googleLanguageR/) | Google APIs for NLP, Text-to-speech, speech-to-text and translation
+![](http://www.r-pkg.org/badges/version/googleCloudRunner) | [googleCloudRunner](https://code.markedmondson.me/googleCloudRunner/) | As easy as possible R scripts in the cloud, via Cloud Run, Cloud Build and Cloud Scheduler
 
 As you can tell, most are aimed towards helping R users with help in digital analytics and cloud based services.  You can get some idea of how they can [work together in a digital analytics workflow here](/digital-analytics-workflow-through-google-cloud/).
 
@@ -36,8 +38,6 @@ More experimental packages:
 Status             | URL                      | Description
 ------------------ | ------------------------ | -----------------------------------------------------
 Dev | [googleMeasureR](https://github.com/MarkEdmondson1234/googleMeasureR) | Send tracking hits to Google Analytics from R code using the Google Analytics Measurement Protocol 
-[![](https://travis-ci.org/MarkEdmondson1234/googleLanguageR.png?branch=master)](https://travis-ci.org/MarkEdmondson1234/googleLanguageR) | [googleLanguageR](https://github.com/MarkEdmondson1234/googleLanguageR) | Access Speech to text, translation and NLP text processing APIs
-[![](https://travis-ci.org/MarkEdmondson1234/googleID.svg?branch=master)](https://travis-ci.org/MarkEdmondson1234/googleID) | [googleID](https://github.com/MarkEdmondson1234/googleID) | In production, but very small so not on CRAN.  Allows user authentication via Google+ API for Shiny and RMarkdown documents. 
 Dev | [youtubeAnalyticsR](https://github.com/MarkEdmondson1234/youtubeAnalyticsR) | Access YouTube Analytics data
 Deprecated | [gtmR](https://github.com/MarkEdmondson1234/gtmR) | Superceded by [googleTagManagerR](https://github.com/IronistM/googleTagManageR)
 Reference  | [autoGoogleAPI](https://github.com/MarkEdmondson1234/autoGoogleAPI) | 152 R packages auto generated via `googleAuthR`'s discovery API feature

@@ -83,6 +83,8 @@ Bear in mind that when a Docker container relaunches it won't save any data, so 
 
 ## Scheduling options - Pros and cons
 
+> edit 2020-05-22 - I've added googleCloudRunner as an option, and this I think is the best one at the moment
+
 Here is an overview of the pros and cons of the options presented in more detail below:
 
 Method                 | Pros                       | Cons
@@ -91,6 +93,7 @@ Method                 | Pros                       | Cons
 2. `gce_vm_scheduler` and `Dockerfiles` | Robust and can launch from local R session, support versioning | Need to build Dockerfiles, all scripts on one VM
 3. Master & Slave VM | Tailor a fresh VM for each script, cheaper | Need to build Dockerfiles, more complicated VM setup.
 4. Google AppEngine with flexible containers | Managed platform | Need to turn script into web responses, more complicated setup
+5. [googleCloudRunner R scheeduled scripts](https://code.markedmondson.me/googleCloudRunner/) | Modern and serverless, most recommended | Still need to know a bit of Docker
 
 ## 1 - cronR plus RStudio Server
 
@@ -339,6 +342,27 @@ It will take a while (up to 10 mins) the first time.
 Logs for the instance are found [here](https://console.cloud.google.com/logs/viewer).
 
 This approach is the most flexible, and offers a fully managed platform for your scripts.  Scheduled scripts are only the beginning, since deploying such actually gives you a way to run R scripts in response to any HTTP request from any language - triggers could also include if someone updates a spreadsheet, adds a file to a folder, pushes to GitHub etc. which opens up a lot of exciting possibilities.  You can also scale it up to become a fully functioning R API. 
+
+# 5 - googleCloudRunner
+
+This is now possible from 2020 as [googleCloudRunner](https://code.markedmondson.me/googleCloudRunner/) is now on CRAN.  This is now what I use day to day.
+
+Its the culmination of the techniques described above, and attempts to automate most of the painful bits above.  Its using serverless services such as Cloud Build to build you R script.
+
+If you want to use base R it is as simple as:
+
+```r
+library(googleCloudRunner)
+cr_deploy_r("your-script.R", schedule = "5 15 * * *")
+```
+
+If you want to use your own R packages then make a Dockerfile with those packages within them, and supply it to the function:
+
+```r
+cr_deploy_r("your-script.R", schedule = "5 15 * * *", r_image = "gcr.io/gcer-public/googleauthr-verse")
+```
+
+There is also an RStudio gadget with a wizard to help you schedule them.  Get started by going through [resources](https://code.markedmondson.me/googleCloudRunner/index.html#resources) and the [use cases](https://code.markedmondson.me/googleCloudRunner/articles/usecases.html) listed on the website. 
 
 ## Summary
 
