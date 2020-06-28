@@ -158,7 +158,7 @@ Paddle then uses webhooks to communicate with your server (in this case, Firesto
 
 ### Google Cloud Functions
 
-For simple "glue" data flows my go-to is Google Cloud Functions, as you only need write the code and deploy without needing to worry about servers or scale.  Firebase has its own Cloud Function UI as well but that only supports node.js, so I opted to use the GCP console Cloud Fucntions in Python3.7. (Its the same service and infrastructure as Firebase.)
+For simple "glue" data flows my go-to is Google Cloud Functions, as you only need write the code and deploy without needing to worry about servers or scale.  Firebase has its own Cloud Function UI as well but that only supports node.js, so I opted to use the GCP console Cloud Functions in Python3.7 (Its the same service and infrastructure as Firebase.)
 
 Paddle had lots of Python examples already on the website on how to verify and deal with the data in their webhook payload so a lot of it was just copy-paste from there into the Cloud Function UI.  There is some more setup info in the [Cloud Function readme](https://github.com/MarkEdmondson1234/Shiny-R-SaaS/tree/master/payment_app) - the only extra bit I needed to add was how to take the webhook payload and write it to Firestore - this was all handled by this snippet of code:
 
@@ -178,7 +178,9 @@ def update_firebase(data, collection, doc_id):
     event_ref.set(data)   
 ```
 
-Before writing to Firebase though Paddle gives you code to verify that the data is from a trusted source which it achieves via public/private keys which is important for payment applications - you can see the [full function here](https://github.com/MarkEdmondson1234/Shiny-R-SaaS/blob/master/payment_app/fb_functions/main.py). 
+The `event` collection is per userId, and gives the complete history of their transactions.
+
+If implementing your own, make sure to use the verification code that checks the webhook is from a trusted source. Paddle supplies public/private keys and [code to check them](https://developer.paddle.com/webhook-reference/verifying-webhooks), which is important for payment applications - you can see the [full function here](https://github.com/MarkEdmondson1234/Shiny-R-SaaS/blob/master/payment_app/fb_functions/main.py). 
 
 As it works off webhooks this means that even when a user is not on the app important updates will still be enacted (such as monthly credit card payments or declines) and it moves a lot of work off your app for verifying/authorizing users.
 
@@ -283,6 +285,8 @@ Put together this is a view for a non-subscriber vs a subscriber:
 ![](/images/non-subscriber-content.png)
 
 ![](/images/subscriber-content.png)
+
+Its not pretty yet but thats for you to do :)
 
 ## Summary
 
