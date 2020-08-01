@@ -17,25 +17,25 @@ There are some references on how to deploy Shiny apps to Cloud Run around the we
 
 ## Why Shiny on Cloud Run?
 
-As mentioned in my [R at scale on Google Cloud Platform post](https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/), Cloud Run is a container-as-a-service which lets you deploy Docker containers to the web without needing to worry about the infrastructure.  One of the most attractive features is the scaling, as you can pay zero when your app has no visits, but as demand increases it can flexibly serve up your app to billions of users. 
+As mentioned in my [R at scale on Google Cloud Platform post](https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/), Cloud Run is a container-as-a-service which lets you deploy Docker containers to the web without needing to worry about the infrastructure.  One of its most attractive features is the scaling, as you pay zero when your app has no visits, but as demand increases it can flexibly serve up your app to billions of users. 
 
-Its like Google Cloud Functions or AWS Lambda functions, but works with any language since its using a Docker container that can carry any language that support HTTP, whereas Cloud Functions only works with the supported languages.
+Its like Google Cloud Functions or AWS Lambda functions, but unlike those Cloud Run works with any language since its using a Docker container that can carry any language that supports HTTP. Cloud Functions only works with the supported languages, such as Python.
 
-Its favoured for me over [Kubernetes clusters](https://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/), since its a lot more simple to deploy and maintain apps, and you don't need to pay at least $100 a month to pay for a Kubernetes cluster.
+I favour Cloud Run over [Kubernetes clusters](https://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/), since its simpler to deploy and maintain apps, and you don't need to pay at least $100 a month for a Kubernetes cluster.
 
-For [R APIs such as plumber](https://www.rplumber.io/), Cloud Run is my recommended solution, since it can scale so well and the cost is good.  However, for Shiny I've to date still used Kubernetes as Cloud Run had some limitations which in my quick experiments meant Shiny did not function.  This blog post is about how and why to work around those limitations.
+For [R APIs such as plumber](https://www.rplumber.io/), Cloud Run is my recommended solution, since it can scale so well and the cost is good.  However, for Shiny I have to date still used Kubernetes as Cloud Run had some limitations which in my experiments meant Shiny did not function.  This blog post is about how and why to work around those limitations.
 
 ## Why Not Shiny on Cloud Run
 
-The limitations that affect Shiny are the [websockets](https://rstudio.github.io/websocket/articles/overview.html) and the fact that Shiny is a stateful service, whereas Cloud Run is meant for stateless services.  
+The limitations that affect Shiny are around support for [websockets](https://rstudio.github.io/websocket/articles/overview.html) and the fact that Shiny is a stateful service, whereas Cloud Run is meant for stateless services.  
 
-What this means is that for Cloud Run each HTTP request should not depend on previous HTTP requests which is the case for say an API, but Shiny is inherently a session where users past actions affect the current Shiny state - if a subsequent request then hits a different app than the one the user is in then we have problems.
+This means that for Cloud Run each HTTP request should not depend on previous HTTP requests, or is stateless. This is the case for an API, but Shiny is inherently a session based system: a user's past actions affect the current Shiny state. If a subsequent request to Shiny is directed to a different Shiny app than the one the user is in then we have problems.
 
 As [RStudio's `jcheng5` put it](https://github.com/rstudio/shiny/issues/2455#issuecomment-497883381):
 
 > Wait, is GCR akin to Amazon's Lambda? If so, I imagine this won't be a good fit for Shiny, no matter what software you put in the middle. These services are designed for stateless HTTP servers, and Shiny is inherently stateful. I bet you'd end up with errors under load as requests that can only be served out of container A (where its session lives in memory) end up being routed to container B instead.
 
-As a new service, for a long while Cloud Run did not support websockets, which is a requirement for Shiny.  That support is now enabled in some limited fashion, and so with a little configuration you can have a Shiny app running.
+As a newly launched service, for a long while Cloud Run did not support websockets.  That support is now enabled in some limited fashion, and so with a little configuration you can have a Shiny app running.
 
 Thanks to `randy3k` the limitations above where navigated in the following ways:
 
@@ -44,24 +44,26 @@ Thanks to `randy3k` the limitations above where navigated in the following ways:
 
 [See `randy3k`'s GitHub repo with a sample app solving the issues here](https://github.com/randy3k/shiny-cloudrun-demo).
 
-The above means that your Shiny app is limited to the number of concurrent requests you configure to your one container, which at present is #80 connections.  This means you lose the scale to billion feature as on concurrent request #81 no container will be available to serve it, and it won't autoscale as the normal Cloud Run would (which defaults to 1000 containers e.g. 80,000 concurrent requests).  
+The above means that your Shiny app is limited though: the number of concurrent requests you can have to one container in Cloud Run is 80 connections.  This means you lose the "scale-to-a-billion"" feature as on concurrent request 81 no container will be available to serve it, and it also means the app won't autoscale as the normal Cloud Run would.  For normal applications, Cloud Run allows 1000 containers with up to 80 requests each e.g. 80,000 concurrent requests.  
 
-It also means that you need to worry about the footprint of your Shiny app.  Whereas if it autoscaled the CPU/RAM load if it got too high would trigger another container, for one contianer running how many requests you can support up to 80 depends on how much CPU/RAM your Shiny app uses, much like a traditional Shiny server running on say `googleComputeEngineR`.
+Having only one container also means that you need to worry about the footprint of your Shiny app.  Whereas if it autoscaled high CPU/RAM load would trigger another container, for one container CLoud Run has a limit of 80 but the real limit will be how much traffic your Shiny app can handle, which depends on how much CPU/RAM your Shiny app uses.  This is much like a traditional Shiny server running on say [`googleComputeEngineR`](https://cloudyr.github.io/googleComputeEngineR/).
 
 However, the above still leaves some use cases where Shiny is useful:
 
-* If your traffic is below 80 concurrent users (e.g. 80 people browsing at the same time)
+* If your peak traffic is below 80 concurrent users e.g. 80 people browsing at the same time
 * And your app load on CPU/RAM is small enough to support your expected amount of concurrent users.
 
-For APIs the above limits would be a problem as they can be queried thousands of times an hour, but since Shiny is usually a dashboard option for a select group of users, I think that leaves a lot of room for Shiny on Cloud Run being viable, and you also get the killer feature of scaling to 0 in the downtime between user sessions, which gives it the advantage over other solutions such as running your own Shiny server.
+For APIs the above limitations would be a problem as they can be queried thousands of times an hour, but since Shiny is usually a dashboard option for a select group of users, I think this leaves a lot of room for Shiny on Cloud Run being viable, plus you also get the killer feature of scaling to 0 in the downtime between user sessions, which gives it the advantage over other solutions such as running your own Shiny server.
 
-Another big plus for me is that as its running on Google infrastructure, this means OAuth2 workflows are automatically on the accepted list of domains - this means setup for OAuth2 buttons using say [`googleAuthR::googleAuth_js`](https://code.markedmondson.me/googleAuthR/reference/googleAuth_js.html) is simple and doesn't involve validating a domain.
+Another big plus for me is that as its running on Google infrastructure, this means OAuth2 workflows are automatically on the accepted list of domains - this means setup for OAuth2 buttons using say [`googleAuthR::googleAuth_js`](https://code.markedmondson.me/googleAuthR/reference/googleAuth_js.html) is simpler and doesn't involve validating a domain.
 
 If your Shiny app expects big peaks of traffic however, or is a big heavy app in terms of resources, then you are probably best looking at other options.  For me, this is keeping the existing [Shiny deployments running on Google Kubernetes Engine](https://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/).
 
 ## How to deploy Shiny on Cloud Run
 
-Cloud Run is such a useful service it is included in my newest package, `googleCloudRunner` as a [build template](https://code.markedmondson.me/googleCloudRunner/reference/cr_buildstep_run.html) and [deployment option](https://code.markedmondson.me/googleCloudRunner/reference/cr_deploy_run.html).  To accomodate the limitations above, the latest version includes parameters to enable Shiny on Cloud Run in CI/CD workflows e.g. if you supply your app and Dockerfile, it will build the Cloud Run container with your Shiny app embedded and deploy it for you.  You can set this up so it will trigger on each commit to git (say GitHub) so you can quickly make code changes and see it deployed on a URL.
+Cloud Run is such a useful service it is included in my newest package, `googleCloudRunner` as a [build template](https://code.markedmondson.me/googleCloudRunner/reference/cr_buildstep_run.html) and [deployment option](https://code.markedmondson.me/googleCloudRunner/reference/cr_deploy_run.html).  To accomodate the limitations above, the latest version (on GitHub now but on CRAN soon as v0.3) includes parameters to enable Shiny on Cloud Run in CI/CD workflows e.g. if you supply your app and Dockerfile, it will build the Cloud Run container with your Shiny app embedded and deploy it for you.  
+
+You can set this up so it will trigger on each commit to git (say GitHub) so you can quickly make code changes and see it deployed on a URL.
 
 ### Hello World
 
@@ -174,13 +176,13 @@ The client.json was a web client json from my project:
 {"web":{"client_id":"10XXX","project_id":"XXXX","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://accounts.google.com/o/oauth2/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"XXXXX","redirect_uris":["http://localhost"],"javascript_origins":["https://www.example.com","http://localhost:1221"]}}
 ```
 
-You need to add the domain of where the Cloud Run is running in the JavaScript origins within the GCP console, that you get after deploying the app. (GCP console > APIs & Services > Crdentials > Click on the Web Client ID you are using > Add URL to Authorised JavaScript origins).
+You need to add the domain of where the Cloud Run is running in the JavaScript origins within the GCP console, that you get after deploying the app. (GCP console > APIs & Services > Credentials > Click on the Web Client ID you are using > Add URL to Authorised JavaScript origins).
 
 ![](/images/javascript-origins.png)
 
 In the example case this is `https://shiny-cloudrun-sc-ewjogewawq-ew.a.run.app/`
 
-> It did take a while for this to propagate, so if your login doesn't work after this step try again in a few hours
+*It did take a while for this to propagate, so if your login doesn't work after this step try again in a few hours*
 
 #### shiny-customized.config
 
@@ -218,7 +220,7 @@ cr_deploy_run("shiny_cloudrun/app/",
 
 ## Summary
 
-Deploying Shiny to Cloud Run opens up a lot more experimentation with Shiny apps for me since they can be deployed for zero cost, and also gets around the authentication OAuth2 issues I was having on `shinyapps.io` since the authorization rules tightened.  
+Deploying Shiny to Cloud Run opens up a lot more experimentation with Shiny apps for me since they can be deployed for zero cost, and also gets around the authentication OAuth2 issues I was having on `shinyapps.io` since the authorization rules tightened.
 
 If a Shiny app gets too popular for Cloud Run, then it may need migrating to another service but thats a nice problem to have and since its in a Docker container already thats a smooth switch (and there is another [googleCloudRunner example for deploying Shiny to Kuberentes](https://code.markedmondson.me/googleCloudRunner/articles/usecases.html#deploy-a-shiny-app-to-google-kubernetes-engine-1))
 
