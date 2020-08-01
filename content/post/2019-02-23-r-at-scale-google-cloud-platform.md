@@ -7,6 +7,7 @@ tags:
   - docker
   - R
   - google-compute-engine
+  - cloud-run
 banner: ../banners/r-at-scale.png
 description: 'Current thinking on what I consider the optimal way to work with R on Google Cloud Platform'
 images: []
@@ -287,7 +288,7 @@ I always want an API to scale so would suggest it is always deployed to a more f
 
 *Cons*
 
-- Only works with R APIs, not Shiny
+- Works with stateless apps only, so R APIs, and limited Shiny - see https://code.markedmondson.me/shiny-cloudrun
 
 Now Google has released [Cloud Run!](https://cloud.run)  And with that release, I modify my original recommendation for R APIs to be deployed on Kubernetes, to instead use Cloud Run.
 
@@ -327,7 +328,7 @@ You will then get a URL for the API you can use. For this demo app the endpoints
 * https://cloudrunr-ewjogewawq-uc.a.run.app/plot?spec=setosa
 
 
-> But what about Shiny apps?  Well those need web sockets, and they are (AFAIK at time of writing) not supported by Cloud Run.  So the original suggestion on using Kubernetes still stands for Shiny apps, below.
+> But what about Shiny apps?  Well this is a work in progress and some limited Shiny apps do also work on Cloud Run.  See the [blog post about running Shiny on Cloud Run](https://code.markedmondson.me/shiny-cloudrun)
 
 ### 2B - R apps on Kubernetes
 

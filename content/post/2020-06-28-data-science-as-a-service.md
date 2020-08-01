@@ -294,6 +294,6 @@ I hope the above enables wonderful in-depth DSaaS that sustain both the contribu
 
 All we need are some good ideas on what people would be happy to pay for, and that is a whole other blog post I guess of which I have not yet much experience. 
 
-You can substitute Shiny for a Python Flask app, HTML page or even an Excel sheet you send people.  Its really just a matter of what you think would be suitable.  There is also the matter of marketing, adding value with your app, customer service etc. that are all still to be tackled, but at least you can start moving down that track rather than the boring finacial bits ;)  
+You can substitute Shiny for a Python Flask app, HTML page or even an Excel sheet you send people.  Its really just a matter of what you think would be suitable.  There is also the matter of marketing, adding value with your app, customer service etc. that are all still to be tackled, but at least you can start moving down that track rather than the boring financial bits ;)  
 
 If you do make anything derived from it, please do let me know as I'd love to hear what you are doing, and if you can see ways to improve the template feel free to raise an issue on the [project's GitHub issues](https://github.com/MarkEdmondson1234/Shiny-R-SaaS/issues). 
