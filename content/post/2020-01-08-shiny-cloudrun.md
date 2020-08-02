@@ -46,7 +46,7 @@ Thanks to `randy3k` the limitations above where navigated in the following ways:
 
 The above means that your Shiny app is limited though: the number of concurrent requests you can have to one container in Cloud Run is 80 connections.  This means you lose the "scale-to-a-billion"" feature as on concurrent request 81 no container will be available to serve it, and it also means the app won't autoscale as the normal Cloud Run would.  For normal applications, Cloud Run allows 1000 containers with up to 80 requests each e.g. 80,000 concurrent requests.  
 
-Having only one container also means that you need to worry about the footprint of your Shiny app.  Whereas if it autoscaled high CPU/RAM load would trigger another container, for one container CLoud Run has a limit of 80 but the real limit will be how much traffic your Shiny app can handle, which depends on how much CPU/RAM your Shiny app uses.  This is much like a traditional Shiny server running on say [`googleComputeEngineR`](https://cloudyr.github.io/googleComputeEngineR/).
+Having only one container also means that you need to worry about the footprint of your Shiny app.  Whereas if it autoscaled high CPU/RAM load would trigger another container, for one container Cloud Run has a limit of 80 but the real limit will be how much traffic your Shiny app can handle, which depends on how much CPU/RAM your Shiny app uses.  This is much like a traditional Shiny server running on say [`googleComputeEngineR`](https://cloudyr.github.io/googleComputeEngineR/).
 
 However, the above still leaves some use cases where Shiny is useful:
 
@@ -229,5 +229,7 @@ Coupled with the workflow to [make paid Shiny apps](https://code.markedmondson.m
 Many thanks to all the members of the R community who helped solve this problem - `rankdy3k` as mentioned above but also `maxheld83`, `jchen5` and `jdwrink` who first raised the [issue on the shiny GitHub](https://github.com/rstudio/shiny/issues/2455).
 
 When researching this post I also found this [guide on how to publish Shiny on Google Cloud Run by Vabhav Ararwal](https://medium.com/engineered-publicis-sapient/google-cloud-run-best-bet-to-host-shiny-application-3aa1e18770a9) that uses the Web UI a bit more. 
+
+After first publishing Augusto also pointed me to his blog post about how to [deploy Shiny to Cloud Run for Anthos](https://www.hasselpunk.com/blog/2020-06-13serverlessshinyengooglecloud/)[Spanish], that can run on top of your Kubernetes cluster.  This looks like a nicer more consistent way to deploy on Kubernetes.
 
 
