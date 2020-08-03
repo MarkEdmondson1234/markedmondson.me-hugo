@@ -44,18 +44,18 @@ Thanks to `randy3k` the limitations above where navigated in the following ways:
 
 [See `randy3k`'s GitHub repo with a sample app solving the issues here](https://github.com/randy3k/shiny-cloudrun-demo).
 
-The above means that your Shiny app is limited though: the number of concurrent requests you can have to one container in Cloud Run is 80 connections.  This means you lose the "scale-to-a-billion"" feature as on concurrent request 81 no container will be available to serve it, and it also means the app won't autoscale as the normal Cloud Run would.  For normal applications, Cloud Run allows 1000 containers with up to 80 requests each e.g. 80,000 concurrent requests.  
+The above means that your Shiny app is limited: the number of concurrent requests you can have to one container in Cloud Run is 80 connections.  This means you lose the "scale-to-a-billion" feature, as on concurrent request 81 no container will be available to serve it.  It also means the app won't autoscale as the normal Cloud Run setups would - for normal applications, Cloud Run allows 1000 containers with up to 80 requests each e.g. 80,000 concurrent requests.  
 
-Having only one container also means that you need to worry about the footprint of your Shiny app.  Whereas if it autoscaled high CPU/RAM load would trigger another container, for one container Cloud Run has a limit of 80 but the real limit will be how much traffic your Shiny app can handle, which depends on how much CPU/RAM your Shiny app uses.  This is much like a traditional Shiny server running on say [`googleComputeEngineR`](https://cloudyr.github.io/googleComputeEngineR/).
+Having only one container means that you need to worry about the footprint of your Shiny app.  Whereas if autoscaling was available, high CPU/RAM load would trigger another container, as we will have only one container the max limit may be 80 but the real limit will be how much traffic your Shiny app can handle, which depends on how much CPU/RAM your Shiny app uses.  Also remember as R is single-threaded, all users will be waiting to use a single R process - see this [nice article by Appsilon for an overview on scaling shiny](https://appsilon.com/alternatives-to-scaling-shiny/).  This then is much like a traditional Shiny server running on say [`googleComputeEngineR`](https://cloudyr.github.io/googleComputeEngineR/).
 
-However, the above still leaves some use cases where Shiny is useful:
+However, the above still leaves some use cases where Shiny on Cloud Run is useful:
 
 * If your peak traffic is below 80 concurrent users e.g. 80 people browsing at the same time
 * And your app load on CPU/RAM is small enough to support your expected amount of concurrent users.
 
 For APIs the above limitations would be a problem as they can be queried thousands of times an hour, but since Shiny is usually a dashboard option for a select group of users, I think this leaves a lot of room for Shiny on Cloud Run being viable, plus you also get the killer feature of scaling to 0 in the downtime between user sessions, which gives it the advantage over other solutions such as running your own Shiny server.
 
-Another big plus for me is that as its running on Google infrastructure, this means OAuth2 workflows are automatically on the accepted list of domains - this means setup for OAuth2 buttons using say [`googleAuthR::googleAuth_js`](https://code.markedmondson.me/googleAuthR/reference/googleAuth_js.html) is simpler and doesn't involve validating a domain.
+Another big plus for me is that as its running on Google infrastructure, this means OAuth2 workflows are automatically on the accepted list of domains leading to setup for OAuth2 buttons using say [`googleAuthR::googleAuth_js`](https://code.markedmondson.me/googleAuthR/reference/googleAuth_js.html) as simpler and not needing to validate a domain.
 
 If your Shiny app expects big peaks of traffic however, or is a big heavy app in terms of resources, then you are probably best looking at other options.  For me, this is keeping the existing [Shiny deployments running on Google Kubernetes Engine](https://code.markedmondson.me/r-on-kubernetes-serverless-shiny-r-apis-and-scheduled-scripts/).
 
