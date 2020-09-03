@@ -48,7 +48,7 @@ The costs for high volume websites as well may be more for Cloud Run once the bi
 
 ## How to deploy GTM Serverside to Cloud Run
 
-When considering the Cloud Run configuration, you can refer to the deployment script given in the documentation for upgrading to a App Engine flexible service.  The most critical information you need is the docker image it deploys, which at time of writing is `gcr.io/cloud-tagging-10302018/gtm-cloud-image:master`
+When considering the Cloud Run configuration, you can refer to the deployment script given in the documentation for upgrading to a App Engine flexible service.  The most critical information you need is the docker image it deploys, which at time of writing is `gcr.io/cloud-tagging-10302018/gtm-cloud-image:stable`
 
 This continer runs the node.js as developed by the GTM team.  As Adam writes, you can examine the application in the Docker container like so to see how you can configure it:
 
