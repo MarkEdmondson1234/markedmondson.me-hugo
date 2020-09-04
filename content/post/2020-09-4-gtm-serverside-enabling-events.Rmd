@@ -1,0 +1,195 @@
+---
+title: 'Using Google Tag Manager Server Side to Trigger Webhook Events'
+author: Mark Edmondson
+date: 2020-09-04T12:50:50+01:00
+url: gtm-serverside-webhooks
+tags: ["google-tag-manager","cloud-functions"]
+banner: banners/gtm-serverside-events.png
+description: 'How to configure Google Tag Manager Server Side so it can send webhooks to services upon certain events '
+images: []
+menu: ''
+---
+
+When GTM Server Side was announced the use cases for it were not so compelling for me at first. 
+
+Sure, extra security and potential speed ups were nice to have, but it wasn't really necessary for a lot of websites, given the cost.  However, now we have had a chance to play with it and can see its integration with the rest of the Google Cloud Platform, new use cases are coming up which are very compelling, especially if the [GTM Server Side costs can be driven down via Cloud Run deployments - see last post](https://code.markedmondson.me/gtm-serverside-cloudrun/).
+
+One of those use cases is triggering event flows from GTM Server Side.  This has always been possible via your server, but the ease of setting it up as detailed below opens up a host of opportunities, much like when GTM itself first came out and democratised publishing of tags.
+
+The idea behind using GTM Server Side events is that because its running in your own server, you have access to a lot more configuration including the server logs.  Via these, you can surface your dataLayer or other tracking events within [Cloud Logging](https://cloud.google.com/logging/docs) - and from there this allows you to use the Cloud Logging features to set up [Pub/Sub triggers](https://cloud.google.com/logging/docs/routing/overview).  
+
+This is a technique I picked up from [BigQuery logging of GA360 exports - being able to use event logging to process the often late exports rather than using a schedule](http://127.0.0.1:4321/bigquery-ga360-exports-cloud-functions/).
+
+Those Pub/Sub triggers can be used to trigger anything you like - in my example they set off a Cloud Function to send a message to Slack.  An example video is shown below of it in action on this blog:
+
+```{r echo=FALSE}
+blogdown::shortcode("youtube","YJYFmxsd38M")
+```
+
+The above is done via GTM Server Side, Cloud Logging to a Pub/Sub topic, which triggers a Cloud Function that calls a Slack webhook. 
+
+## How to do it
+
+I'll walk through how this proof of concept was set-up, so you can hopefully see how accessible it is.  Naturally this is just a POC, your own applications can build on the idea. 
+
+### GTM Server Side Setup
+
+Within your GTM Server Side Client configuration, you can use the [logToConsole](https://developers.google.com/tag-manager/serverside/api#logtoconsole) API which will then send it to the Cloud Logging output. 
+
+This 'Hello World' example will log the ip address of the requester:
+
+```node
+const logToConsole = require('logToConsole');
+const getRemoteAddress = require('getRemoteAddress');
+
+logToConsole('triggerIp:', getRemoteAddress());
+```
+
+In real-life you will probably want to react to more interesting events, such as those in the Google Analytics requests:
+
+```node
+const logToConsole = require('logToConsole');
+const getRemoteAddress = require('getRemoteAddress');
+const isRequestMpv1 = require('isRequestMpv1');
+const claimRequest = require('claimRequest');
+const extractEventsFromMpv1 = require('extractEventsFromMpv1');
+
+// Check if request is Measurement Protocol
+if (isRequestMpv1()) {
+  // Claim the request
+  claimRequest();
+  const events = extractEventsFromMpv1();
+  events.forEach((event, i) => {
+  
+    // if event is a page_view
+    if(event.event_name === "page_view"){
+      // log some interesting stuff for the trigger
+      logToConsole('triggerIp:', getRemoteAddress(), 
+                   ' page:', event.page_location,
+                  ' referrer:', event.page_referrrer);
+    
+    }
+    
+  });
+  returnResponse();
+}
+```
+
+Here is an example of the events from the `extractEventsFromMpv1()` API:
+
+```js
+[{"x-ga-protocol_version":"1",
+  "x-ga-system_properties":{"v":"j85","u":"SACAAEABAAAAAC~","gid":"12345678.1599216410","r":"1"},
+  "x-ga-page_id":1377079516,
+  "x-ga-request_count":1,
+  "page_location":"https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/",
+  "page_referrer":"https://www.google.com/","language":"en-gb","page_encoding":"UTF-8",
+  "page_title":"R at scale on the Google Cloud Platform · Mark Edmondson",
+  "x-ga-mp1-sd":"24-bit",
+  "screen_resolution":"1280x800",
+  "x-ga-mp1-vp":"1264x666",
+  "x-ga-mp1-je":"0",
+  "x-ga-mp1-jid":"920318383",
+  "x-ga-mp1-gjid":"277342247",
+  "client_id":"12345678.1599216410",
+  "x-ga-measurement_id":"UA-12345-2",
+  "x-ga-gtm_version":"2wg8q1XXXX",
+  "x-ga-mp1-z":"1831891234",
+  "event_name":"page_view"}]
+```
+
+Make sure to turn on the necessary permissions for the GTM Client.  For Cloud Logging, this should be on "Always Log" and not just "Debug".
+
+Once you have published the Client associated with the Client Template, you should start to see the info in your [Cloud Logging](https://console.cloud.google.com/logs/viewer) within the same project. 
+
+
+### Setup Cloud Logging
+
+Where these logs are depends on how you deployed your container - in my case this was within Cloud Run, but it is more likely to be in the App Engine logs if you've deployed in the usual manner. 
+
+You should see them like below:
+
+![](/images/gtm-cloud-logging.png)
+Once populating, expand out one of them from the log and mouse over the relevant entry and select "Show matching entries":
+
+![](/images/gtm-show-matching.png)
+
+This will populate an advanced filter at the top.  This filter is where you define what log entries will trigger the Pub/Sub and subsequent actions via the "Create Sink" button at the top.
+
+For the example above the filter was:
+
+```
+resource.type="cloud_run_revision"
+resource.labels.service_name="server-side"
+textPayload="triggerIp: 12.34.56.78  page: https://code.markedmondson.me/gtm-serverside-cloudrun/  referrer: undefined"
+```
+
+You may want to relax it a bit, for instance a regex filter that will trigger whatever the page or referrer is.  For this you can use the `=~` operator and put in regex - the below will alter the trigger for only those entries that contain my ip address:
+
+```
+resource.type="cloud_run_revision"
+resource.labels.service_name="server-side"
+textPayload=~"triggerIp: 12.34.56.78"
+```
+
+*Your resource.type and resource.labels.service_name will differ from mine depending on your deployment - if you have used "Show matching entries" button though it will be populated with the correct data*
+
+Now "Create Sink" at the top and configure to a Pub/Sub topic.  You can use an existing or create a new one in the wizard - this is the same as [the BigQuery post details](https://code.markedmondson.me/bigquery-ga360-exports-cloud-functions/):
+
+![](/images/ga360_logging_filter.png)
+
+Once your Pub/Sub topic is setup it will transmit for every new log entry.  What processes the Pub/Sub topic is up to you, but for this demo I chose Cloud Functions which processes the data and sends it to my Slack channel.
+
+### Setup Cloud Function
+
+The Cloud Function I set-up within the Web UI.  
+
+The trigger I set to the Pub/Sub topic just created.
+
+I'm using Slack as an example, but you would modify the below for your own application.  [See the Slack tutorials on how to set up its webhooks](https://api.slack.com/tutorials/slack-apps-hello-world) for your Slack channel.  I chose it as its a super simple API for this kind of thing. 
+
+I used Cloud Functions web editor to enter this Python code:
+
+```py
+import requests
+import base64
+import logging
+
+def website_alert(event, context):
+
+    // replace with your Slack webhook
+    url = "https://hooks.slack.com/services/CODEHERE/BLAHBLAH/ASECRETCODE"
+
+    pubsub_message = base64.b64decode(event['data']).decode('utf-8')
+
+    logging.info(pubsub_message)
+    
+    payload = '{"text":"You just visited the website"}'
+
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text.encode('utf8'))
+```
+
+Replace the Slack webhook for your own then publish the code and visit the website - you should get the Slack popup.  Check the Cloud Function logs if its not working.
+
+## Improvements and where to go from here
+
+Its a nice demo but its not something you could use seriously every day yet.  Obviously you will want to select the filters and application you want to send data to, and configure the events you are sending in.
+
+Other than that, you may wish to not use Cloud Logging and Pub/Sub but rather HTTP requests directly from the GTM Client - it has a [`sendHttpGet()`](https://developers.google.com/tag-manager/serverside/api#sendhttpget) and [`sendHttpRequest()`](https://developers.google.com/tag-manager/serverside/api#sendhttprequest) for this purpose.  But I wonder if they will be as reliable as Pub/Sub, which guarantees at least once delivery.
+
+Another potential serious issue is that logging costs money, and in fact recently there are already [updates to turn off some of the GTM logging](https://developers.google.com/tag-manager/serverside/script-user-guide#disable_app_engine_request_logging_optional) to reduce your cloud costs.  This can still be done just selectively, so you can preserve your Cloud Logging for the above purposes if necessary.
+
+The whole idea can be traced back to [Silviu Eftimie](https://twitter.com/silviueftimie) on the GTM Server Side forums, who was wondering if the new [Google Cloud Workflows](https://www.youtube.com/watch?reload=9&v=Uz8G8fTwwXs), a service that allows real-time processing of data.  This looks very exciting and opens the door to complete and complex data-flows reacting to the events sent. 
+
+[Firebase has several APIs](https://firebase.google.com/products) that would really nicely fit in here too. Instead of Slack messages, a call to [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging) for example would allow you to distribute alerts to mobile devices and/or web at scale, or tailored to individuals (a web developer for example if a server failure event is sent?) - other services include Remote Config (change app content?) and Predictions.
+
+## Summary
+
+GTM Server Side has made me post [two blog posts](https://code.markedmondson.me/gtm-serverside-cloudrun/) in a week, a new record.  Its that game changing for new use cases which I hope to be working on in the next couple of years.  It really shows how the Cloud can empower digital analytics, and how its firmly planted in its future, one which I am looking forward to seeing.  If you have any other ideas on how this new paradigm will help generate more use cases, I'd be very interested in hearing what you are doing!
+
