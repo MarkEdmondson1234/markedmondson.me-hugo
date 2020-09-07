@@ -125,7 +125,7 @@ mock('isRequestMpv1', () => true);
 mock('extractEventsFromMpv1', () => mockData);
 // Call runCode to run the template's code.
 let result = runCode();
-assertThat(result).isEqualTo(true);
+assertThat(result).isTrue();
 ```
 *Thanks Simo with help for above*
 
