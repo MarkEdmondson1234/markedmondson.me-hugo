@@ -56,6 +56,7 @@ const extractEventsFromMpv1 = require('extractEventsFromMpv1');
 // Check if request is Measurement Protocol
 if (isRequestMpv1()) {
 
+  let test = false;
   const events = extractEventsFromMpv1();
   events.forEach((event, i) => {
   
@@ -65,11 +66,13 @@ if (isRequestMpv1()) {
       logToConsole('triggerIp:', getRemoteAddress(), 
                    ' page:', event.page_location,
                   ' referrer:', event.page_referrer);
-    
+      // for the tests
+      test = true;
     }
-    
   });
-
+  
+  return test;
+  
 }
 ```
 
@@ -96,7 +99,37 @@ Here is an example of the events from the `extractEventsFromMpv1()` API:
   "event_name":"page_view"}]
 ```
 
-You can make a fancier client that takes fields so the user can decide what to log.
+You can put this data as a mock for a Code test:
+
+```js
+const mockData = [{"x-ga-protocol_version":"1",
+  "x-ga-system_properties":{"v":"j85","u":"SACAAEABAAAAAC~","gid":"12345678.1599216410","r":"1"},
+  "x-ga-page_id":1377079516,
+  "x-ga-request_count":1,
+  "page_location":"https://code.markedmondson.me/r-at-scale-on-google-cloud-platform/",
+  "page_referrer":"https://www.google.com/","language":"en-gb","page_encoding":"UTF-8",
+  "page_title":"R at scale on the Google Cloud Platform · Mark Edmondson",
+  "x-ga-mp1-sd":"24-bit",
+  "screen_resolution":"1280x800",
+  "x-ga-mp1-vp":"1264x666",
+  "x-ga-mp1-je":"0",
+  "x-ga-mp1-jid":"920318383",
+  "x-ga-mp1-gjid":"277342247",
+  "client_id":"12345678.1599216410",
+  "x-ga-measurement_id":"UA-12345-2",
+  "x-ga-gtm_version":"2wg8q1XXXX",
+  "x-ga-mp1-z":"1831891234",
+  "event_name":"page_view"}];
+
+mock('isRequestMpv1', () => true);
+mock('extractEventsFromMpv1', () => mockData);
+// Call runCode to run the template's code.
+let result = runCode();
+assertThat(result).isEqualTo(true);
+```
+*Thanks Simo with help for above*
+
+You can also make a fancier client that takes fields so the user can decide what to log via the data.fields.
 
 Make sure to turn on the necessary permissions for the GTM Client.  For Cloud Logging, this should be on "Always Log" and not just "Debug".
 
