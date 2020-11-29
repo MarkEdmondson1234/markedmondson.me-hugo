@@ -141,7 +141,7 @@ if (requestPath == "/custom-endpoint")  {
   
   // construct the event to send to your server side services
   const event = {
-    event_name: "Cusom ID Event",
+    event_name: "CustomIDEvent",
     custom1: queryParameters.custom1,
     custom2: queryParameters.custom2,
     ...etc...
@@ -231,7 +231,7 @@ Repeat for all fields you would like to control before Google sees them, such as
 const ip = getRemoteAddress();
 
 // anonymise the ip address yourself
-ip_split = ip.split(".")
+ips = ip.split(".")
 anon_ip = ips[1]+"."+ips[2]+"."+ips[3]+".000"
 
 // Check if request is Measurement Protocol
