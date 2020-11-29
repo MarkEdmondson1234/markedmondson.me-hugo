@@ -14,6 +14,14 @@ This time I'm moving from [Jekyll](/hello-world) to RStudio's new [blogdown](htt
 
 This keeps the advantages of Jekyll (a static, high performance website; markdown for editing; free hosting on Github) but with the extra bonus of being able to render in RMarkdown plus adding some nice looking capabilities from the [Hugo](https://gohugo.io/) project.
 
+```{r include=FALSE}
+library(googleAnalyticsR)
+library(highcharter)
+library(forecast)
+ga_auth(email = Sys.getenv("GARGLE_EMAIL"))
+```
+
+
 As I blog a lot about R it makes sense to have a platform that is more R-aware, as well as it letting me do things like this:
 
 ```{r, message=FALSE}
