@@ -11,7 +11,7 @@ menu: ''
 
 A new interest at the moment is engineering through various data privacy requirements with some of the new tools Google has available.  With respect to my guiding principle of blogging about what I wish I could have read 6 months ago, I thought it worth writing about what is now possible.  Data privacy engineering also requires clear thinking about the legal and technical details and so this will also help organise my communication around the subject.
 
-It comes with great thanks to the #measure community that has helped discuss these topics, in particular the #data-protection-priv channel in [Measure Slack](https://www.measure.chat/) and a lot of the code snippets I've taken from [Simo Ahava's examples](https://www.simoahava.com). 
+It comes with great thanks to the #measure community that has helped discuss these topics, in particular the #data-protection-priv channel in [Measure Slack](https://www.measure.chat/) in particular [Aurelie Pols](https://twitter.com/aureliepols) who has started a lot of the conversation about privacy within the industry, and a lot of the code snippets I've taken from [Simo Ahava's examples](https://www.simoahava.com). 
 
 > The usual disclaimers about this subject apply, that this is just free rantings so I'm not liable for anything I say here and you should seek your own legal advice.
 
@@ -82,13 +82,13 @@ For example, Google has been scrutinised for DoubleClick, since this has histori
 
 ![](/images/privacy_shield.png)
 
-The latest chapter has been the loss of Privacy Shield in summer of 2020, which was a legal mechanism used to allow US companies to process EU data.  
+The latest chapter has been the potential loss of Privacy Shield in summer of 2020, which is a legal mechanism used to allow US companies to process EU data.  
 
 A [key compliant from the records of the ruling](http://curia.europa.eu/juris/document/document.jsf?text=&docid=228677&pageIndex=0&doclang=en&mode=lst&dir=&occ=first&part=1&cid=16606736) was about how Facebook could be compelled to give EU citizen data to United States authorities such as the NSA or FBI, so violating that EU citizen's GDPR protected rights:
 
 > In his reformulated complaint lodged on 1 December 2015, Mr Schrems claimed, inter alia, that United States law requires Facebook Inc. to make the personal data transferred to it available to certain United States authorities, such as the National Security Agency (NSA) and the Federal Bureau of Investigation (FBI). He submitted that, since that data was used in the context of various monitoring programmes in a manner incompatible with Articles 7, 8 and 47 of the Charter, the SCC Decision cannot justify the transfer of that data to the United States. In those circumstances, Mr Schrems asked the Commissioner to prohibit or suspend the transfer of his personal data to Facebook Inc.
 
-With the loss of Privacy Shield, almost everyone using these companies in the EU could be construed as illegal, since data is being sent to an untrusted country (the USA).  This has prompted extreme reactions such as Facebook saying it will pull out from the EU.  Pragmatically no-one is going to be prosecuted just yet, whilst the EU sort out with those companies what happens next. 
+With the loss of Privacy Shield, almost everyone using these companies in the EU will need to examine their data policies, since data is being sent to an untrusted country (the USA).  This has prompted extreme reactions such as Facebook saying it will pull out from the EU.  Pragmatically no-thing is going to change just yet, whilst the EU sort out with those companies what happens next. 
 
 ## New privacy engineering tech from Google
 
