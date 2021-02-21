@@ -66,7 +66,7 @@ In GA4, there is a more intuitive interface using [NSE](http://adv-r.had.co.nz/C
 fc2 <- ga_data_filter(!source %begins% "1" & !source %begins% "a")
 fc  <- ga_data_filter(bounces > 0 & sessions > 2)
 
-ga_v4 <- ga_data(ga4_id, 
+ga4_data <- ga_data(ga4_id, 
                  date_range = c("2015-07-30","2015-10-01"),
                  dimensions='sessionSource', 
                  metrics = 'sessions', 
@@ -79,12 +79,14 @@ ga_v4 <- ga_data(ga4_id,
 
 Below is an example workflow using the GA4 APIs - the use case here is to analyse the first and last touch of users.  It incorporates some of the new features of the API, such as the new filters, creating your own dimensions and ordering the results.  Its easier to use, so encourages more 'flow' in your analysis of the data.
 
-```{r}
+```{r message=FALSE}
 library(googleAnalyticsR)
 # ✓ Setting client.id from /Users/mark/clients/my_client.json
 ga_auth()
 # ℹ 2021-02-21 16:23:02 > Using email from GARGLE_EMAIL env var: me@email.com
+```
 
+```{r cache=TRUE}
 # I've forgot my GA4 property Id so lets fetch them
 al <- ga_account_list("data")
 
