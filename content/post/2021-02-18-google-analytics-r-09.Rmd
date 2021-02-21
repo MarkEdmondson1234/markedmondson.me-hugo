@@ -70,8 +70,8 @@ ga4_data <- ga_data(ga4_id,
                  date_range = c("2015-07-30","2015-10-01"),
                  dimensions='sessionSource', 
                  metrics = 'sessions', 
-                 metricFilter = fc, 
-                 dimensionFilter = fc2)
+                 met_filters = fc, 
+                 dim_filters = fc2)
 
 ```
 
@@ -118,7 +118,7 @@ ga_data(
   metrics = NULL,
   date_range = last_year,
   dimensions = "firstUserSource", 
-  dimensionFilter = ip_filter, # apply filter
+  dim_filters = ip_filter, # apply filter
   limit = -1) # all results
 
 # twitter filter: list shows 't.co', 'twitter' and 'twitter.com' 
@@ -132,7 +132,7 @@ ga_data(
   dimensions = 
     c("firstUserSource",
       lastMediumSource = "sessionMedium/sessionSource"), #dynamic dimension
-  dimensionFilter = twit)
+  dim_filters = twit)
 
 # lets take out self referrals and those coming back by twitter
 me <- ga_data_filter(!sessionSource %contains% "markedmondson.me")
@@ -146,7 +146,7 @@ ga_data(
   dimensions = 
     c("unifiedScreenName",
       lastMediumSource = "sessionMedium/sessionSource"), #dynamic dimension
-  dimensionFilter = ga_data_filter(twit & me & nottwit), # combine filters
+  dim_filters = ga_data_filter(twit & me & nottwit), # combine filters
   orderBys = ga_data_order(-activeUsers) # order by activeUsers metric
   )
 ```
