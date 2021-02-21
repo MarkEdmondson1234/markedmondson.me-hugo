@@ -1,0 +1,271 @@
+---
+title: 'googleAnalyticsR 0.9.0 - The Big Release. GA4 API, automatic shiny dashboarding, improved UI'
+author: Mark Edmondson
+date: 2021-02-21T09:29:50+01:00
+url: googleanalyticsr-090-release
+tags: ["R", "google-analytics"]
+banner: banners/GA4-090.png
+---
+
+```{r include=FALSE}
+library(googleAnalyticsR)
+ga_auth(email = Sys.getenv("GARGLE_EMAIL"))
+```
+
+
+The original intention for this blog was to announce updates to the R packages, but I tend to rely on Twitter and other social media for that these days - a lot of documentation also happens on the package websites so I feel little need to put it on this blog as well. 
+
+But for `googleAnalyticsR v0.9.0` there are so many cool new things that I think it deserves a bit more limelight.  They are mostly the result of my R programming improving over the almost five years since [version 0.1.1](https://github.com/MarkEdmondson1234/googleAnalyticsR/releases/tag/v0.1.1), the cool new tools available in the R ecosystem created by the R community and the new capabilities of the Google Analytics APIs we're connecting to.
+
+## Overview of cool features
+
+As mentioned before the in-depth documentation is on the website:
+
+* Google Analytics 4 support - [Data API](https://code.markedmondson.me/googleAnalyticsR/articles/reporting-ga4.html), Admin API and Measurement Protocol v2
+* Shiny model templates -  Create [automatic Shiny dashboards](https://code.markedmondson.me/googleAnalyticsR/articles/model-templates.html) from GA model objects
+* Various UI tweaks and quality of life improvements - [read it in the NEWS](https://code.markedmondson.me/googleAnalyticsR/news/index.html)
+
+For this blog post, I'll then concentrate more on what you can do now that you couldn't before.
+
+## Google Analytics 4 support
+
+There is a video!
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5Itz6xfJGDk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+So yeah, basically you can now get GA4 in R, which in a couple of years will probably be the majority of digital analytics systems on the web. 
+
+I have to also thank [Hadley for his drive-by issue on GitHub](https://github.com/MarkEdmondson1234/googleAnalyticsR/issues/222) which pushed me to create a domain specific language (DSL) for googleAnalyticsR's GA4 functions. The main benefit should be an intuitive UI you don't need to look up all the time - e.g. unlike [`filter_clause_ga4()`](https://code.markedmondson.me/googleAnalyticsR/reference/filter_clause_ga4.html) - I wrote the code and still need to look up how that works sometimes!  
+
+See a comparison on the same filters:
+
+In the older reporting API you have to construct the filter object yourself with three different functions: 
+
+```r
+# reporting v4 filter
+mf <- met_filter("bounces", "GREATER_THAN", 0)
+mf2 <- met_filter("sessions", "GREATER", 2)
+
+df <- dim_filter("source","BEGINS_WITH","1",not = TRUE)
+df2 <- dim_filter("source","BEGINS_WITH","a",not = TRUE)
+
+fc2 <- filter_clause_ga4(list(df, df2), operator = "AND")
+fc <- filter_clause_ga4(list(mf, mf2), operator = "AND")
+
+ga_v4 <- google_analytics(ga_id, 
+                          date_range = c("2015-07-30","2015-10-01"),
+                          dimensions='source', 
+                          metrics = 'sessions', 
+                          met_filters = fc, 
+                          dim_filters = fc2)
+```
+
+In GA4, there is a more intuitive interface using [NSE](http://adv-r.had.co.nz/Computing-on-the-language.html):
+
+```r
+fc2 <- ga_data_filter(!source %begins% "1" & !source %begins% "a")
+fc  <- ga_data_filter(bounces > 0 & sessions > 2)
+
+ga_v4 <- ga_data(ga4_id, 
+                 date_range = c("2015-07-30","2015-10-01"),
+                 dimensions='sessionSource', 
+                 metrics = 'sessions', 
+                 metricFilter = fc, 
+                 dimensionFilter = fc2)
+
+```
+
+### Workflows with GA4
+
+Below is an example workflow using the GA4 APIs - the use case here is to analyse the first and last touch of users.  It incorporates some of the new features of the API, such as the new filters, creating your own dimensions and ordering the results.  Its easier to use, so encourages more 'flow' in your analysis of the data.
+
+```{r}
+library(googleAnalyticsR)
+# ✓ Setting client.id from /Users/mark/clients/my_client.json
+ga_auth()
+# ℹ 2021-02-21 16:23:02 > Using email from GARGLE_EMAIL env var: me@email.com
+
+# I've forgot my GA4 property Id so lets fetch them
+al <- ga_account_list("data")
+
+# ah yes this is my website
+my_id <- 206670707
+
+# what metrics/dimensions can I fetch again? Include my custom fields
+custom_meta <- ga_meta("data", propertyId = my_id)
+
+# last year
+last_year <- c("2020-01-01","2021-01-01")
+
+# I want to cross reference first user source and last user source
+ga_data(my_id, 
+        metrics = "sessions",
+        date_range = last_year,
+        dimensions = c("firstUserMedium","sessionMedium"))
+
+# what about only users from twitter? First check the sources
+ga_data(my_id, 
+        metrics = NULL, # to only return unique dimensions
+        date_range = last_year,
+        dimensions = "firstUserSource")
+
+# oh dear lots of ip address - lets filter those out
+ip_filter <- ga_data_filter(!firstUserSource %begins% "127.0.0.1")
+ga_data(
+  my_id, 
+  metrics = NULL,
+  date_range = last_year,
+  dimensions = "firstUserSource", 
+  dimensionFilter = ip_filter, # apply filter
+  limit = -1) # all results
+
+# twitter filter: list shows 't.co', 'twitter' and 'twitter.com' 
+twit <- ga_data_filter(firstUserSource == c("twitter","twitter.com","t.co"))
+
+# did anyone who first arrived by Twitter later come back via other channels?
+ga_data(
+  my_id, 
+  metrics = "sessions",
+  date_range = last_year,
+  dimensions = 
+    c("firstUserSource",
+      lastMediumSource = "sessionMedium/sessionSource"), #dynamic dimension
+  dimensionFilter = twit)
+
+# lets take out self referrals and those coming back by twitter
+me <- ga_data_filter(!sessionSource %contains% "markedmondson.me")
+nottwit <- ga_data_filter(!sessionSource == c("twitter","twitter.com","t.co"))
+
+# and change the metrics/dimensions
+ga_data(
+  my_id, 
+  metrics = c("engagementRate","activeUsers"),
+  date_range = last_year,
+  dimensions = 
+    c("unifiedScreenName",
+      lastMediumSource = "sessionMedium/sessionSource"), #dynamic dimension
+  dimensionFilter = ga_data_filter(twit & me & nottwit), # combine filters
+  orderBys = ga_data_order(-activeUsers) # order by activeUsers metric
+  )
+```
+
+So for Twitter first time referrals, it seems most people used Google to come back to visit my home page, which is not surprising.
+
+### Sending in Measurement Protocol hits and seeing them in real-time
+
+The [Measurement Protocol v2 for GA4](https://developers.google.com/analytics/devguides/collection/protocol/ga4) is less open and so can't be spammed.  It works using a server key so it seems useful to include in the package. Thank [Martijn van Vreeden](https://www.martijnvanvreeden.nl/) for the encouragement in making this feature.
+
+Once you have the measurement ID and stream secret then you can send in events associated with a clientId like so:
+
+```r
+# preferably set this in .Renviron - take from the webUI
+Sys.setenv(GA_MP_SECRET="MY_SECRET")
+
+# your GA4 settings
+my_measurement_id <- "G-43MDXK6CLZ"
+a_client_id <- 1234567
+
+event <- ga_mp_event("an_event")
+ga_mp_send(event, a_client_id, my_measurement_id, debug = TRUE)
+```
+
+As we also have the real-time API incorporated, it can be quickly verified which hits are going in:
+
+![](/images/ga-mp-event-realtime.jpg)
+
+This has wide applications to send in analytics hits with R.  I'm thinking of using it to send some anonymous statistics of usage to a googleAnalytics GA4 account, or to add customer segments to GA4 BigQuery exports using R to model the clusters. 
+
+## Shiny Model Templates
+
+I should do a video of this stuff.
+
+### A reminder about ga_model()
+
+I think its probably only me who is using `ga_model()` at the moment, but I hope that the utility of these Shiny functions will help drive adoption (please comment if you do use them!) as I think they are a bit of an undiscovered gem within the googleAnalyticsR package.  
+
+As I've described before, I enjoy finding the meta of the thing I am doing now, and for `googleAnalyticsR` that has developed into an idea of it not just being able to download GA data, but becoming a platform for analysis of that data too.   
+
+Democratising advanced statistical and modelling tools so they are more easily available could potentially drive up the value of the GA API data, which the `ga_model()` function offers - others can create the analysis and package it up into special `.gamr` files, and you can call that analysis to your own data by downloading that `.gamr` file and supplying your own GA viewID.  
+
+Take for example this great practical analysis [created by Tim Wilson within Dartistics](http://www.dartistics.com/googleanalytics/int-time-normalized.html) to show the velocity of pageviews for different type of content - now not only can you read the code but try it out on your data.
+
+```{r message=FALSE, warning=FALSE, cache = TRUE}
+library(googleAnalyticsR)
+
+tn_model <- ga_model_example("time-normalised.gamr")
+
+# replace with your own GA viewId
+view_id <- 81416156
+result <- ga_model(view_id, tn_model, 
+                   page_filter_regex = "/googleAnalyticsR/",
+                   date_range = c("2021-01-01","2021-02-01"))
+```
+
+```{r fig.width=6}
+result$plot
+```
+
+
+To seed this I am always thankful when anyone blogs or writes about googleAnalyticsR's usage, so my idea is to take the code from some of those tutorials (see googleAnalyticsR's homepage tutorial section) and convert them into `.gamr` files like above - let me know if you'd like to contribute, either as further examples kept within the package or stored elsewhere.
+
+### The new ga_model_shiny() feature - Shiny Apps!
+
+A natural next step is to present that analysis to others which Shiny provides a route to, but Shiny is definitely a steep learning curve so I look to flatten that with the ability to re-use and swap out models and Shiny templates easily.
+
+I hope googleAnalyticsR now provides an easier framework for people to share nice Shiny themes on top of the ga_models available, which can then be combined as user's would like - the main use case for these functions is quick iteration between styles and quicker access to advanced GA applications.
+
+Some quick examples of the same model being used with different example templates - the major point being you can swap between totally different Shiny UI themes with just one line of code:
+
+* Shinythemes
+
+```r
+m3 <- ga_model_example("time-normalised.gamr")
+m4 <- ga_model_example("ga-effect.gamr")
+
+ga_model_shiny(list(m4, m3), 
+               auth_dropdown = "universal", 
+               template = ga_model_shiny_template("shinythemes"), 
+               theme = "cerulean")
+```
+![](/images/ga_model_shiny1.png)
+
+* bslib
+
+```r
+m3 <- ga_model_example("time-normalised.gamr")
+m4 <- ga_model_example("ga-effect.gamr")
+
+ga_model_shiny(list(m4, m3), auth_dropdown = "universal",
+               template = ga_model_shiny_template("basic_bslib"), 
+               bg = "white", fg = "red", primary = "grey")
+```
+![](/images/ga_model_shiny2.png)
+
+* argonDash
+
+```r
+model <- ga_model_example("ga-effect.gamr")
+
+ga_model_shiny(
+  model,
+  title = "Argon Demo",
+  auth_dropdown = "universal",
+  template = ga_model_shiny_template("argonDash"))
+```
+
+![](/images/ga_model_shiny4.png)
+
+In particular, the Shiny apps created are all using the latest Shiny 1.6 features, such as [Shiny Modules](https://shiny.rstudio.com/articles/modules.html),  [`bindCache()`](https://shiny.rstudio.com/app-stories/weather-lookup-caching.html) and styling via [bslibs](https://rstudio.github.io/bslib/) so you have access to advanced Shiny features without needing to code them, and of course the latest thinking of [OAuth2 authentication from my own `googleAuthR` using `gar_shiny_auth()`](https://code.markedmondson.me/googleAuthR/articles/google-authentication-types.html#gar_shiny_-functions-example) etc. is incorporated. The Shiny apps can be exported to code so you can tweak them as you require. 
+
+
+## All the other stuff
+
+As usual there is also lots of minor changes that are mostly found by user feedback or fixing minor frustrations when I am using the package.
+
+* No need for client Id when doing authentication with a service key JSON file - should make it smoother for authenticating Rmd files on a server
+* Cleaner NAMESPACE for finding help files - the auto-complete should throw up more useful functions
+* Nicer looking messaging in the R console - the [`cli` package](https://cli.r-lib.org/) has been used more extensively to give more attractive message feedback with comforting green ticks etc. 
+* Dev website - from this release there will be a dev website with all GitHub changes (https://code.markedmondson.me/googleAnalyticsR/dev/) but the CRAN version will only hold the 'offical' docs (https://code.markedmondson.me/googleAnalyticsR/)
+ 
+
+

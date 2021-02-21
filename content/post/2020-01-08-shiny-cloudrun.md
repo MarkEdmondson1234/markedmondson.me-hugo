@@ -228,7 +228,7 @@ Coupled with the workflow to [make paid Shiny apps](https://code.markedmondson.m
 
 Many thanks to all the members of the R community who helped solve this problem - `rankdy3k` as mentioned above but also `maxheld83`, `jchen5` and `jdwrink` who first raised the [issue on the shiny GitHub](https://github.com/rstudio/shiny/issues/2455).
 
-When researching this post I also found this [guide on how to publish Shiny on Google Cloud Run by Vabhav Ararwal](https://medium.com/engineered-publicis-sapient/google-cloud-run-best-bet-to-host-shiny-application-3aa1e18770a9) that uses the Web UI a bit more. 
+When researching this post I also found this [guide on how to publish Shiny on Google Cloud Run by Vaibhav Agarwal](https://medium.com/engineered-publicis-sapient/google-cloud-run-best-bet-to-host-shiny-application-3aa1e18770a9) that uses the Web UI a bit more. 
 
 After first publishing Augusto also pointed me to his blog post about how to [deploy Shiny to Cloud Run for Anthos](https://www.hasselpunk.com/blog/2020-06-13serverlessshinyengooglecloud/)[Spanish], that can run on top of your Kubernetes cluster.  This looks like a nicer more consistent way to deploy on Kubernetes.
 
