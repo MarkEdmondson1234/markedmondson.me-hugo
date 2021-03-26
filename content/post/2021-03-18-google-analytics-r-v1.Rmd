@@ -1,8 +1,8 @@
 ---
-title: 'googleAnalyticsR 0.9.0 - The Big Release. GA4 API, automatic shiny dashboarding, improved UI'
+title: 'googleAnalyticsR 1.0.0 - GA4 API, automatic shiny dashboarding, improved UI'
 author: Mark Edmondson
-date: 2021-02-21T09:29:50+01:00
-url: googleanalyticsr-090-release
+date: 2021-04-10T09:29:50+01:00
+url: googleanalyticsr-100-release
 tags: ["R", "google-analytics"]
 banner: banners/GA4-090.png
 ---
@@ -15,7 +15,7 @@ ga_auth(email = Sys.getenv("GARGLE_EMAIL"))
 
 The original intention for this blog was to announce updates to the R packages, but I tend to rely on Twitter and other social media for that these days - a lot of documentation also happens on the package websites so I feel little need to put it on this blog as well. 
 
-But for `googleAnalyticsR v0.9.0` there are so many cool new things that I think it deserves a bit more limelight.  They are mostly the result of my R programming improving over the almost five years since [version 0.1.1](https://github.com/MarkEdmondson1234/googleAnalyticsR/releases/tag/v0.1.1), the cool new tools available in the R ecosystem created by the R community and the new capabilities of the Google Analytics APIs we're connecting to.
+But for `googleAnalyticsR v1.0.0` there are so many cool new things that I think it deserves a bit more limelight.  They are mostly the result of my R programming improving over the almost five years since [version 0.1.1](https://github.com/MarkEdmondson1234/googleAnalyticsR/releases/tag/v0.1.1), the cool new tools available in the R ecosystem created by the R community plus the new capabilities of the Google Analytics APIs we're connecting to.
 
 ## Overview of cool features
 
@@ -35,7 +35,7 @@ There is a video!
 
 So yeah, basically you can now get GA4 in R, which in a couple of years will probably be the majority of digital analytics systems on the web. 
 
-I have to also thank [Hadley for his drive-by issue on GitHub](https://github.com/MarkEdmondson1234/googleAnalyticsR/issues/222) which pushed me to create a domain specific language (DSL) for googleAnalyticsR's GA4 functions. The main benefit should be an intuitive UI you don't need to look up all the time - e.g. unlike [`filter_clause_ga4()`](https://code.markedmondson.me/googleAnalyticsR/reference/filter_clause_ga4.html) - I wrote the code and still need to look up how that works sometimes!  
+I have to also thank [Hadley for his drive-by issue on GitHub](https://github.com/MarkEdmondson1234/googleAnalyticsR/issues/222) which pushed me to create a domain specific language (DSL) for googleAnalyticsR's GA4 functions. The main benefit should be an intuitive UI you don't need to look up all the time - e.g. unlike [`filter_clause_ga4()`](https://code.markedmondson.me/googleAnalyticsR/reference/filter_clause_ga4.html) - I wrote the code and still need to look up how it works sometimes!  
 
 See a comparison on the same filters:
 
@@ -77,7 +77,7 @@ ga4_data <- ga_data(ga4_id,
 
 ### Workflows with GA4
 
-Below is an example workflow using the GA4 APIs - the use case here is to analyse the first and last touch of users.  It incorporates some of the new features of the API, such as the new filters, creating your own dimensions and ordering the results.  Its easier to use, so encourages more 'flow' in your analysis of the data.
+Below is an example workflow using the GA4 APIs - the use case here is to analyse the first and last touch of users.  It incorporates some of the new features of the API, such as the filters, creating your own dimensions and ordering the results.  I find it easier to use, so encourages more 'flow' in your analysis of the data.
 
 ```{r message=FALSE}
 library(googleAnalyticsR)
@@ -175,7 +175,53 @@ As we also have the real-time API incorporated, it can be quickly verified which
 
 ![](/images/ga-mp-event-realtime.jpg)
 
-This has wide applications to send in analytics hits with R.  I'm thinking of using it to send some anonymous statistics of usage to a googleAnalytics GA4 account, or to add customer segments to GA4 BigQuery exports using R to model the clusters. 
+This has wide applications to send in analytics hits with R, such as adding customer segments to GA4 BigQuery exports using R to model the clusters. 
+
+#### Tracking usage of googleAnalyticsR
+
+One use case I did implement was using it to track usage of the `googleAnalyticsR` library itself.  I figured and got feedback that the digital analytics comunnity using the library are ok with tracking if its opt-in and no personal data.
+
+This gives birth then to the `ga_trackme()` function which allows people to opt-in to tracking each time the library is loaded via the `ga_trackme_event()` function.  Users can see what is sent by calling `ga_trackme_event(debug=TRUE)`:
+
+```
+ℹ 2021-03-05 09:36:46 > MP Request: https://www.google-analytics.com/debug/mp/collect?measurement_id=G-XXX&api_secret=_XXXXXX 
+ {
+  "client_id": "XXXXXX",
+  "non_personalized_ads": true,
+  "events": {
+    "name": "googleanalyticsr_loaded",
+    "params": {
+      "r_version": "R version 3.6.3 (2020-02-29)",
+      "r_platform": "x86_64-apple-darwin15.6.0 (64-bit)",
+      "r_locale": "en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8",
+      "r_system": "macOS  10.16",
+      "package": "googleAnalyticsR 0.8.0.9000"
+    }
+  }
+}
+ℹ 2021-03-05 09:36:46 > Response:  200
+```
+
+And I thought it would be fun for people to have the option of sending their own messages to my GA4 account so it includes a `say_hello` argument:
+
+```
+ga_trackme_event(debug=TRUE, say_hello = "Hello from Denmark!")
+...
+ {
+  "client_id": "XXXXX",
+  "non_personalized_ads": true,
+  "events": {
+    "name": "googleanalyticsr_loaded",
+    "params": {
+      ...
+      "say_hello": "Hello from Denmark!",
+      ...
+    }
+  }
+}
+```
+
+I can use the info to see what systems and versions of the library are being used over time.
 
 ## Shiny Model Templates
 
@@ -214,7 +260,7 @@ To seed this I am always thankful when anyone blogs or writes about googleAnalyt
 
 A natural next step is to present that analysis to others which Shiny provides a route to, but Shiny is definitely a steep learning curve so I look to flatten that with the ability to re-use and swap out models and Shiny templates easily.
 
-I hope googleAnalyticsR now provides an easier framework for people to share nice Shiny themes on top of the ga_models available, which can then be combined as user's would like - the main use case for these functions is quick iteration between styles and quicker access to advanced GA applications.
+`googleAnalyticsR` now provides a framework for people to share Shiny themes on top of the ga_models available. The models and themes can be combined to make Shiny apps with pre-made features such as OAuth2 login, caching and date pickers. Quick iteration between styles is possible and should lower development time towards advanced GA applications.
 
 Some quick examples of the same model being used with different example templates - the major point being you can swap between totally different Shiny UI themes with just one line of code:
 
@@ -268,6 +314,10 @@ As usual there is also lots of minor changes that are mostly found by user feedb
 * Cleaner NAMESPACE for finding help files - the auto-complete should throw up more useful functions
 * Nicer looking messaging in the R console - the [`cli` package](https://cli.r-lib.org/) has been used more extensively to give more attractive message feedback with comforting green ticks etc. 
 * Dev website - from this release there will be a dev website with all GitHub changes (https://code.markedmondson.me/googleAnalyticsR/dev/) but the CRAN version will only hold the 'offical' docs (https://code.markedmondson.me/googleAnalyticsR/)
+
+## Summary
+
+I'd like to thank all the people who have used `googleAnalyticsR` up until now and especially those who have given feedback on how they use it.  Its been my introduction to open-source and I've got a lot out of it - it feels good to contribute to the community.  If you have any ideas on what else could be done with the package (or find a bug!) please do let me know via [Twitter at HoloMarkeD](https://twitter.com/HoloMarkeD), the [#googleAuthRverse Slack group](https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform) or via [GitHub issues](https://github.com/MarkEdmondson1234/googleAnalyticsR/issues).
  
 
 

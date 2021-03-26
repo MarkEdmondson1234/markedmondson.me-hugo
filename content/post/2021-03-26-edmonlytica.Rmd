@@ -1,0 +1,222 @@
+---
+title: Edmonlytica - creating my own cookieless analytics tool with GTM Server Side,
+  Cloud Run, BigQuery and Shiny
+author: Mark Edmondson
+date: 2021-03-21T09:29:50+01:00
+url: edmondlytica
+tags: ["R", "google-analytics","cloud-run","google-tag-manager","big-query"]
+banner: banners/GA4-090.png
+---
+
+This is an example of how [GTM server side](https://developers.google.com/tag-manager/serverside) can be used to create your own digital analytics tool. It’s a proof of concept of what you can do given the power of GTM serverside and its BigQuery integration. I customise the stream by adding cookieless tracking, displaying the data in Shiny and running it all on Cloud Run to keep costs down but performance good. 
+
+I shall dub this tool **Edmonlytica**. Edmonlytica has these features:
+
+* KISS metrics: hits + page views + sessions only
+* No cookies
+* Zero third-party scripts
+* Real-time data stream I/O using BigQuery
+* R Shiny front end to plug into R package ecosystem
+* AI!!! (Not really)
+* Runs on infrastructure that scales cost with you, from 0 to billions. 
+
+## Resources
+
+The information for this post is gathered from various sources:
+
+* [Baz Analytics](https://developers.google.com/tag-manager/serverside/how-to-build-a-server-tag) in the GTM server side documentation
+* Nicolas Hinternesch's post on creating a [custom GTM-SS client for AT-Internet](https://levelup.gitconnected.com/google-tag-manager-server-side-how-to-manage-custom-vendor-tags-21bef51bc89e)
+* My previous post on running a [real-time forecasting dashboard using GTM, GCP and Shiny](http://code.markedmondson.me/real-time-GTM-google-cloud-r-shiny-2/)
+* My other post about [deploying GTM Server Side on Cloud Run](https://code.markedmondson.me/gtm-serverside-cloudrun/)
+
+## The Plan
+
+The things to configure are:
+
+* GTM Browser side tag - capturing the data and sending it to `/edmonlytica`
+* GTM Server side client - recieving the payload from `/edmonlytica`, adding a hashed userID and putting the data into a GTM event format
+* GTM Server side tag - taking the GTM event format and sending it to BigQuery
+* BigQuery - real-time capture, storage, aggregation and analysis of the data streams
+* Shiny - connecting to BigQuery to process the data and display information based on the data
+
+## GTM Browser Side Configuration
+
+Deploy GTM browser side on your website, changing the tracking script to point at your GTM Server Side URL instead of `www.googletagmanager.com` e.g. for my GTM SS URL of `https://gtm2.markedmondson.me` its:
+
+```js
+script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//gtm2.markedmondson.me/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WFFMBH');</script>
+```
+
+### Making a browser side tag to send in the events. 
+
+This will send in event names and their parameters.  
+
+I choose not to ride on the back of the GA events like the [Baz Analytics](https://developers.google.com/tag-manager/serverside/how-to-build-a-server-tag) example, so will need to send to my own endpoint. 
+It sends it to the GTM serverside endpoint `/edmondlytica` reading the event name from the GTM trigger the tag is set up for.
+
+It includes a timestamp and the eventId as they could be useful. 
+
+```js
+const log = require('logToConsole');
+const copyFromDataLayer = require('copyFromDataLayer');
+const encodeUri = require('encodeUri');
+const sendPixel = require('sendPixel');
+const getReferrerUrl = require('getReferrerUrl');
+log('data =', data);
+
+const gtm = copyFromDataLayer('gtm');
+
+const the_url = data.transport_url + '/edmonlytica' +
+    '?event=' + copyFromDataLayer('event') + 
+    '&referrer=' + getReferrerUrl() + 
+    '&ts=' + gtm.start + 
+    '&eventId=' + data.gtmEventId +
+    '&custom=' + data.custom;
+
+log('the_url:', encodeUri(the_url));
+
+sendPixel(encodeUri(the_url), data.gtmOnSuccess(), data.gtmOnFailure());
+```
+
+This code is set via a tag template, with a `data.transport_url` field to swap out which GTM server-side instance you want to use.  My default is set to `https://gtm2.markedmondson.me`.  I also have a field for custom variables that can be set to macros - I'd like the URL people click on for my external link clicks trigger so will use `{{Click URL}}`
+
+![](/images/edmonlytica-browser-fields.png)
+
+I now create an instance of my tag and choose what triggers it - for me pageviews and external link triggers.
+
+![](/images/edmonlytica-browser-tag.png)
+
+Publishing the tag or in preview mode I can see the logs showing the URL is being formed correctly, but getting a 400 error as we haven't setup the server-side yet.  In my case the triggers for a pageview = `gtm.js` and for an external link click = `gtm.linkClick`
+
+![](/images/edmonlytica-tag-console-logs.png)
+
+Now I need the GTM Client that will accept the `/edmonlytica` endpoint, process it and send it into BigQuery.
+
+## GTM Server Side
+
+The GTM Server Side Client accepts calls from Edmonlytica Browser Tag and parses them out into an GTM event object ready for server-side tags to consume.
+
+The server-side tag will consume the event object and do the call to BigQuery.
+
+### The GTM Server Side Client 
+
+The GTM Server Side Client accepts the endpoint request from the browser-side tag, puts it into an event format then runs it against the server-side tag.  If successful, it returns a 200 response back to the browser as a pixel.
+
+It includes a hashing of the ip address for a session/userId.  This isn't reliable as using cookies or for identifying sessions and users, but deemed fine for the scope of this use case.
+
+```js
+const claimRequest = require('claimRequest');
+const getRequestPath = require('getRequestPath');
+const getRequestQueryParameters = require('getRequestQueryParameters');
+const log = require('logToConsole');
+const runContainer = require('runContainer');
+const returnResponse = require('returnResponse');
+const setPixelResponse = require('setPixelResponse');
+const sha256Sync = require('sha256Sync');
+const getRemoteAddress = require('getRemoteAddress');
+
+if(getRequestPath() == "/edmonlytica"){
+  
+  claimRequest();
+  
+  const queryParameters = getRequestQueryParameters();
+  const hashedip = sha256Sync(getRemoteAddress() + 'salted');
+  
+  // create event schema 
+  const event = {
+    event_name: "edmonlytica",
+    event:  queryParameters.event,
+    referrer:  queryParameters.referrer,
+    ts:  queryParameters.ts,
+    eventId: queryParameters.eventId,
+    custom: queryParameters.custom,
+    sessionId: hashedip
+  };
+  
+  log("Edmonlytica request event:", event);
+  
+  runContainer(event, () => returnResponse());
+  
+  setPixelResponse();
+  
+  returnResponse();
+}
+```
+
+Remember to set the appropriate permissions as documented in the [server-side tagging APIs](https://developers.google.com/tag-manager/serverside/api#getremoteaddress)
+
+### The GTM Server Side Tag
+
+The Server Side tag will do the actual sending to BigQuery of your data.
+
+```js
+const log = require('logToConsole');
+const getAllEventData = require('getAllEventData');
+const encodeUriComponent = require('encodeUriComponent');
+const makeString = require('makeString');
+const BigQuery = require('BigQuery');
+const JSON = require('JSON');
+
+// need a list of event data
+const event = getAllEventData();
+
+// this should match the BigQuery schema
+let row = [];
+row.push(event);
+
+log('array to push to BigQuery: ', row);
+
+BigQuery.insert({
+  projectId: data.projectId,
+  datasetId: data.dataset,
+  tableId: data.table,
+}, row, {}, () => {
+  log('BigQuery Success');
+  data.gtmOnSuccess();
+}, (errors) => {
+  log('BigQuery Failure');
+  log(JSON.stringify(errors));
+  data.gtmOnFailure();
+});
+```
+
+Its possible to push many rows at once, but for this application it only does one at a time. 
+
+Once you have created the template, deploy the instances of them to the Clients and Tags and create a trigger:
+
+* Edmonlytica Client
+![](/images/edmonlytica-deploy-client.png)
+* Edmonlytica Trigger
+![](/images/edmonlytica-client-trigger.png)
+* Edmonlytica Server Tag
+![](/images/edmonlytica-server-tag.png)
+
+## BigQuery
+
+The GTM tag won't create the table, so you need to pre-create the schema.  I also added DATE partitioning. 
+
+![](/images/edmonlytica-bigquery-schema.png)
+
+Once you have all your tags firing successfully in preview mode, you should start to see data in BigQuery.  Study the GTM preview logs in the console if any problems, usually related to formatting the projectId/datasetId/tableId, the BigQuery data schema and similar. 
+
+Data will be flowing into the real-time BigQuery buffer, so you will want to disable cached results when testing your data stream.  Queries like 
+
+```sql
+SELECT * FROM `edmonlytica.code_markedmondson_me` LIMIT 1000
+```
+
+Should give you back results. 
+
+![](/images/edmonlytica-bigquery-settings.png)
+
+The hard bits done!  Data should now be flowing in as user browse the website.  
+You could connect to BigQuery with Data Studio or lots of other visualisation products, but I would like to connect via R Shiny.
+
+## Shiny
+
+I want to see my data in a Shiny dashboard. This app is deployed to Cloud Run as well. It includes visualizations of trends, top line figures and some analysis tools such as forecasts and anomaly detection. 
+
