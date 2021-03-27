@@ -1,11 +1,11 @@
 ---
-title: Edmonlytica - creating your own cookieless analytics tool with GTM Server Side,
+title: Creating your own cookieless analytics tool with GTM Server Side,
   Cloud Run, BigQuery and Shiny
 author: Mark Edmondson
 date: 2021-03-21T09:29:50+01:00
 url: edmondlytica
 tags: ["R", "google-analytics","cloud-run","google-tag-manager","big-query"]
-banner: banners/GA4-090.png
+banner: banners/edmonlytica-shiny1.png
 ---
 
 This is an example of how [GTM server side](https://developers.google.com/tag-manager/serverside) can be used to create your own digital analytics tool. It’s a proof of concept of what you can do given the power of GTM serverside and its BigQuery integration. I customise the stream by adding cookieless tracking, displaying the data in Shiny and running it all on Cloud Run to keep costs down but performance good. 
@@ -49,7 +49,7 @@ The things to configure are:
 
 Deploy GTM browser side on your website, changing the tracking script to point at your GTM Server Side URL instead of `www.googletagmanager.com` e.g. for my GTM SS URL of `https://gtm2.markedmondson.me` its:
 
-```js
+```
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -59,10 +59,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 ### Making a browser side tag to send in the events. 
 
-This will send in GTM events as per traditonal GTM setups.  
+This will send in GTM events as per traditional GTM setups.  
 
 I choose not to ride on the back of the GA events like the [Baz Analytics](https://developers.google.com/tag-manager/serverside/how-to-build-a-server-tag) example, so will need to send to my own endpoint. 
-It sends it to the GTM serverside endpoint `/edmondlytica` reading the event name from the GTM trigger the tag is set up for.
+It sends it to the GTM server side endpoint `/edmondlytica` reading the event name from the GTM trigger the tag is set up for.
 
 It includes a timestamp and the eventId as they could be useful. 
 
@@ -92,15 +92,15 @@ sendPixel(encodeUri(the_url), data.gtmOnSuccess(), data.gtmOnFailure());
 
 This code is set via a tag template, with a `data.transport_url` field to swap out which GTM server-side instance you want to use.  My default is set to `https://gtm2.markedmondson.me`.  I also have a field for custom variables that can be set with GTM macros - I'd like the URL people click on for my external link clicks trigger so will use `{{Click URL}}` and the `{{Page URL}}`.
 
-![](/images/edmonlytica-browser-fields.png)
+![Edmonlytica GTM Browser tag template data fields](/images/edmonlytica-browser-fields.png)
 
-I now create an instance of my tag and choose what triggers it - for me pageviews and external link triggers but you could add any GTM trigger you have created. 
+I now create an instance of my tag and choose what triggers it - for me pageviews and external link triggers but you could add any other GTM trigger you have created - the tag will capture the event details for that trigger. 
 
-![](/images/edmonlytica-browser-tag.png)
+![Edmonlytica GTM Browser-side tag](/images/edmonlytica-browser-tag.png)
 
 Publishing the tag or in preview mode I can see the logs showing the URL is being formed correctly, but getting a 400 error as we haven't setup the server-side yet.  In my case the triggers for a pageview = `gtm.js` and for an external link click = `gtm.linkClick`
 
-![click to make larger](/images/edmonlytica-tag-console-logs.png)
+![Logs in Web Console Network tab - (click to make larger)](/images/edmonlytica-tag-console-logs.png)
 
 Now I need the GTM Server Side Client that will accept the `/edmonlytica` endpoint, process it and send it into BigQuery.
 
@@ -270,5 +270,41 @@ You could connect to BigQuery with Data Studio or lots of other visualisation pr
 
 ## Shiny
 
-I want to see my data in a Shiny dashboard. This app is deployed to Cloud Run as well. It includes visualizations of trends, top line figures and some analysis tools such as forecasts and anomaly detection. 
+I want to see my data in a Shiny dashboard. This app is deployed to Cloud Run as well. It includes visualizations of hit trends, top referrers and landing pages and some analysis tools such as forecasts and anomaly detection. 
+
+![pageviews per page](/images/edmonlytica-shiny1.png)
+
+![referrers and landing page](/images/edmonlytica-shiny2.png)
+
+![realtime hits and forecast](/images/edmonlytica-shiny-3.png)
+
+### Shiny deployment on Cloud Run
+
+The Shiny app code is here: https://github.com/MarkEdmondson1234/edmonlytica
+
+I used the SQL examples above to help build the datasets for Shiny to process and display.
+
+[`bigQueryR`](https://code.markedmondson.me/bigQueryR/) was used within my Shiny app, then since Cloud Run is running on GCP in the same project as the BigQuery dataset I could use `googleAuthR::gar_gce_auth()` to use the default authentication service account without needing to upload any auth keys.
+
+I used [`highcharter`](https://jkunst.com/highcharter/) as was used in my previous Shiny app ([real-time forecasting dashboard using GTM, GCP and Shiny](http://code.markedmondson.me/real-time-GTM-google-cloud-r-shiny-2/)) as it makes pretty plots, and also kept the forecasting capabilities from that post for my trended hits via [`forecast`](https://pkg.robjhyndman.com/forecast/).
+
+The deployment followed the [deploy Shiny on Cloud Run](https://code.markedmondson.me/shiny-cloudrun/) instructions and once the Dockerfile was built could be deployed by googleCloudRunner via:
+
+```r
+library(googleCloudRuner)
+
+# deploy to Cloud Run
+cr_run(sprintf("gcr.io/%s/shiny-edmonlytica:latest",cr_project_get()),
+       name = "shiny-edmonlytica",
+       concurrency = 80,
+       max_instances = 1,
+       memory = "2Gi")
+```
+
+## Summary
+
+Creating your own digital analytics data flow is much easier these days as more and more useful tools come out.  The Cloud is the enabler in most of these cases as it provides the scale but also cost savings - the most expensive aspect of the above setup will be the BigQuery query costs as for my blog it should otherwise keep well underneath the free tiers. 
+
+I hope it also demonstrates who the tools such as GA360 and GA4 can also be complimented with your own data streams for not too much development time, and look forward to the publication of pre-made GTM tags and clients to help even those with no coding experience benefit.  
+
 
