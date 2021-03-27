@@ -53,9 +53,11 @@ Deploy GTM browser side on your website, changing the tracking script to point a
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//gtm2.markedmondson.me/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+'https://gtm2.markedmondson.me/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WFFMBH');</script>
 ```
+
+In the GTM Server Side setup create a "Google Tag Manager: Web Container" as specified in the [GTM Server Side documentation](https://developers.google.com/tag-manager/serverside/send-data#update_the_gtmjs_source_domain)
 
 ### Making a browser side tag to send in the events. 
 
@@ -109,6 +111,10 @@ Now I need the GTM Server Side Client that will accept the `/edmonlytica` endpoi
 The GTM Server Side Client accepts calls from Edmonlytica GTM Browser Tag and parses them out into an GTM event object ready for server side tags to consume.
 
 The GTM Server Side Tag will consume the event object and do the call to BigQuery.
+
+### Self Hosting GTM itself
+
+As mentioned above, make sure to create a "Google Tag Manager: Web Container" as specified in the [GTM Server Side documentation](https://developers.google.com/tag-manager/serverside/send-data#update_the_gtmjs_source_domain)
 
 ### The GTM Server Side Client 
 
