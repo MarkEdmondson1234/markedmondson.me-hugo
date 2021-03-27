@@ -37,11 +37,11 @@ I shall dub this tool Edmonlytica.">
 
 <meta itemprop="datePublished" content="2021-03-21T09:29:50&#43;01:00" />
 <meta itemprop="dateModified" content="2021-03-21T09:29:50&#43;01:00" />
-<meta itemprop="wordCount" content="1691">
+<meta itemprop="wordCount" content="1742">
 
 
 
-<meta itemprop="keywords" content="R,google-analytics,cloud-run,google-tag-manager,big-query," />
+<meta itemprop="keywords" content="R,cloud-run,google-tag-manager,big-query," />
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Creating your own cookieless analytics tool with GTM Server Side, Cloud Run, BigQuery and Shiny"/>
@@ -287,10 +287,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <i class="fa fa-calendar"></i>
             <time datetime="2021-03-21 09:29:50 &#43;0100 CET" itemprop="datePublished">2021-03-21</time>
             &middot;
-            1691
+            1742
             words
             &middot;
-            8
+            9
             minute read
         </div>
         
@@ -304,10 +304,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 
                 
                 <a class="article-category-link" href="https://code.markedmondson.me/tags/r">R</a>
-                &middot;
-                
-                
-                <a class="article-category-link" href="https://code.markedmondson.me/tags/google-analytics">google-analytics</a>
                 &middot;
                 
                 
@@ -361,7 +357,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>The things to configure are:</p>
 <ul>
 <li>GTM Browser side tag - capturing the data and sending it to <code>/edmonlytica</code></li>
-<li>GTM Server side client - recieving the payload from <code>/edmonlytica</code>, adding a hashed userID and putting the data into a GTM event format</li>
+<li>GTM Server side client - receiving the payload from <code>/edmonlytica</code>, adding a hashed userID and putting the data into a GTM event format</li>
 <li>GTM Server side tag - taking the GTM event format and sending it to BigQuery</li>
 <li>BigQuery - real-time capture, storage, aggregation and analysis of the data streams</li>
 <li>Shiny - connecting to BigQuery to process the data and display information based on the data</li>
@@ -374,8 +370,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <pre><code>&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({&#39;gtm.start&#39;:
 new Date().getTime(),event:&#39;gtm.js&#39;});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!=&#39;dataLayer&#39;?&#39;&amp;l=&#39;+l:&#39;&#39;;j.async=true;j.src=
-&#39;//gtm2.markedmondson.me/gtm.js?id=&#39;+i+dl;f.parentNode.insertBefore(j,f);
+&#39;https://gtm2.markedmondson.me/gtm.js?id=&#39;+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,&#39;script&#39;,&#39;dataLayer&#39;,&#39;GTM-WFFMBH&#39;);&lt;/script&gt;</code></pre>
+<p>In the GTM Server Side setup create a “Google Tag Manager: Web Container” as specified in the <a href="https://developers.google.com/tag-manager/serverside/send-data#update_the_gtmjs_source_domain">GTM Server Side documentation</a></p>
 <div id="making-a-browser-side-tag-to-send-in-the-events." class="section level3">
 <h3>Making a browser side tag to send in the events.</h3>
 <p>This will send in GTM events as per traditional GTM setups.</p>
@@ -425,6 +422,10 @@ sendPixel(encodeUri(the_url), data.gtmOnSuccess(), data.gtmOnFailure());</code><
 <h2>GTM Server Side</h2>
 <p>The GTM Server Side Client accepts calls from Edmonlytica GTM Browser Tag and parses them out into an GTM event object ready for server side tags to consume.</p>
 <p>The GTM Server Side Tag will consume the event object and do the call to BigQuery.</p>
+<div id="self-hosting-gtm-itself" class="section level3">
+<h3>Self Hosting GTM itself</h3>
+<p>As mentioned above, make sure to create a “Google Tag Manager: Web Container” as specified in the <a href="https://developers.google.com/tag-manager/serverside/send-data#update_the_gtmjs_source_domain">GTM Server Side documentation</a>.</p>
+</div>
 <div id="the-gtm-server-side-client" class="section level3">
 <h3>The GTM Server Side Client</h3>
 <p>The GTM Server Side Client accepts the endpoint request from the browser-side tag, puts it into an event format then runs it against the server-side tag. If successful, it returns a 200 response back to the browser as a pixel.</p>
@@ -463,11 +464,10 @@ if(getRequestPath() == &quot;/edmonlytica&quot;){
   
   log(&quot;Edmonlytica request event:&quot;, event);
   
-  runContainer(event, () =&gt; returnResponse());
-  
   setPixelResponse();
   
-  returnResponse();
+  runContainer(event, () =&gt; returnResponse());
+
 }</code></pre>
 <p>Remember to set the appropriate permissions as documented in the <a href="https://developers.google.com/tag-manager/serverside/api#getremoteaddress">server-side tagging APIs</a>.</p>
 </div>
@@ -598,7 +598,7 @@ cr_run(sprintf(&quot;gcr.io/%s/shiny-edmonlytica:latest&quot;,cr_project_get()),
 <div id="summary" class="section level2">
 <h2>Summary</h2>
 <p>Creating your own digital analytics data flow is much easier these days as more and more useful tools come out. The Cloud is the enabler in most of these cases as it provides the scale but also cost savings - the most expensive aspect of the above setup will be the BigQuery query costs as for my blog it should otherwise keep well underneath the free tiers.</p>
-<p>I hope it also demonstrates who the tools such as GA360 and GA4 can also be complimented with your own data streams for not too much development time, and look forward to the publication of pre-made GTM tags and clients to help even those with no coding experience benefit.</p>
+<p>I hope it also demonstrates how other tools such as GA360 and GA4 can be complemented with your own data streams without too much development time, and look forward to the publication of lots of exciting pre-made GTM tags and clients in the <a href="https://developers.google.com/tag-manager/templates/gallery">Community Template Gallery</a> to help even those with no coding experience benefit.</p>
 </div>
 
         </div>
@@ -916,7 +916,7 @@ cr_run(sprintf(&quot;gcr.io/%s/shiny-edmonlytica:latest&quot;,cr_project_get()),
                 <a class="category-list-link" href="https://code.markedmondson.me/tags/google-analytics">
                     google-analytics
                 </a>
-                <span class="category-list-count">11</span>
+                <span class="category-list-count">10</span>
             </li>
             
             <li class="category-list-item">

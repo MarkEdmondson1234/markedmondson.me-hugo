@@ -4,7 +4,7 @@ title: Creating your own cookieless analytics tool with GTM Server Side,
 author: Mark Edmondson
 date: 2021-03-21T09:29:50+01:00
 url: edmondlytica
-tags: ["R", "google-analytics","cloud-run","google-tag-manager","big-query"]
+tags: ["R","cloud-run","google-tag-manager","big-query"]
 banner: banners/edmonlytica-shiny1.png
 ---
 
@@ -38,7 +38,7 @@ The information for this post is gathered from various sources:
 The things to configure are:
 
 * GTM Browser side tag - capturing the data and sending it to `/edmonlytica`
-* GTM Server side client - recieving the payload from `/edmonlytica`, adding a hashed userID and putting the data into a GTM event format
+* GTM Server side client - receiving the payload from `/edmonlytica`, adding a hashed userID and putting the data into a GTM event format
 * GTM Server side tag - taking the GTM event format and sending it to BigQuery
 * BigQuery - real-time capture, storage, aggregation and analysis of the data streams
 * Shiny - connecting to BigQuery to process the data and display information based on the data
@@ -61,7 +61,7 @@ In the GTM Server Side setup create a "Google Tag Manager: Web Container" as spe
 
 ### Making a browser side tag to send in the events. 
 
-This will send in GTM events as per traditional GTM setups.  
+This will send in GTM events as per traditional GTM setups.   
 
 I choose not to ride on the back of the GA events like the [Baz Analytics](https://developers.google.com/tag-manager/serverside/how-to-build-a-server-tag) example, so will need to send to my own endpoint. 
 It sends it to the GTM server side endpoint `/edmondlytica` reading the event name from the GTM trigger the tag is set up for.
@@ -114,7 +114,7 @@ The GTM Server Side Tag will consume the event object and do the call to BigQuer
 
 ### Self Hosting GTM itself
 
-As mentioned above, make sure to create a "Google Tag Manager: Web Container" as specified in the [GTM Server Side documentation](https://developers.google.com/tag-manager/serverside/send-data#update_the_gtmjs_source_domain)
+As mentioned above, make sure to create a "Google Tag Manager: Web Container" as specified in the [GTM Server Side documentation](https://developers.google.com/tag-manager/serverside/send-data#update_the_gtmjs_source_domain).
 
 ### The GTM Server Side Client 
 
@@ -157,11 +157,10 @@ if(getRequestPath() == "/edmonlytica"){
   
   log("Edmonlytica request event:", event);
   
-  runContainer(event, () => returnResponse());
-  
   setPixelResponse();
   
-  returnResponse();
+  runContainer(event, () => returnResponse());
+
 }
 ```
 
@@ -169,7 +168,7 @@ Remember to set the appropriate permissions as documented in the [server-side ta
 
 ### The GTM Server Side Tag
 
-The Server Side tag will do the actual sending to BigQuery of your data.
+The Server Side tag will do the actual sending to BigQuery of your data. 
 
 ```js
 const log = require('logToConsole');
@@ -311,6 +310,6 @@ cr_run(sprintf("gcr.io/%s/shiny-edmonlytica:latest",cr_project_get()),
 
 Creating your own digital analytics data flow is much easier these days as more and more useful tools come out.  The Cloud is the enabler in most of these cases as it provides the scale but also cost savings - the most expensive aspect of the above setup will be the BigQuery query costs as for my blog it should otherwise keep well underneath the free tiers. 
 
-I hope it also demonstrates who the tools such as GA360 and GA4 can also be complimented with your own data streams for not too much development time, and look forward to the publication of pre-made GTM tags and clients to help even those with no coding experience benefit.  
+I hope it also demonstrates how other tools such as GA360 and GA4 can be complemented with your own data streams without too much development time, and look forward to the publication of lots of exciting pre-made GTM tags and clients in the [Community Template Gallery](https://developers.google.com/tag-manager/templates/gallery) to help even those with no coding experience benefit.
 
 
