@@ -9,7 +9,7 @@
         <ul class="category-list">
             {{ range $name, $items := .Site.Taxonomies.tags }}
             <li class="category-list-item">
-                {{ $url := printf "%s/%s" "tags" ($name | urlize )}}
+                {{ $url := printf "%s/%s" "tags" ($name | urlize | lower )}}
                 <a class="category-list-link" href="{{ $url | absURL }}">
                     {{ $name }}
                 </a>
