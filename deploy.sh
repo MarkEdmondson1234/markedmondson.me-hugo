@@ -18,6 +18,8 @@ if [ $# -eq 1 ]
 fi
 git commit -m "$msg"
 
+#git remote set-url origin git@github.com:MarkEdmondson1234/MarkEdmondson1234.github.io.git
+
 # Push source and build repos.
 git push origin master
 

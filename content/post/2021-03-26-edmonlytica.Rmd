@@ -277,7 +277,7 @@ You could connect to BigQuery with Data Studio or lots of other visualisation pr
 
 ## Shiny
 
-I want to see my data in a Shiny dashboard. This app is deployed to Cloud Run as well. It includes visualizations of hit trends, top referrers and landing pages and some analysis tools such as forecasts and anomaly detection. 
+I want to see my data in a Shiny dashboard. This app is deployed to Cloud Run as well. It includes visualizations of hit trends, top referrers and landing pages and some analysis tools such as forecasting. 
 
 ![pageviews per page](/images/edmonlytica-shiny1.png)
 
