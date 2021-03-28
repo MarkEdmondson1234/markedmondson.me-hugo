@@ -2,7 +2,7 @@ baseurl = "https://code.markedmondson.me/"
 languageCode = "en-GB"
 title = "Mark Edmondson"
 # Enable comments by entering your Disqus shortname
-disqusShortname = "markedmondson"
+#disqusShortname = "markedmondson"
 # Enable Google Analytics by entering your tracking code
 googleAnalytics = ""
 # Define the number of posts per page

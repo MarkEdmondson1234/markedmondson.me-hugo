@@ -8,11 +8,11 @@ tags: ["R","cloud-run","google-tag-manager","big-query"]
 banner: banners/edmonlytica-shiny1.png
 ---
 
-This is an example of how [GTM server side](https://developers.google.com/tag-manager/serverside) can be used to create your own digital analytics tool. It’s a proof of concept of what you can do given the power of GTM serverside and its BigQuery integration. I customise the stream by adding cookieless tracking, displaying the data in Shiny and running it all on Cloud Run to keep costs down but performance good. 
+This is an example of how [GTM server side](https://developers.google.com/tag-manager/serverside) can be used to create your own digital analytics tool. It is a proof of concept of what you can do given the power of GTM server side and its BigQuery integration. I customise the stream by adding cookieless tracking, displaying the data in Shiny and running it all on Cloud Run to keep costs down but performance good. 
 
 I shall dub this tool **Edmonlytica**. 
 
-Edmonlytica has these features:
+Edmonlytica features:
 
 * KISS metrics: hits + page views + sessions
 * No cookies
@@ -64,7 +64,7 @@ In the GTM Server Side setup create a "Google Tag Manager: Web Container" as spe
 This will send in GTM events as per traditional GTM setups.   
 
 I choose not to ride on the back of the GA events like the [Baz Analytics](https://developers.google.com/tag-manager/serverside/how-to-build-a-server-tag) example, so will need to send to my own endpoint. 
-It sends it to the GTM server side endpoint `/edmondlytica` reading the event name from the GTM trigger the tag is set up for.
+The tag will instead send it to its own GTM server side endpoint `/edmondlytica`, reading the event information from the GTM trigger the tag is set up for.
 
 It includes a timestamp and the eventId as they could be useful. 
 
@@ -74,7 +74,7 @@ const copyFromDataLayer = require('copyFromDataLayer');
 const encodeUri = require('encodeUri');
 const sendPixel = require('sendPixel');
 const getReferrerUrl = require('getReferrerUrl');
-const encodeUriComponent = require('encodeUriComponent');
+
 log('data =', data);
 
 const gtm = copyFromDataLayer('gtm');
@@ -92,7 +92,7 @@ log('the_url:', encodeUri(the_url));
 sendPixel(encodeUri(the_url), data.gtmOnSuccess(), data.gtmOnFailure());
 ```
 
-This code is set via a tag template, with a `data.transport_url` field to swap out which GTM server-side instance you want to use.  My default is set to `https://gtm2.markedmondson.me`.  I also have a field for custom variables that can be set with GTM macros - I'd like the URL people click on for my external link clicks trigger so will use `{{Click URL}}` and the `{{Page URL}}`.
+This code is set via a tag template, with a `data.transport_url` field to swap out which GTM server-side instance you want to use.  My default is set to `https://gtm2.markedmondson.me`.  I also have a field for custom variables that can be set with GTM macros - I'd like the URL people click on for my external link clicks trigger so will use `{{Click URL}}` and the `{{Page URL}}`.  This gives some flexibility on precisely what URL information is sent, such as stripping out parameters or not, via GTM trigger configuration. 
 
 ![Edmonlytica GTM Browser tag template data fields](/images/edmonlytica-browser-fields.png)
 
@@ -111,6 +111,8 @@ Now I need the GTM Server Side Client that will accept the `/edmonlytica` endpoi
 The GTM Server Side Client accepts calls from Edmonlytica GTM Browser Tag and parses them out into an GTM event object ready for server side tags to consume.
 
 The GTM Server Side Tag will consume the event object and do the call to BigQuery.
+
+The example below is using a [GTM Server Side deployed on Cloud Run](https://code.markedmondson.me/gtm-serverside-cloudrun/) for 0 cost when within its free tier of 2 million requests per month.
 
 ### Self Hosting GTM itself
 
@@ -164,7 +166,7 @@ if(getRequestPath() == "/edmonlytica"){
 }
 ```
 
-Remember to set the appropriate permissions as documented in the [server-side tagging APIs](https://developers.google.com/tag-manager/serverside/api#getremoteaddress).
+Remember to set the appropriate permissions as documented in the [server side tagging APIs](https://developers.google.com/tag-manager/serverside/api#getremoteaddress). 
 
 ### The GTM Server Side Tag
 
