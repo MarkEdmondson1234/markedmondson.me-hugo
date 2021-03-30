@@ -76,3 +76,38 @@ I maintain two Github repos - one with the [actual site content](https://github.
 
 I had/have a lot of hassles with git submodules, so much so I now just copy over the files in the Hugo repo's public folder manually to the GitHub repo that hosts the HTML.
 
+edit 2021:
+
+A deploy.sh script does all the above, in RStudio I add it to the Project Options > Build tools so it will execute when I use the Build All button.
+
+The HTML git domain has its Git origin set to one that can reuse the local git SSH, so it doesn't need to prompt for a username/password - this can be done by issuing `git remote set-url origin git@github.com:MarkEdmondson1234/MarkEdmondson1234.github.io.git` in the terminal.
+
+```sh
+#!/bin/bash
+
+echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
+
+# Build the project.
+RScript -e 'blogdown::build_site()'
+
+# Copy all over to other GitHub repo that holds public files
+cp -a public/. ../MarkEdmondson1234.github.io/
+
+# Add changes to git.
+cd ../MarkEdmondson1234.github.io/ && git add -A
+
+# Commit changes.
+msg="rebuilding site `date`"
+if [ $# -eq 1 ]
+  then msg="$1"
+fi
+git commit -m "$msg"
+
+#git remote set-url origin git@github.com:MarkEdmondson1234/MarkEdmondson1234.github.io.git
+
+# Push source and build repos.
+git push origin master
+
+# Come Back
+cd ../markedmondson.me-hugo
+```
