@@ -1,7 +1,7 @@
 ---
-title: 'googleAnalyticsR 1.0.0 - GA4 API, automatic shiny dashboarding, improved UI'
+title: 'googleAnalyticsR v1.0.0 - GA4 API, Automatic Shiny Dashboarding, Improved UI'
 author: Mark Edmondson
-date: 2021-04-10T09:29:50+01:00
+date: 2021-04-15T09:29:50+01:00
 url: googleanalyticsr-100-release
 tags: ["R", "google-analytics"]
 banner: banners/GA4-090.png
@@ -14,7 +14,7 @@ ga_auth(email = Sys.getenv("GARGLE_EMAIL"))
 ```
 
 
-The original intention for this blog was to announce updates to the R packages, but I tend to rely on Twitter and other social media for that these days - a lot of documentation also happens on the package websites so I feel little need to put it on this blog as well. 
+The original intention for this blog was to announce updates to [my R packages](https://code.markedmondson.me/r-packages/), but I tend to rely on Twitter and other social media for that these days. A lot of documentation also happens on the package websites so I feel little need to put it on this blog as well. 
 
 But for `googleAnalyticsR v1.0.0` there are so many cool new things that I think it deserves a bit more limelight.  They are mostly the result of my R programming improving over the almost five years since [version 0.1.1](https://github.com/MarkEdmondson1234/googleAnalyticsR/releases/tag/v0.1.1), the cool new tools available in the R ecosystem created by the R community plus the new capabilities of the Google Analytics APIs we're connecting to.
 
@@ -61,24 +61,24 @@ ga_v4 <- google_analytics(ga_id,
                           dim_filters = fc2)
 ```
 
-In GA4, there is a more intuitive interface using [NSE](http://adv-r.had.co.nz/Computing-on-the-language.html):
+In GA4, there is a more intuitive interface using a more tidyverse-like [NSE](http://adv-r.had.co.nz/Computing-on-the-language.html):
 
 ```r
 fc2 <- ga_data_filter(!source %begins% "1" & !source %begins% "a")
 fc  <- ga_data_filter(bounces > 0 & sessions > 2)
 
 ga4_data <- ga_data(ga4_id, 
-                 date_range = c("2015-07-30","2015-10-01"),
-                 dimensions='sessionSource', 
-                 metrics = 'sessions', 
-                 met_filters = fc, 
-                 dim_filters = fc2)
+                   date_range = c("2015-07-30","2015-10-01"),
+                   dimensions='sessionSource', 
+                   metrics = 'sessions', 
+                   met_filters = fc, 
+                   dim_filters = fc2)
 
 ```
 
 ### Workflows with GA4
 
-Below is an example workflow using the GA4 APIs - the use case here is to analyse the first and last touch of users.  It incorporates some of the new features of the API, such as the filters, creating your own dimensions and ordering the results.  I find it easier to use, so encourages more 'flow' in your analysis of the data.
+Below is an example workflow using the GA4 APIs - the use case here is to analyse the first and last touch of users.  It incorporates some of the new features of the API, such as the filters, creating your own dimensions and ordering the results.  Personally I find it much easier to use, so it encourages more 'flow' in my analysis of the data.
 
 ```{r message=FALSE}
 library(googleAnalyticsR)
@@ -158,6 +158,8 @@ So for Twitter first time referrals, it seems most people used Google to come ba
 
 The [Measurement Protocol v2 for GA4](https://developers.google.com/analytics/devguides/collection/protocol/ga4) is less open and so can't be spammed.  It works using a server key so it seems useful to include in the package. Thank [Martijn van Vreeden](https://www.martijnvanvreeden.nl/) for the encouragement in making this feature.
 
+`googleAnalyticsR` includes functions to call the measurement Protocol API, but it itself depends on a smaller library (new on CRAN v0.1.0) dedicated to [measurementProtocol hits](https://code.markedmondson.me/measurementProtocol/).  This is so you can use the measurement protocol without needing to import all the other dependencies `googleAnalyticsR` uses, which can be quite heavy as its focused on usability of the data.
+
 Once you have the measurement ID and stream secret then you can send in events associated with a clientId like so:
 
 ```r
@@ -166,10 +168,12 @@ Sys.setenv(GA_MP_SECRET="MY_SECRET")
 
 # your GA4 settings
 my_measurement_id <- "G-43MDXK6CLZ"
-a_client_id <- 1234567
+my_connection <- ga_mp_connection(my_measurement_id)
+
+a_client_id <- ga_mp_cid()
 
 event <- ga_mp_event("an_event")
-ga_mp_send(event, a_client_id, my_measurement_id, debug = TRUE)
+ga_mp_send(event, a_client_id, my_connection, debug_call = TRUE)
 ```
 
 As we also have the real-time API incorporated, it can be quickly verified which hits are going in:
@@ -178,11 +182,24 @@ As we also have the real-time API incorporated, it can be quickly verified which
 
 This has wide applications to send in analytics hits with R, such as adding customer segments to GA4 BigQuery exports using R to model the clusters. 
 
+It is also compatible with GTM server-side, which can hold a measurement protocol client.  Simply change your `mp_connection` object to point at your GTM endpoint instead:
+
+```r
+# custom GTM server side endpoint
+my_custom_connection <- mp_connection(
+   my_measurement_id,
+   endpoint = "https://gtm.example.com",
+   preview_header = "ZW52LTV8OWdPOExNWFkYjA0Njk4NmQ="
+ )
+```
+
+This holds many possibilities for enriching your data streams. 
+
 #### Tracking usage of googleAnalyticsR
 
-One use case I did implement was using it to track usage of the `googleAnalyticsR` library itself.  I figured and got feedback that the digital analytics comunnity using the library are ok with tracking if its opt-in and no personal data.
+One use case for the measurement protocol I have implemented is using it to track usage of the `googleAnalyticsR` library itself.  I asked and got feedback that the digital analytics community using the library are ok with tracking if its opt-in and no personal data.
 
-This gives birth then to the `ga_trackme()` function which allows people to opt-in to tracking each time the library is loaded via the `ga_trackme_event()` function.  Users can see what is sent by calling `ga_trackme_event(debug=TRUE)`:
+This gives birth then to the `ga_trackme()` function which allows people to opt-in to tracking each time the library is loaded via the `ga_trackme_event()` function.  Users can see what is sent by calling `ga_trackme_event(debug_call=TRUE)`:
 
 ```
 ℹ 2021-03-05 09:36:46 > MP Request: https://www.google-analytics.com/debug/mp/collect?measurement_id=G-XXX&api_secret=_XXXXXX 
@@ -206,7 +223,7 @@ This gives birth then to the `ga_trackme()` function which allows people to opt-
 And I thought it would be fun for people to have the option of sending their own messages to my GA4 account so it includes a `say_hello` argument:
 
 ```
-ga_trackme_event(debug=TRUE, say_hello = "Hello from Denmark!")
+ga_trackme_event(debug_call=TRUE, say_hello = "Hello from Denmark!")
 ...
  {
   "client_id": "XXXXX",
@@ -226,7 +243,7 @@ I can use the info to see what systems and versions of the library are being use
 
 ## Shiny Model Templates
 
-I should do a video of this stuff.
+I should do a video of this stuff, and will do when I can and update this sentence. 
 
 ### A reminder about ga_model()
 
@@ -234,7 +251,7 @@ I think its probably only me who is using `ga_model()` at the moment, but I hope
 
 As I've described before, I enjoy finding the meta of the thing I am doing now, and for `googleAnalyticsR` that has developed into an idea of it not just being able to download GA data, but becoming a platform for analysis of that data too.   
 
-Democratising advanced statistical and modelling tools so they are more easily available could potentially drive up the value of the GA API data, which the `ga_model()` function offers - others can create the analysis and package it up into special `.gamr` files, and you can call that analysis to your own data by downloading that `.gamr` file and supplying your own GA viewID.  
+Democratising advanced statistical and modelling tools so they are more easily available could potentially drive up the value of the GA API data, and this is what the `ga_model()` function offers - others can create the analysis and package it up into special `.gamr` files, and you can call that analysis to your own data by downloading that `.gamr` file and supplying your own GA viewID.  
 
 Take for example this great practical analysis [created by Tim Wilson within Dartistics](http://www.dartistics.com/googleanalytics/int-time-normalized.html) to show the velocity of pageviews for different type of content - now not only can you read the code but try it out on your data.
 
@@ -259,9 +276,11 @@ To seed this I am always thankful when anyone blogs or writes about googleAnalyt
 
 ### The new ga_model_shiny() feature - Shiny Apps!
 
-A natural next step is to present that analysis to others which Shiny provides a route to, but Shiny is definitely a steep learning curve so I look to flatten that with the ability to re-use and swap out models and Shiny templates easily.
+A natural next step is to present that analysis.  Shiny provides a route to this by enabling responsive web dashboards, but Shiny is definitely a steep learning curve. I look to flatten that curve with the ability to re-use and swap out models and Shiny templates easily.
 
-`googleAnalyticsR` now provides a framework for people to share Shiny themes on top of the ga_models available. The models and themes can be combined to make Shiny apps with pre-made features such as OAuth2 login, caching and date pickers. Quick iteration between styles is possible and should lower development time towards advanced GA applications.
+`googleAnalyticsR` now provides a framework for people to share Shiny themes on top of the `ga_models` available - it should be the simplest way to make Shiny apps out of GA data. 
+
+The `ga_models` and Shiny themes can be combined to make Shiny apps with pre-made features such as OAuth2 login, caching and date pickers. Quick iteration between styles is possible and even for advanced users this should lower development time for advanced GA dashboard applications.
 
 Some quick examples of the same model being used with different example templates - the major point being you can swap between totally different Shiny UI themes with just one line of code:
 
@@ -306,19 +325,20 @@ ga_model_shiny(
 
 In particular, the Shiny apps created are all using the latest Shiny 1.6 features, such as [Shiny Modules](https://shiny.rstudio.com/articles/modules.html),  [`bindCache()`](https://shiny.rstudio.com/app-stories/weather-lookup-caching.html) and styling via [bslibs](https://rstudio.github.io/bslib/) so you have access to advanced Shiny features without needing to code them, and of course the latest thinking of [OAuth2 authentication from my own `googleAuthR` using `gar_shiny_auth()`](https://code.markedmondson.me/googleAuthR/articles/google-authentication-types.html#gar_shiny_-functions-example) etc. is incorporated. The Shiny apps can be exported to code so you can tweak them as you require. 
 
-
 ## All the other stuff
 
 As usual there is also lots of minor changes that are mostly found by user feedback or fixing minor frustrations when I am using the package.
 
 * No need for client Id when doing authentication with a service key JSON file - should make it smoother for authenticating Rmd files on a server
 * Cleaner NAMESPACE for finding help files - the auto-complete should throw up more useful functions
-* Nicer looking messaging in the R console - the [`cli` package](https://cli.r-lib.org/) has been used more extensively to give more attractive message feedback with comforting green ticks etc. 
-* Dev website - from this release there will be a dev website with all GitHub changes (https://code.markedmondson.me/googleAnalyticsR/dev/) but the CRAN version will only hold the 'offical' docs (https://code.markedmondson.me/googleAnalyticsR/)
+* Nicer looking messaging in the R console - the [`cli` package](https://cli.r-lib.org/) has been used more extensively to give more attractive message feedback with attractive green ticks etc. 
+* Dev website - from this release there will be a dev website with all GitHub changes (https://code.markedmondson.me/googleAnalyticsR/dev/) but the CRAN version will only hold the 'official' docs (https://code.markedmondson.me/googleAnalyticsR/)
 
 ## Summary
 
-I'd like to thank all the people who have used `googleAnalyticsR` up until now and especially those who have given feedback on how they use it.  Its been my introduction to open-source and I've got a lot out of it - it feels good to contribute to the community.  If you have any ideas on what else could be done with the package (or find a bug!) please do let me know via [Twitter at HoloMarkeD](https://twitter.com/HoloMarkeD), the [#googleAuthRverse Slack group](https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform) or via [GitHub issues](https://github.com/MarkEdmondson1234/googleAnalyticsR/issues).
+I'd like to thank all the people who have used `googleAnalyticsR` up until now and especially those who have given feedback on how they use it.  Its been my introduction to open-source and I've got a lot out of it - it feels good to contribute to the community.  
+
+If you have any ideas on what else could be done with the package (or find a bug!) please do let me know via [Twitter at HoloMarkeD](https://twitter.com/HoloMarkeD), the [#googleAuthRverse Slack group](https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform) or via [GitHub issues](https://github.com/MarkEdmondson1234/googleAnalyticsR/issues).
  
 
 

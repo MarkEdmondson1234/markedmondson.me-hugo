@@ -247,7 +247,7 @@ Should give you back results.
 
 ![Untick the 'Use cached results' box](/images/edmonlytica-bigquery-settings.png)
 
-The hard bits done!  Data should now be flowing in as user browse the website.
+The hard bits done!  Data should now be flowing in as users browse the website.
 
 ### Handy SQL
 
