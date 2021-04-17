@@ -1,28 +1,27 @@
 ---
 title: 'googleAnalyticsR v1.0.0 - GA4 API, Automatic Shiny Dashboarding, Improved UI'
 author: Mark Edmondson
-date: 2021-04-15T09:29:50+01:00
+date: 2021-04-17T09:29:50+01:00
 url: googleanalyticsr-100-release
 tags: ["R", "google-analytics"]
 banner: banners/GA4-090.png
-draft: true
 ---
 
 ```{r include=FALSE}
 library(googleAnalyticsR)
 ga_auth(email = Sys.getenv("GARGLE_EMAIL"))
 ```
+ 
 
+The original intention for this blog was to announce updates to [my R packages](https://code.markedmondson.me/r-packages/), but I tend to rely more on Twitter and other social media for that these days. A lot of documentation is also written for the package websites so I feel little need to put it on this blog as well. 
 
-The original intention for this blog was to announce updates to [my R packages](https://code.markedmondson.me/r-packages/), but I tend to rely on Twitter and other social media for that these days. A lot of documentation also happens on the package websites so I feel little need to put it on this blog as well. 
-
-But for `googleAnalyticsR v1.0.0` there are so many cool new things that I think it deserves a bit more limelight.  They are mostly the result of my R programming improving over the almost five years since [version 0.1.1](https://github.com/MarkEdmondson1234/googleAnalyticsR/releases/tag/v0.1.1), the cool new tools available in the R ecosystem created by the R community plus the new capabilities of the Google Analytics APIs we're connecting to.
+But for [`googleAnalyticsR v1.0.0`](https://code.markedmondson.me/googleAnalyticsR/) there are so many cool new things that I think it deserves a bit more limelight.  They are mostly the result of my R programming improving over the almost five years since [version 0.1.1](https://github.com/MarkEdmondson1234/googleAnalyticsR/releases/tag/v0.1.1), the cool new tools available in the R ecosystem created by the R community plus the new capabilities of the Google Analytics APIs we're connecting to. 
 
 ## Overview of cool features
 
 As mentioned before the in-depth documentation is on the website:
 
-* Google Analytics 4 support - [Data API](https://code.markedmondson.me/googleAnalyticsR/articles/reporting-ga4.html), Admin API and Measurement Protocol v2
+* Google Analytics 4 support - [Data API](https://code.markedmondson.me/googleAnalyticsR/articles/reporting-ga4.html), Admin API and [Measurement Protocol v2](https://code.markedmondson.me/googleAnalyticsR/articles/measurement-protocol-v2.html)
 * Shiny model templates -  Create [automatic Shiny dashboards](https://code.markedmondson.me/googleAnalyticsR/articles/model-templates.html) from GA model objects
 * Various UI tweaks and quality of life improvements - [read it in the NEWS](https://code.markedmondson.me/googleAnalyticsR/news/index.html)
 
@@ -247,7 +246,7 @@ I should do a video of this stuff, and will do when I can and update this senten
 
 ### A reminder about ga_model()
 
-I think its probably only me who is using `ga_model()` at the moment, but I hope that the utility of these Shiny functions will help drive adoption (please comment if you do use them!) as I think they are a bit of an undiscovered gem within the googleAnalyticsR package.  
+I think its probably only me who is using [`ga_model()`](https://code.markedmondson.me/googleAnalyticsR/articles/models.html) at the moment, but I hope that the utility of these Shiny functions will help drive adoption (please comment if you do use them!) as I think they are a bit of an undiscovered gem within the googleAnalyticsR package.  
 
 As I've described before, I enjoy finding the meta of the thing I am doing now, and for `googleAnalyticsR` that has developed into an idea of it not just being able to download GA data, but becoming a platform for analysis of that data too.   
 
@@ -276,7 +275,7 @@ To seed this I am always thankful when anyone blogs or writes about googleAnalyt
 
 ### The new ga_model_shiny() feature - Shiny Apps!
 
-A natural next step is to present that analysis.  Shiny provides a route to this by enabling responsive web dashboards, but Shiny is definitely a steep learning curve. I look to flatten that curve with the ability to re-use and swap out models and Shiny templates easily.
+A natural next step is to present that analysis.  Shiny provides a route to this by enabling responsive web dashboards, but Shiny is definitely a steep learning curve. I look to flatten that curve with the ability to [re-use and swap out models and Shiny templates easily](https://code.markedmondson.me/googleAnalyticsR/articles/model-templates.html).
 
 `googleAnalyticsR` now provides a framework for people to share Shiny themes on top of the `ga_models` available - it should be the simplest way to make Shiny apps out of GA data. 
 
@@ -323,7 +322,7 @@ ga_model_shiny(
 
 ![](/images/ga_model_shiny4.png)
 
-In particular, the Shiny apps created are all using the latest Shiny 1.6 features, such as [Shiny Modules](https://shiny.rstudio.com/articles/modules.html),  [`bindCache()`](https://shiny.rstudio.com/app-stories/weather-lookup-caching.html) and styling via [bslibs](https://rstudio.github.io/bslib/) so you have access to advanced Shiny features without needing to code them, and of course the latest thinking of [OAuth2 authentication from my own `googleAuthR` using `gar_shiny_auth()`](https://code.markedmondson.me/googleAuthR/articles/google-authentication-types.html#gar_shiny_-functions-example) etc. is incorporated. The Shiny apps can be exported to code so you can tweak them as you require. 
+In particular, the Shiny apps created are all using the latest Shiny 1.6 features, such as [Shiny Modules](https://shiny.rstudio.com/articles/modules.html),  [`bindCache()`](https://shiny.rstudio.com/app-stories/weather-lookup-caching.html) and styling via [bslibs](https://rstudio.github.io/bslib/) so you have access to advanced Shiny features without needing to code them, and of course the latest thinking of [OAuth2 authentication from my own `googleAuthR` using `gar_shiny_auth()`](https://code.markedmondson.me/googleAuthR/articles/google-authentication-types.html#gar_shiny_-functions-example) etc. is incorporated. The Shiny apps can be exported to code so you can tweak them as you require, and written to a folder including a Dockerfile for deployment to your favourite Shiny hosting solution.  I'm using [googleCloudRunner's Shiny deployments on Cloud Run](https://code.markedmondson.me/googleCloudRunner/articles/usecase-shiny-cloudrun.html). 
 
 ## All the other stuff
 
