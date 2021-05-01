@@ -116,7 +116,7 @@ Once you get a Green Tick then you need to copy the URL to point the production 
 
 #### Deploy the production server
 
-This is the instance that will server your main analytics requests.  The URL of the debug server is needed from above to add as the `PREVIEW_SERVER_URL` environment variable.
+This is the instance that will serve your main analytics requests.  The URL of the debug server is needed from above to add as the `PREVIEW_SERVER_URL` environment variable.
 
 For initial deployment I tried to copy the resource requirements from the [App Engine Flexible configuration that you can read about here](https://developers.google.com/tag-manager/serverside/script-user-guide).  From the shell script there we have enough to configure Cloud Run:
 

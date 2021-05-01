@@ -22,7 +22,8 @@ What really makes Google Analytics stand apart from other analytics solutions fo
 
 The whole 40min workshop is available below, which talks through [this GitHub repo](https://github.com/MarkEdmondson1234/verbal_ga_shiny).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4Ht_vEXJ4wo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<!--for some reason shortcode doesn't work here -->
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/4Ht_vEXJ4wo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 A demo of the speech it creates can be heard in this audio snippet:
 

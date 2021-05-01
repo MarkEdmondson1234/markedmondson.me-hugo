@@ -20,7 +20,7 @@ The idea behind using GTM Server Side events is that because its running in your
 
 This is a technique I picked up from [BigQuery logging of GA360 exports - being able to use event logging to process the often late exports rather than using a schedule](https://code.markedmondson.me/bigquery-ga360-exports-cloud-functions/).
 
-Those Pub/Sub triggers can be used to trigger anything you like - in my example they set off a Cloud Function to send a message to Slack.  An example video is shown below of it in action on this blog:
+Those Pub/Sub triggers can be used to trigger anything you like - in my example they set off a Cloud Function to send a message to Slack.  An example video is shown below of it in action on this blog:  
 
 ```{r echo=FALSE}
 blogdown::shortcode("youtube","YJYFmxsd38M")
