@@ -31,7 +31,7 @@ For this blog post, I'll then concentrate more on what you can do now that you c
 
 There is a video!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5Itz6xfJGDk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/5Itz6xfJGDk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 So yeah, basically you can now get GA4 in R, which in a couple of years will probably be the majority of digital analytics systems on the web. 
 
