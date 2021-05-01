@@ -326,7 +326,7 @@ In particular, the Shiny apps created are all using the latest Shiny 1.6 feature
 
 ## All the other stuff
 
-As usual there is also lots of minor changes that are mostly found by user feedback or fixing minor frustrations when I am using the package.
+As usual there are also lots of minor changes that are the result of user feedback or fixing minor frustrations when I am using the package.
 
 * No need for client Id when doing authentication with a service key JSON file - should make it smoother for authenticating Rmd files on a server
 * Cleaner NAMESPACE for finding help files - the auto-complete should throw up more useful functions
@@ -335,7 +335,7 @@ As usual there is also lots of minor changes that are mostly found by user feedb
 
 ## Summary
 
-I'd like to thank all the people who have used `googleAnalyticsR` up until now and especially those who have given feedback on how they use it.  Its been my introduction to open-source and I've got a lot out of it - it feels good to contribute to the community.  
+I'd like to thank all the people who have used `googleAnalyticsR` up until now and especially those who have given feedback on how they use it.  Its been my introduction to open-source and I've got a lot out of it - it feels good to contribute to the R and Digital Analytics community.  
 
 If you have any ideas on what else could be done with the package (or find a bug!) please do let me know via [Twitter at HoloMarkeD](https://twitter.com/HoloMarkeD), the [#googleAuthRverse Slack group](https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform) or via [GitHub issues](https://github.com/MarkEdmondson1234/googleAnalyticsR/issues).
  
