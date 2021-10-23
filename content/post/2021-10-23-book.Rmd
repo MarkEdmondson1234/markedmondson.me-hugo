@@ -4,7 +4,7 @@ author: Mark Edmondson
 date: 2021-10-23T11:04:50+01:00
 url: writing-a-book
 tags: ["google-analytics","blogging"]
-banner: banners/proto-book.jpg
+banner: banners/proto-book.png
 ---
 
 If you've been within two meters of me recently you may have heard I'm writing a book on Google Analytics 4 and I'm very excited about it.  In this blog post I want to write about how it came about, and to give some love to the blog to show its not being neglected for its younger cousin, The Book. 
