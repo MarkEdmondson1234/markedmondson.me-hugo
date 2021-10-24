@@ -9,15 +9,15 @@ banner: banners/proto-book.png
 
 If you've been within two meters of me recently you may have heard I'm writing a book on Google Analytics 4 and I'm very excited about it.  In this blog post I want to write about how it came about, and to give some love to the blog to show its not being neglected for its younger cousin, The Book. 
 
-I want to cover how the deal came about in case you are also thinking about writing a book and would like some tips on how to get published, the process of writing itself and how my attitude to writing has changed as a result.
+I want to cover how the book deal came about in case you are thinking about writing one too, the process of writing itself and how my attitude to writing has changed as a result.
 
 I'll start with getting the most important bit out of the way, the book release schedule!
 
 ## Book Release Schedule
 
-'Learning Google Analytics' will be a book on GA4 and the Google Cloud Platform's integrations with GA4.  I aim for it to be a book that helps you create useful data applications using GA4 as one of the data sources, and will teach someone the GA4 and GCP configurations to enable the example use cases within the book.  The content will be similar to these blog posts. 
+'Learning Google Analytics' will be a book on GA4 and the Google Cloud Platform's integrations with GA4.  I aim for it to be a book that will help you create useful data applications using GA4 as one of the data sources, and will teach you the GA4 and GCP configurations to enable the example use cases within the book.  The content will be similar to these blog posts. 
 
-I'm writing this on the day the early previews have been released: ['Learning Google Analytics' on O'Reilly ](https://www.oreilly.com/library/view/learning-google-analytics/9781098113070/).  The preview version is available to O'Reilly subscribers and holds the first two draft chapters, which cover the introduction and strategy chapters of the book.
+I'm writing this on the day the early preview has been released: ['Learning Google Analytics' on O'Reilly ](https://www.oreilly.com/library/view/learning-google-analytics/9781098113070/).  The preview version is available to O'Reilly subscribers and holds the first two draft chapters, which cover the introduction and strategy chapters of the book.
 
 The later chapters will go into the different roles of data collection, storage, modelling and activations with technical examples, all of which will be referenced in three example use cases.  The last chapter will talk about general resources and tips for advancing your digital career with GA4. 
 
@@ -27,17 +27,17 @@ But how did this book come to being in the first place?  That is what I want to 
 
 ## How it Started
 
-In May 2021, O'Reilly got in touch to see if I'd be interested in being an author of a Google Analytics guide. One interesting note is I could see they got in touch via my GitHub profile.  When I spoke with them they said they identify possible interest areas and then make a short list of possible authors from their on-line work and profile.  They were polite enough not to say if I was at the top or bottom of that list ;) 
+In May 2021, O'Reilly got in touch to see if I'd be interested in being an author of a Google Analytics guide. One interesting note is I could see they got in touch via my GitHub profile.  When I spoke with them they said they identify possible interest areas and make a short list of possible authors from their on-line profile.  They were polite enough not to say if I was at the top or bottom of that list ;) 
 
-I myself had just finished my last project (the release of `googleAnalyticsR v1.0`) so the opportunity came at a good time. As I have mentioned before, I have worked a 4-day work week since 2010 with the intention of working on 'longer term projects' in my 20% time. I would say working 4-day work weeks was one of the best career decisions I have made and attribute the book approach to that decision - having the energy, freedom and time to publish and learn during that extra day in the week has been valuable to both myself and my employers.  Within that time, I have written a lot of public content already and I am sure that helped me onto the short-list.
+At that time I had just finished my last project ([the release of `googleAnalyticsR v1.0`](https://code.markedmondson.me/googleanalyticsr-100-release/)) so the opportunity came at a good time. As I have mentioned before, I have worked a 4-day work week since 2010 with the intention of working on 'longer term projects' in my 20% time. I would say working 4-day work weeks was one of the best career decisions I have made and attribute the book approach to that decision - having the energy, freedom and time to publish and learn during that extra day in the week has been valuable to both myself and my employers.  Within that time, I have written a lot of public content already and I am sure that helped me onto the short-list.
 
-### I Have Written Lots Already
+### I Have Written Millions of Words Already
 
-I have always enjoyed writing and crafted long involved stories involving pirates and cavemen and other animals all the way through school, and I read just about every book in reach before the internet ruined it all.  However, I didn't pursue English A-level as Physics caught my imagination, which whilst not a regret a more formal English education would have also been useful in retrospect: 90% of my current job is about communication.
+I have always enjoyed writing and crafted long involved stories involving pirates and cavemen and other animals all the way through school, as well as reading just about every book within reach before the internet ruined it all.  However, I didn't pursue an English A-level as Physics caught my imagination, which whilst not a regret I do recognise that a more formal English education would have also been useful: 90% of my current role is about communication.
 
-To scratch that itch then, another decision I made when dropping down to a 4-day work week was to publish, be it open-source code or writing blogs like this one.  Knowing that others may actually read the content means I put more effort into making it presentable.  It's made me develop a perfectionism streak, whilst also trying to avoid the pitfalls of perfection paralysis, best done by setting the expectation that only friends will be reading. e.g. I edit a lot, if I see one full stop or incorrect space formatting in my code, I will make the efforts to correct it, but I do not fear to push publish in case uncaught mistakes are still there.
+To scratch that itch then, another decision I made when dropping down to a 4-day work week was to publish, be it open-source code or writing blogs like this one.  Knowing that others may actually read the content means I put more effort into making it presentable.  It's made me develop a perfectionism streak, whilst also trying to avoid the pitfalls of perfection paralysis, best done by setting the expectation that only friends will be reading. e.g. I edit a lot, if I see one full stop or incorrect space formatting in my code, I will make the efforts to correct it, but I do not fear to publish in case uncaught mistakes are still there.
 
-This blog is probably only about five percent of my published writing.  By far the biggest proportion of my publishing has been my R package code documentation, something which I wouldn't have expected before I started.  I see around 500 pages indexed in Google, as with my SEO hat on I have tried to tie all my documentation to the `code.markedmondson.me` domain which has had SEO traffic benefits - the majority of traffic to my writing is from Google. (top terms: google analytics r, ga4 api, kubernetes r, server side tracking gdpr) I have also as a result of my consultancy work over the years written numerous client guides, emails, white papers etc. 
+This blog is probably only about five percent of my published writing.  By far the largest proportion of my publishing has been within my R package code documentation, something I didn't expect before I started.  I see around 500 pages indexed in Google, as with my SEO hat on I have tried to tie all my documentation to the `code.markedmondson.me` domain which has had SEO traffic benefits - the majority of traffic to my writing is from Google. (top terms: google analytics r, ga4 api, kubernetes r, server side tracking gdpr) I have also as a result of my consultancy work over the years written numerous client guides, emails, white papers etc. 
 
 In general then, I have written probably millions of words over my life, all good practice for writing books!
 
@@ -46,9 +46,9 @@ My writing is almost exclusively technical explanations, but it is a dream for m
 
 ### The O'Reilly application process
 
-It was not a foregone conclusion I would write the book despite being approached.  A lot of work was necessary for the application process, and I think part of the professionalism of O'Reilly was in these expectations for a book to be in place before starting to write. 
+It was not a foregone conclusion I would write the book despite being approached.  A lot of work was necessary for the application process, and I think part of the professionalism of O'Reilly are the expectations to be in place before starting to write. 
 
-I needed to create a book proposal, one that went beyond what I expected when I first heard about it.  It needed to detail:
+I needed to create a book proposal, that was difficult to complete.  It needed to detail:
 
 * An explanation on why the author would be a good person to write the book
 * Any existing social media and public speaking samples
@@ -61,17 +61,25 @@ I needed to create a book proposal, one that went beyond what I expected when I 
 * A writing sample
 * A detailed book outline
 
-The last point, the book outline was a lot of work since it actually involves writing the skeleton of the book in advance.  Each chapter, sub-chapter, and section needed to be planned out.  This was the most educational to me on how to write a book.  Before when I've tried to write (fiction) books I've taken the approach of starting at Chapter 1, line 1 and trying to write out the entire book.  I always would eventually run out of steam.  Having this outline beforehand breaks up the writing into much easier chunks, and gives a plan and takes out a lot of guess work on where the book is going.  
+The book outline was a lot of work since it actually involves writing the skeleton of the book in advance.  Each chapter, sub-chapter, and section needed to be planned out.  This was the most educational to me on how to write a book.  Before when I've tried to write (fiction) books I've taken the approach of starting at Chapter 1, line 1 and trying to write out the entire book.  I always would eventually run out of steam.  But now, having this outline beforehand breaks up the writing into much easier chunks, gives a plan and takes out a lot of guess work on where the book is going.  
 
-In completing the book proposal, I felt it had a good chance as the potential audience for the book was everyone currently running Universal Analytics and upgrading to GA4.  Estimating the amount of e-commerce websites as the ones most interesting the book content I guessed around 6-12 million users may benefit from reading the book.  Haha!  I don't think it will sell anywhere near that amount, a roaring success for me would be 1% of that figure. 
+[Lak](http://vlakshman.com) is an inspiration and I asked him for some tips during the application process as he has already written some of the books I've read from O'Reilly.  He has this Twitter thread with some good advice added from when I first published this post!
 
-The book proposal was submitted and accepted, and a contract drawn up for a proportion of the book royalties.  I get slightly more for the on-line versions of the book than the printed versions, but the printed versions are cooler.  I don't get to choose the animal on the cover.  The best I could ask for is to request they don't put an animal on there that I'm extremely phobic of.  Maybe when I've written a lot more books I will get to choose!  If I did have to choose I think it would have been a wolf.
+```{r echo=FALSE}
+blogdown::shortcode('tweet', '1451942218936188930')
+```
+
+In completing the book proposal, I felt it had a good chance as the potential audience for the book was everyone currently running Universal Analytics and upgrading to GA4.  Estimating that it would be e-commerce websites using Google Analytics as being the ones most interested in the book content I guessed around 6-12 million readers may benefit from  the book.  Haha!  I don't think it will sell anywhere near that amount! A roaring success for me would be 1% of that figure. 
+
+The book proposal was submitted and accepted, and a contract drawn up for a proportion of the book royalties.  I get slightly more for the on-line versions of the book than the printed versions, but the printed versions are cooler.  
+
+I don't get to choose the animal on the cover.  The best I could ask for is to request they don't put an animal on there that I'm extremely phobic of.  Maybe when I've written a lot more books I will get to choose!  If I did have to choose I think it would have been a wolf.
 
 ![](/images/wolf.png)
 
 **From https://datavizblog.com/2018/12/21/dataviz-humor-oreilly-programming-book-parody-covers/**
 
-Once everything was signed and we got the go ahead I was introduced with my very own editor, who has been very helpful getting together style guides and introducing me to the O'Reilly systems.  They also read, feedback and edited the drafts I submit which is amazing. 
+Once everything was signed and we got the go ahead I was introduced to Melissa, my very own editor, who has been very helpful getting together style guides and introducing me to the O'Reilly systems.  They also read, feedback and help edit the drafts I submit which is amazing. 
 
 ## How It Is Going
 
@@ -79,17 +87,19 @@ Its been nearly six months since the application and today the preview is out.  
 
 ### Writing support from O'Reilly
 
-From a tech perspective, O'Reilly as a technical book specialist have a really nice git based system for actually creating the PDFs of the book drafts.  
+From a tech perspective, as technical book specialists O'Reilly have a really nice git based system for actually creating the PDFs of the book drafts.  
 
-The book itself is written in [AsciidocFX](https://asciidocfx.com/), a Java based desktop client that you write a flavour of Markdown into that renders to the O'Reilly style.  At any stage of the writing process you can render the markdown and get an idea on how the book will look in real-life.  
+The book itself is written using [AsciidocFX](https://asciidocfx.com/), a Java based desktop client that you write a flavour of Markdown into that renders to the O'Reilly style.  At any stage of the writing process you can render the markdown and get an idea on how the book will look in real-life.  
 
 ![](/images/asciidoc-example.png)
-I did initially see if Rmd could render to the asciidoc format, but it currently does not. 
 
-The markdown files are then in a git repo which you can commit to bitbucket in the usual manner.  This hooks into an O'Reilly platform where you can trigger the builds to PDF, eBook format or others:
+I did initially see if I could use what I write my blog with, RMarkdown to see if it could render to the asciidoc format, but it currently is not supported. 
+
+The markdown files are then committed to a Bitbucket git repo in the usual manner.  This repo hooks into a bespoke O'Reilly platform where you can trigger the builds to PDF, eBook format or others:
 
 ![](/images/oreilly-builder.png)
-This has really helped give you an idea on what the finished product will look like.
+
+This has really helped give me an idea on what the finished product will look like, and is encouraging.  
 
 ### The Writing Schedule Habit
 
@@ -97,30 +107,30 @@ Writing about GA4 in 2021 does come with certain issues since the product is sti
 
 I've found during the pandemic a new routine getting up earlier which means I have found time to write an hour each day before work at [IIH Nordic](https://iihnordic.com/), aided of course by my Fridays and working from home and not needing to commute.  The subject of the book also overlaps so heavily with work I have had leeway to also include work hours during its development, in particular for the use cases which have all been inspired by real-life client cases. 
 
-The philosophy of how successful data projects finish is all directly from experience working on projects at IIH, and so its as much about how IIH works as I do: the process of a good use case with elements of data collection, storage, modelling and activation underpin everything in the book. 
+The philosophy of how successful data projects finish is all directly from experience working on projects at IIH, and so the book is as much about how IIH works as how I do: the process of a good use case with elements of data collection, storage, modelling and activation underpin everything in the book. 
 
-Aside the two initial chapters, the rest of the book is written out of sequence: I will finish up the use cases in chapters 7,8,9 and use those to refer back to the relevant technology deep dive in the earlier chapters. This is why you will see some activity related to those use cases first, such as the public CRM dataset within BigQuery that will link to the public GA4 BigQuery dataset: 
+Aside the two initial chapters, the rest of the book is written out of sequence: I will finish up the use cases in chapters seven, eight and nine and use those to refer back to the relevant technology deep dive in the earlier chapters. This is why you will see some activity related to those use cases first, such as the public CRM dataset within BigQuery that will link to the public GA4 BigQuery dataset: 
 
 
 ```{r echo=FALSE}
 blogdown::shortcode('tweet', '1444912741148512257')
 ```
 
-I always want to make sure what I write is written from experience and not theoretical, so all the example use cases must work before being written down.  Once those are done with example data, I can then work backwards describing in detail the technology used on GCP or the configurations within GA4. 
+I always want to make sure what I write is written from experience and not theoretical, so all the example use cases must work before being written down.  Once that work is done with example data, I can then work backwards describing in detail the technology used on GCP or the configurations within GA4. 
 
 ### Its my book, not yours (its your book, not theirs)
 
-One internal debate I went through was that I discovered once it was known I was writing a Google Analytics 4 book, the expectations from some other people on what should be in the book was a lot different to what I intended to write.  
+One internal debate I went through was that once it was known I was writing a Google Analytics 4 book, the expectations of other people on what should be in the book was a lot different to what I intended to write.  
 
 It prompted me to add some disclaimers in the preface:  
 
->This book will not be an exhaustive round-up of GA4 features.  For that check out the {learing_resources_11}.  Instead this book will focus on what you can do today to extract business value out of your GA4 implementation, using the Google Cloud Platform to facilitate it.
+>This book will not be an exhaustive round-up of GA4 features.  For that check out the [Learning Resources].  Instead this book will focus on what you can do today to extract business value out of your GA4 implementation, using the Google Cloud Platform to facilitate it.
 
 There are a lot of great GA4 resources out there already: the [GA4 Google documentation](https://support.google.com/analytics/answer/10089681) and other resources such as created by [Simo](https://www.simoahava.com/), [Krista](https://www.kristaseiden.com/), [Julias](https://www.analyticsmania.com/) and [Charles](https://www.charlesfarina.com/), etc.  
 
 A trap is to try and create a book everyone will like: instead I'll look to write the book I would want to read.  My current buzz is to configure GA4 to work with Google Cloud Platform in a privacy conscious but data activated manner, and so that is what the book will reflect. 
 
-When you are creating resources its best to write what you are most interested in, as all do in the list above. If this book or other sources does not match what you want to read - congratulations! You've identified a niche you can write about.
+When you are creating resources its best to write what you are most interested in, as everyone do in the list above. If this book or other sources does not match what you want to read - congratulations! You've identified a niche you can write about.
 
 This where I am at the moment with the book.  I've had a bit of a rest waiting for the preview to release, but a new deadline looms and I shall need to press on to write the next four chapters by the end of the year.  But even before release, its been educational process, and I want to mention how I think it has changed the ways I approach writing.
 
