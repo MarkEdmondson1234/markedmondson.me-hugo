@@ -28,8 +28,9 @@ I have gone through my own journey up the Cloud stack with R deployments and bri
 Cloud Run deployments are not initially supported by the GTM beta so should not be considered in production, but I hope that it will be in the future.  The main advantages for me are:
 
 * Scale-to-zero - App Engine Flexible does not scale to zero, so you have a minimum charge of at least 1 VM per month and as its recommended to use 3 VMs this is $120 per month.  App Engine Standard does scale-to-zero, but is recommended by Google only for debug and testing purposes.
-* Cost - this will alter given the number of hits per month, but initial thoughts are that if you are under 1Million hits per month then Cloud Run should be cheaper compared to $120 a month for App Engine Flexible.
+* Cost - this will alter given the number of hits per month, but after some testing it seems if you are under 200 Million hits per month then Cloud Run should be cheaper compared to $120 a month for App Engine Flexible.
 * Performance - I'm only running this on my blog at the moment so it may differ for lots of traffic and heavy tag use, but running similar GTM containers on App Engine and Cloud Run look to be at least comparable and in my tests Cloud Run is 50% quicker in responses - below `gtm2.markedmmondson.me` requests are to Cloud Run (91ms), `gtm.markedmondson.me` are to App Engine Standard (250ms)
+* Global latency - If you deploy via App Engine that is deployed to only one GCP region (Europe, US etc), but you may be getting traffic from the other side of the world.  Those users will see more latency (up to around 500ms in observed EU deployments from Japan, for example).  With Cloud Run you can deploy multiple instances around the world then use Global Load Balancer to route the traffic to the nearest region, so improving global latency.  
 
 ![](/images/gtm-requests.png)
 

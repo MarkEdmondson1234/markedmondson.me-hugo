@@ -565,6 +565,32 @@ highlighter: rouge
 
 
     
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Get your GA4 history
+    </h3>
+    <script>
+      function submitDL(value){
+        dataLayer.push({'event':'ga4_email','ga4_email':value});
+        document.getElementById('email').value = 'Submitted! See inbox'
+        var button = document.getElementById('email_button');
+        button.disabled = true;
+      }
+        
+    </script>
+    <div>
+        <input type="email" name="email"  id="email"
+          required 
+          minlength="8"
+          placeholder="you@email.com">
+        <button id='email_button'
+          onclick="javascript:submitDL(document.getElementById('email').value);"
+         >Send</button>
+    </div>
+</div>
+
+
+    
 
 
 
@@ -736,7 +762,7 @@ highlighter: rouge
 <footer id="footer">
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2021
+      &copy; 2022
       Powered by <a href="//gohugo.io">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
     </div>
   </div>
