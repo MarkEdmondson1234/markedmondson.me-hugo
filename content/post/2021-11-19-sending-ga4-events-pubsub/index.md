@@ -40,7 +40,7 @@ This can include triggering workflows for:
 * Transforming and filtering your GA4 data, perhaps by using the Data Loss Prevention API to redact credit card numbers, email address etc before it hits BigQuery
 * Enriching GA4 data with other data (such as 1st or 2nd party data)
 
-For my own blog I didn't know anything that would be actually useful so worth writing about, until I came across an idea of sending your own data to you in an email for your blog browsing history (yes dear reader, YOUR data).  For this I would want to cross reference your `cookie_id` (you can see this value if you examine your cookies as you read this page) with an email form.  This I think would be very nice to be available on more websites, giving the privacy climate and GDPR philosophy of control of your own data - a website who let you do this demonstrates trust I think.  I can also think e-commerce websites would benefit from a form to easily send customers all the products they have browsed in their historic sessions, in a kind of automatically created shopping list. 
+For my own blog I didn't know anything that would be actually useful so worth writing about, until I came across an idea of sending your own data to you in an email for your blog browsing history (yes dear reader, YOUR data).  For this I would want to cross reference your `cookie_id` (you can see this value if you examine your cookies as you read this page) with an email form.  This I think would be very nice to be available on more websites, giving the privacy climate and GDPR philosophy of control of your own data - a website who lets you do this demonstrates trust I think, and Trust is a KPI now.  I can also think e-commerce websites would benefit from a form to easily send customers all the products they have browsed in their historic sessions, in a kind of automatically created shopping list. 
 
 For this use case I'll show how GA4, GTM-SS and GCP can achieve this so as perhaps you can develop it for something useful for your own website.  
 
@@ -345,7 +345,7 @@ WHERE
 ```
 *SQL to return the page_view events for a specific client_id from a BigQuery GA4 export*
 
-I have a `gcr.io/gcer-public/googleauthr-verse` docker container that contains all of my R packages, including `bigQueryR` that can query the GA4 dataset, and I've added [`blastula` a package for sending nice emails](https://pkgs.rstudio.com/blastula) using [`googleAuthR::cr_deploy_docker_trigger()`](https://code.markedmondson.me/googleCloudRunner/reference/cr_deploy_docker_trigger.html) to create it, giving me a `gcr.io/gcer-public/googleauthr-blast` docker image I can use as the R environment for my build steps.  I have to say `googleCloudRunner` has saved me personally a lot of time automating set-ups like this, and is my favourite tool. 
+I have a `gcr.io/gcer-public/googleauthr-verse` docker container that contains all of my R packages, including `bigQueryR` that can query the GA4 dataset, and I've added [`blastula` a package for sending nice emails](https://pkgs.rstudio.com/blastula) using [`googleAuthR::cr_deploy_docker_trigger()`](https://code.markedmondson.me/googleCloudRunner/reference/cr_deploy_docker_trigger.html) to create it, giving me a `gcr.io/gcer-public/googleauthr-blast` docker image I can use as the R environment for my build steps.  I have to say [`googleCloudRunner`](https://code.markedmondson.me/googleCloudRunner/) has saved me personally a lot of time automating set-ups like this, and is my favourite tool. 
 
 #### Calling BigQuery
 
@@ -382,7 +382,7 @@ query_client_id <- function(client_id, sql_file){
 ```
 *R code running in a Cloud Build step to query BigQuery for the client_id data and save to a CSV*
 
-You could replace this with `gcloud` or `python` or any code you like to query BigQuery, I just have this all handy from other work so its a quick start up time to reuse it.
+You could replace this with `gcloud` or Python or any code you like to query BigQuery, I just have this all handy from other work so its a quick start up time to reuse it.
 
 #### Sending the email
 
@@ -434,6 +434,19 @@ substitutions:
   _CLIENT_ID: $(body.message.data.client_id)
   _EMAIL: $(body.message.data.ga4_email)
 ```
+
+After deployment, now when I submit the form on the website I see:
+
+1. A dataLayer push
+2. The GA4 tag firing sending data to GTM-SS
+3. The GTM-SS tag passing on the data to Pub/Sub
+4. The Pub/Sub triggering the Cloud Build
+4. The Cloud Build trigger running my build steps above.  
+
+Those build steps read in the email and client.id, create the email and send it to the email provided. 
+
+![](images/email-sent.png)
+*The email appearing in my inbox*
 
 ## Summary
 
