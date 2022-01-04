@@ -15,7 +15,6 @@ banner: 'banners/sun-outburst.jpg'
 description: ''
 images: []
 menu: ''
-draft: true
 ---
 
 *Image from https://solarsystem.nasa.gov/resources/758/brief-outburst/?category=solar-system_sun*
