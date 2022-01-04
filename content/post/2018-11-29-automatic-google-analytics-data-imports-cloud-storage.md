@@ -8,6 +8,7 @@ tags:
   - python
   - google-analytics
   - cloud-functions
+  - pubsub
 banner: banners/data-imports.jpg
 description: 'Use Google Cloud Functions to auto-load your data imports into Google Analytics form Cloud Storage'
 ---

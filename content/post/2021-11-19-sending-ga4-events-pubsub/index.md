@@ -1,7 +1,7 @@
 ---
 title: Activating GA4 events with GTM Server-Side and Pub/Sub for Fun and Profit
 author: Mark Edmondson
-date: '2021-11-19'
+date: '2022-01-04'
 slug: sending-ga4-events-pubsub
 categories: []
 tags:
