@@ -90,6 +90,18 @@ A [key compliant from the records of the ruling](http://curia.europa.eu/juris/do
 
 With the loss of Privacy Shield, almost everyone using these companies in the EU will need to examine their data policies, since data is being sent to an untrusted country (the USA).  This has prompted extreme reactions such as Facebook saying it will pull out from the EU.  Pragmatically nothing is going to change just yet, whilst the EU sort out with those companies what happens next. 
 
+### What happend next (edit Feb 11th 2022)
+
+Well!  It took a while but eventually led by the Austrian DPA the sending of any identifying data (including ip address and a client.id) to the USA without Privacy Shield was found to be in breach of GDPR, under the same reasoning as above written in Dec 2020 - US security services could potentially use that info to identify a user.   A good walk through of the [Austrian ruling is here](https://gdprhub.eu/index.php?title=DSB_%28Austria%29_-_2021-0.586.257_%28D155.027%29), and some good analysis of the decision is found here on the [Future of Privacy forum](https://fpf.org/blog/understanding-why-the-first-pieces-fell-in-the-transatlantic-transfers-domino/).
+
+This has been followed up by [France's DPA](https://www.cnil.fr/en/use-google-analytics-and-data-transfers-united-states-cnil-orders-website-manageroperator-comply) ruling Google Analytics is in breach of GDPR.
+
+This ruling has far reaching effects since any US based internet service can be in breach if ruled under the same standard.  Another recent German ruling gave a fine for hosting [Google Fonts from a US address](https://rewis.io/urteile/urteil/lhm-20-01-2022-3-o-1749320/) for similar reasons. 
+
+Potential solutions may be for Google to open up a EU server for Google Analytics, but even then there is a question mark if the USA government could order data handed over from EU servers if Google is still a US company (note Google say this actually never has happened).  To be really safe Google would also need to provide an option for users to encrypt data using their own keys.
+
+We will see how it plays out, for instance Facebook threatening to withdraw from the EU if they can't keep their US based data centres.  A lot of geo-politics playing out, that may make the internet itself more partisan.  As the value of data increases, more and more people care about owning it.
+
 ## New privacy engineering tech from Google
 
 We now have two new products in beta from the Google Tag Manager team - [Google Consent Mode](https://support.google.com/analytics/answer/9976101?hl=en) and [Google Tag Manager - Server Side](https://developers.google.com/tag-manager/serverside).  Both allow a more nuanced approach to data collection for Google data products.  With a combination of GTM-Server Side clients and Google Consent Mode, you can modify requests before the tags process it to help with your data privacy compliance. Some proof of concepts are below.
